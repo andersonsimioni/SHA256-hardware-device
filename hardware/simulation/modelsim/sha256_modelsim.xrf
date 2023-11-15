@@ -1,4 +1,9 @@
 vendor_name = ModelSim
+source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/ram.cmp
+source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/registerN.vhd
+source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/multiplexer2x1.vhd
+source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/compare.vhd
+source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/adderSubtractor.vhd
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/sha256_top_level.vhd
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/sha256_operative_block.vhd
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/sha256_control_block.vhd

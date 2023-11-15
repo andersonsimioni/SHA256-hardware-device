@@ -1,5 +1,5 @@
 Analysis & Synthesis report for sha256
-Wed Nov 15 12:44:35 2023
+Wed Nov 15 16:35:43 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -41,7 +41,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Nov 15 12:44:35 2023      ;
+; Analysis & Synthesis Status        ; Successful - Wed Nov 15 16:35:43 2023      ;
 ; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
 ; Revision Name                      ; sha256                                     ;
 ; Top-level Entity Name              ; sha256_top_level                           ;
@@ -222,13 +222,27 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
-    Info: Processing started: Wed Nov 15 12:44:34 2023
+    Info: Processing started: Wed Nov 15 16:35:42 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sha256 -c sha256
 Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 1 entities, in source file registern.vhd
+    Info (12022): Found design unit 1: registerN-behav0
+    Info (12023): Found entity 1: registerN
+Info (12021): Found 2 design units, including 1 entities, in source file multiplexer2x1.vhd
+    Info (12022): Found design unit 1: multiplexer2x1-behav0
+    Info (12023): Found entity 1: multiplexer2x1
+Info (12021): Found 2 design units, including 1 entities, in source file compare.vhd
+    Info (12022): Found design unit 1: compare-behav0
+    Info (12023): Found entity 1: compare
+Info (12021): Found 2 design units, including 1 entities, in source file addersubtractor.vhd
+    Info (12022): Found design unit 1: addersubtractor-arch1
+    Info (12023): Found entity 1: addersubtractor
 Info (12021): Found 2 design units, including 1 entities, in source file sha256_top_level.vhd
     Info (12022): Found design unit 1: sha256_top_level-sha256_top_level_arch
     Info (12023): Found entity 1: sha256_top_level
-Info (12021): Found 0 design units, including 0 entities, in source file sha256_operative_block.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file sha256_operative_block.vhd
+    Info (12022): Found design unit 1: sha256_operative_block-sha256_operative_block_arch
+    Info (12023): Found entity 1: sha256_operative_block
 Info (12021): Found 2 design units, including 1 entities, in source file sha256_control_block.vhd
     Info (12022): Found design unit 1: sha256_control_block-sha256_control_block_arch
     Info (12023): Found entity 1: sha256_control_block
@@ -505,8 +519,8 @@ Info (21057): Implemented 260 device resources after synthesis - the final resou
     Info (21058): Implemented 4 input pins
     Info (21059): Implemented 256 output pins
 Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 264 warnings
-    Info: Peak virtual memory: 4701 megabytes
-    Info: Processing ended: Wed Nov 15 12:44:35 2023
+    Info: Peak virtual memory: 4721 megabytes
+    Info: Processing ended: Wed Nov 15 16:35:43 2023
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 

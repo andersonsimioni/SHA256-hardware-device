@@ -4,7 +4,8 @@ use ieee.std_logic_unsigned.all;
 
 entity sha256_control_block is
   port (
-    clock, chip_select, chip_ready, chip_reset : in std_logic;
+    clock, chip_select, chip_reset : in std_logic;
+	 chip_ready : out std_logic;
 	 
 	 stt0, stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8 : in std_logic;
 	 
@@ -255,11 +256,12 @@ begin
 	end process;
 	
 	
+	chip_ready <= '1' when current_state = S0 else '0';
 	
 	ctrl0 <= '1' when current_state = S0 else '0';
 	
 	--i=0
-	ctrl1 <= '1' when current_state = S1 or current_state = S16 or current_state = S26 or current_state = S37 else '0'; --TODO MULTI STATE
+	ctrl1 <= '1' when (current_state = S1 or current_state = S16 or current_state = S26 or current_state = S37) else '0'; --TODO MULTI STATE
 	
 	ctrl2 <= '1' when current_state = S1 else '0';
 	ctrl3 <= '1' when current_state = S1 else '0';
@@ -277,7 +279,7 @@ begin
 	ctrl15 <= '1' when current_state = S19 else '0';
 	
 	--i++
-	ctrl16 <= '1' when current_state = S20 or current_state = S30 or current_state = S35 or current_state = S50 else '0'; --TODO MULTI STATE
+	ctrl16 <= '1' when (current_state = S20 or current_state = S30 or current_state = S35 or current_state = S50) else '0'; --TODO MULTI STATE
 	
 	ctrl17 <= '1' when current_state = S21 else '0';
 	ctrl18 <= '1' when current_state = S22 else '0';

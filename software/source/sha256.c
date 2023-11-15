@@ -37,12 +37,12 @@ uint32_t right_rotate(uint32_t n, uint32_t d)
     return (n >> d) | (n << (sizeof(uint32_t)*8 - d));
 }
 
-char* compute_sha256(char* data, uint8_t data_len)
+char* compute_sha256(unsigned char* ram)
 {
     //S0:
     //chip_ready = 1
     //READ FROM RAM
-    uint32_t len = data_len; //ctrl0
+    uint32_t len = ram[0]; //ctrl0
     //if chip_select ->S1 else ->S0
 
     //S1:
@@ -104,7 +104,7 @@ char* compute_sha256(char* data, uint8_t data_len)
     {
         //S13:
         //READ FROM RAM
-        chunks[word_id] = data[word_id]; //ctrl11
+        chunks[word_id] = ram[1 + word_id]; //ctrl11
         //->S14
 
         //S14
