@@ -40,9 +40,10 @@ uint32_t right_rotate(uint32_t n, uint32_t d)
 char* compute_sha256(char* data, uint8_t data_len)
 {
     //S0:
+    //chip_ready = 1
     //READ FROM RAM
     uint32_t len = data_len; //ctrl0
-    //->S1
+    //if chip_select ->S1 else ->S0
 
     //S1:
     uint32_t i = 0; //ctrl1
@@ -79,7 +80,7 @@ char* compute_sha256(char* data, uint8_t data_len)
     
     //S8:
     //chunks_count = (total_size / 512);
-    uint32_t chunks_count = total_size >> 9;  //ctrl7
+    uint32_t chunks_count = total_size >> 9;  //ctrl8
     //->S9
     
     //S9:
@@ -89,11 +90,11 @@ char* compute_sha256(char* data, uint8_t data_len)
     
     //S10:
     //Alloc memory to chunks, initialize max chunks by (hardware limitation)
-    unsigned char chunks[640] = {0}; //ctrl8
+    unsigned char chunks[640] = {0}; //ctrl9
     //->S11
 
     //S11:
-    uint32_t word_id = 0; //ctrl9
+    uint32_t word_id = 0; //ctrl10
     //->S12
 
     //S12:
@@ -103,7 +104,7 @@ char* compute_sha256(char* data, uint8_t data_len)
     {
         //S13:
         //READ FROM RAM
-        chunks[word_id] = data[word_id]; //ctrl10
+        chunks[word_id] = data[word_id]; //ctrl11
         //->S14
 
         //S14
@@ -112,7 +113,7 @@ char* compute_sha256(char* data, uint8_t data_len)
         {
             //S15:
             //Append 1 bit at the end
-            chunks[word_id + 1] = 0x80; //ctrl11
+            chunks[word_id + 1] = 0x80; //ctrl12
             //->S16
 
             //S16:
@@ -125,33 +126,34 @@ char* compute_sha256(char* data, uint8_t data_len)
             //if stt4 then ->S18 else ->S21
             {
                 //S18:
-                uint32_t aux = (k_bits_to_append+1)/8; //ctrl12
-                char val = (char)((data_bits_count >> ((3-i)<<3)) & 0xff); //ctrl13
+                uint32_t aux = (k_bits_to_append+1)/8; //ctrl13
+                char val = (char)((data_bits_count >> ((3-i)<<3)) & 0xff); //ctrl14
                 //->S19
                 
                 //S19:
-                chunks[word_id + 1 + aux + 4 + i] = val; //ctrl14
+                chunks[word_id + 1 + aux + 4 + i] = val; //ctrl15
                 //->S20
 
                 //S20
-                i++; //ctrl15
+                i++; //ctrl16
                 //->S17
             }
         }
 
         //S21:
-        word_id++; //ctrl16
+        word_id++; //ctrl17
+        //->S12
     }
     
 
     //S22:
     //VHDL: PARALLEL
     uint32_t HC[8] = {0};
-    for (int i = 0; i < 8; i++) HC[i] = H[i]; //ctrl17 (HC <= H (PARALLEL))
+    for (int i = 0; i < 8; i++) HC[i] = H[i]; //ctrl18 (HC <= H (PARALLEL))
     //->S23
     
     //S23:
-    uint32_t chunk_id = 0; //ctrl18
+    uint32_t chunk_id = 0; //ctrl19
     //->S24
 
     //S24:
@@ -161,7 +163,7 @@ char* compute_sha256(char* data, uint8_t data_len)
     //if stt5 then ->S25 else ->S53
     {
         //S25:
-        uint32_t w[64] = {0}; //ctrl19
+        uint32_t w[64] = {0}; //ctrl20
         //->S26
         
         //S26:
@@ -178,23 +180,23 @@ char* compute_sha256(char* data, uint8_t data_len)
             //w0 = m0 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w1 = m1 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w[i] = chunks[chunk_id*chunk_word_count + i*4 + n] && chunks[chunk_id*chunk_word_count + i*4 + (n+1)]..
-            uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24;  //ctrl20
-            uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16;  //ctrl21
-            uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;   //ctrl22
-            uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];      //ctrl23
+            uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24;  //ctrl21
+            uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16;  //ctrl22
+            uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;   //ctrl23
+            uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];      //ctrl24
             //->S29
 
             //S29:
-            w[i] = (b3 | b2 | b1 | b0); //ctrl24
+            w[i] = (b3 | b2 | b1 | b0); //ctrl25
             //->S30
 
             //S30:
-            i++; //ctrl15
+            i++; //ctrl16
             //->S27
         }
         
         //S31:
-        i = 16; //ctrl25
+        i = 16; //ctrl26
         //->S32
 
         //S32:
@@ -204,17 +206,17 @@ char* compute_sha256(char* data, uint8_t data_len)
         //if stt7 then ->S33 else ->S36
         {
             //S33:
-            uint32_t s0 = right_rotate(w[i-15], 7) ^ right_rotate(w[i-15], 18) ^ (w[i-15] >> 3); //ctrl26
-            uint32_t s1 = right_rotate(w[i-2], 17) ^ right_rotate(w[i-2], 19) ^ (w[i-2] >> 10); //ctrl27
+            uint32_t s0 = right_rotate(w[i-15], 7) ^ right_rotate(w[i-15], 18) ^ (w[i-15] >> 3); //ctrl27
+            uint32_t s1 = right_rotate(w[i-2], 17) ^ right_rotate(w[i-2], 19) ^ (w[i-2] >> 10); //ctrl28
             //->S34
 
             //S34:
-            uint32_t res = w[i-16] + s0 + w[i-7] + s1; //ctrl28
+            uint32_t res = w[i-16] + s0 + w[i-7] + s1; //ctrl29
             //->S35
 
             //S35:
-            w[i] = res; //ctrl29
-            i++; //ctrl15
+            w[i] = res; //ctrl30
+            i++; //ctrl16
             //->S32
         }
         
@@ -222,14 +224,14 @@ char* compute_sha256(char* data, uint8_t data_len)
         //S36:
         //VHDL: PARALLEL
         //Initialize working variables
-        uint32_t a = H[0]; //ctrl30
-        uint32_t b = H[1]; //ctrl31
-        uint32_t c = H[2]; //ctrl32
-        uint32_t d = H[3]; //ctrl33
-        uint32_t e = H[4]; //ctrl34
-        uint32_t f = H[5]; //ctrl35
-        uint32_t g = H[6]; //ctrl36
-        uint32_t h = H[7]; //ctrl37
+        uint32_t a = H[0]; //ctrl31
+        uint32_t b = H[1]; //ctrl32
+        uint32_t c = H[2]; //ctrl33
+        uint32_t d = H[3]; //ctrl34
+        uint32_t e = H[4]; //ctrl35
+        uint32_t f = H[5]; //ctrl36
+        uint32_t g = H[6]; //ctrl37
+        uint32_t h = H[7]; //ctrl38
         //->S37
 
         //S37
@@ -242,77 +244,77 @@ char* compute_sha256(char* data, uint8_t data_len)
         //if stt8 then ->S39 else ->S51
         {
             //S39:
-            uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl38
-            uint32_t ch = (e & f) ^ ((~e) & g); //ctrl39
+            uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl39
+            uint32_t ch = (e & f) ^ ((~e) & g); //ctrl40
             //->S40
 
             //S40:
-            uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl40
-            uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22); //ctrl41
-            uint32_t maj = (a & b) ^ (a & c) ^ (b & c); //ctrl42
+            uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl41
+            uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22); //ctrl42
+            uint32_t maj = (a & b) ^ (a & c) ^ (b & c); //ctrl43
             //->S41
 
             //S41:
-            uint32_t temp2 = (s0 + maj); //ctrl43
+            uint32_t temp2 = (s0 + maj); //ctrl44
             //->S42
 
             //S42:
-            h = g; //ctrl44
+            h = g; //ctrl45
             //->S43
 
             //S43:
-            g = f; //ctrl45
+            g = f; //ctrl46
             //->S44
             
             //S44:
-            f = e; //ctrl46
+            f = e; //ctrl47
             //->S45
             
             //S45:
-            e = d + temp1; //ctrl47
+            e = d + temp1; //ctrl48
             //->S46
             
             //S46:
-            d = c; //ctrl48
+            d = c; //ctrl49
             //->S47
             
             //S47:
-            c = b; //ctrl49
+            c = b; //ctrl50
             //->S48
             
             //S48:
-            b = a; //ctrl50
+            b = a; //ctrl51
             //->S49
             
             //S49:
-            a = temp1 + temp2; //ctrl51
+            a = temp1 + temp2; //ctrl52
             //->S50
 
             //S50:
-            i++; //ctrl15
+            i++; //ctrl16
             //->S38
         }
         
         
         //S51:
         //VHDL: PARALLEL
-        HC[0] += a; //ctrl52
-        HC[1] += b; //ctrl53
-        HC[2] += c; //ctrl54
-        HC[3] += d; //ctrl55
-        HC[4] += e; //ctrl56
-        HC[5] += f; //ctrl57
-        HC[6] += g; //ctrl58
-        HC[7] += h; //ctrl59
+        HC[0] += a; //ctrl53
+        HC[1] += b; //ctrl54
+        HC[2] += c; //ctrl55
+        HC[3] += d; //ctrl56
+        HC[4] += e; //ctrl57
+        HC[5] += f; //ctrl58
+        HC[6] += g; //ctrl59
+        HC[7] += h; //ctrl60
         //->S52
         
         //S52:
-        chunk_id++; //ctrl60
+        chunk_id++; //ctrl61
         //->S24
     }
 
     //S53:
     printf("\n%x %x %x %x %x %x %x %x", HC[0], HC[1], HC[2], HC[3], HC[4], HC[5], HC[6], HC[7]);
-
     return "   SUCCESS";
+    //->S0
 }

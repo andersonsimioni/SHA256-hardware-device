@@ -1,0 +1,513 @@
+Analysis & Synthesis report for sha256
+Wed Nov 15 12:34:52 2023
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Elapsed Time Per Partition
+ 10. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                    ;
++------------------------------------+--------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Wed Nov 15 12:34:52 2023      ;
+; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
+; Revision Name                      ; sha256                                     ;
+; Top-level Entity Name              ; sha256_top_level                           ;
+; Family                             ; Cyclone IV GX                              ;
+; Total logic elements               ; 0                                          ;
+;     Total combinational functions  ; 0                                          ;
+;     Dedicated logic registers      ; 0                                          ;
+; Total registers                    ; 0                                          ;
+; Total pins                         ; 260                                        ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total GXB Receiver Channel PCS     ; 0                                          ;
+; Total GXB Receiver Channel PMA     ; 0                                          ;
+; Total GXB Transmitter Channel PCS  ; 0                                          ;
+; Total GXB Transmitter Channel PMA  ; 0                                          ;
+; Total PLLs                         ; 0                                          ;
++------------------------------------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Top-level entity name                                                      ; sha256_top_level   ; sha256             ;
+; Family name                                                                ; Cyclone IV GX      ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 12     ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                  ;
++----------------------------------+-----------------+-----------------+------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                           ; Library ;
++----------------------------------+-----------------+-----------------+------------------------------------------------------------------------+---------+
+; sha256_top_level.vhd             ; yes             ; User VHDL File  ; C:/Users/Anderson Simioni/Desktop/SHA256/hardware/sha256_top_level.vhd ;         ;
++----------------------------------+-----------------+-----------------+------------------------------------------------------------------------+---------+
+
+
++---------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary ;
++--------------------------+------------------+
+; Resource                 ; Usage            ;
++--------------------------+------------------+
+; I/O pins                 ; 260              ;
+; DSP block 9-bit elements ; 0                ;
+; Maximum fan-out node     ; clock            ;
+; Maximum fan-out          ; 1                ;
+; Total fan-out            ; 260              ;
+; Average fan-out          ; 0.50             ;
++--------------------------+------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                     ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; DSP 36x36 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+-----------+------+--------------+---------------------+--------------+
+; |sha256_top_level          ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0         ; 260  ; 0            ; |sha256_top_level   ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+-----------+------+--------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+    Info: Processing started: Wed Nov 15 12:34:51 2023
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sha256 -c sha256
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 1 entities, in source file sha256_top_level.vhd
+    Info (12022): Found design unit 1: sha256_top_level-sha256_top_level_arch
+    Info (12023): Found entity 1: sha256_top_level
+Info (12021): Found 0 design units, including 0 entities, in source file sha256_operative_block.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file sha256_control_block.vhd
+    Info (12022): Found design unit 1: sha256_control_block-sha256_control_block_arch
+    Info (12023): Found entity 1: sha256_control_block
+Info (12021): Found 2 design units, including 1 entities, in source file ram.vhd
+    Info (12022): Found design unit 1: ram-SYN
+    Info (12023): Found entity 1: ram
+Info (12127): Elaborating entity "sha256_top_level" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at sha256_top_level.vhd(8): used implicit default value for signal "output" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "output[0]" is stuck at GND
+    Warning (13410): Pin "output[1]" is stuck at GND
+    Warning (13410): Pin "output[2]" is stuck at GND
+    Warning (13410): Pin "output[3]" is stuck at GND
+    Warning (13410): Pin "output[4]" is stuck at GND
+    Warning (13410): Pin "output[5]" is stuck at GND
+    Warning (13410): Pin "output[6]" is stuck at GND
+    Warning (13410): Pin "output[7]" is stuck at GND
+    Warning (13410): Pin "output[8]" is stuck at GND
+    Warning (13410): Pin "output[9]" is stuck at GND
+    Warning (13410): Pin "output[10]" is stuck at GND
+    Warning (13410): Pin "output[11]" is stuck at GND
+    Warning (13410): Pin "output[12]" is stuck at GND
+    Warning (13410): Pin "output[13]" is stuck at GND
+    Warning (13410): Pin "output[14]" is stuck at GND
+    Warning (13410): Pin "output[15]" is stuck at GND
+    Warning (13410): Pin "output[16]" is stuck at GND
+    Warning (13410): Pin "output[17]" is stuck at GND
+    Warning (13410): Pin "output[18]" is stuck at GND
+    Warning (13410): Pin "output[19]" is stuck at GND
+    Warning (13410): Pin "output[20]" is stuck at GND
+    Warning (13410): Pin "output[21]" is stuck at GND
+    Warning (13410): Pin "output[22]" is stuck at GND
+    Warning (13410): Pin "output[23]" is stuck at GND
+    Warning (13410): Pin "output[24]" is stuck at GND
+    Warning (13410): Pin "output[25]" is stuck at GND
+    Warning (13410): Pin "output[26]" is stuck at GND
+    Warning (13410): Pin "output[27]" is stuck at GND
+    Warning (13410): Pin "output[28]" is stuck at GND
+    Warning (13410): Pin "output[29]" is stuck at GND
+    Warning (13410): Pin "output[30]" is stuck at GND
+    Warning (13410): Pin "output[31]" is stuck at GND
+    Warning (13410): Pin "output[32]" is stuck at GND
+    Warning (13410): Pin "output[33]" is stuck at GND
+    Warning (13410): Pin "output[34]" is stuck at GND
+    Warning (13410): Pin "output[35]" is stuck at GND
+    Warning (13410): Pin "output[36]" is stuck at GND
+    Warning (13410): Pin "output[37]" is stuck at GND
+    Warning (13410): Pin "output[38]" is stuck at GND
+    Warning (13410): Pin "output[39]" is stuck at GND
+    Warning (13410): Pin "output[40]" is stuck at GND
+    Warning (13410): Pin "output[41]" is stuck at GND
+    Warning (13410): Pin "output[42]" is stuck at GND
+    Warning (13410): Pin "output[43]" is stuck at GND
+    Warning (13410): Pin "output[44]" is stuck at GND
+    Warning (13410): Pin "output[45]" is stuck at GND
+    Warning (13410): Pin "output[46]" is stuck at GND
+    Warning (13410): Pin "output[47]" is stuck at GND
+    Warning (13410): Pin "output[48]" is stuck at GND
+    Warning (13410): Pin "output[49]" is stuck at GND
+    Warning (13410): Pin "output[50]" is stuck at GND
+    Warning (13410): Pin "output[51]" is stuck at GND
+    Warning (13410): Pin "output[52]" is stuck at GND
+    Warning (13410): Pin "output[53]" is stuck at GND
+    Warning (13410): Pin "output[54]" is stuck at GND
+    Warning (13410): Pin "output[55]" is stuck at GND
+    Warning (13410): Pin "output[56]" is stuck at GND
+    Warning (13410): Pin "output[57]" is stuck at GND
+    Warning (13410): Pin "output[58]" is stuck at GND
+    Warning (13410): Pin "output[59]" is stuck at GND
+    Warning (13410): Pin "output[60]" is stuck at GND
+    Warning (13410): Pin "output[61]" is stuck at GND
+    Warning (13410): Pin "output[62]" is stuck at GND
+    Warning (13410): Pin "output[63]" is stuck at GND
+    Warning (13410): Pin "output[64]" is stuck at GND
+    Warning (13410): Pin "output[65]" is stuck at GND
+    Warning (13410): Pin "output[66]" is stuck at GND
+    Warning (13410): Pin "output[67]" is stuck at GND
+    Warning (13410): Pin "output[68]" is stuck at GND
+    Warning (13410): Pin "output[69]" is stuck at GND
+    Warning (13410): Pin "output[70]" is stuck at GND
+    Warning (13410): Pin "output[71]" is stuck at GND
+    Warning (13410): Pin "output[72]" is stuck at GND
+    Warning (13410): Pin "output[73]" is stuck at GND
+    Warning (13410): Pin "output[74]" is stuck at GND
+    Warning (13410): Pin "output[75]" is stuck at GND
+    Warning (13410): Pin "output[76]" is stuck at GND
+    Warning (13410): Pin "output[77]" is stuck at GND
+    Warning (13410): Pin "output[78]" is stuck at GND
+    Warning (13410): Pin "output[79]" is stuck at GND
+    Warning (13410): Pin "output[80]" is stuck at GND
+    Warning (13410): Pin "output[81]" is stuck at GND
+    Warning (13410): Pin "output[82]" is stuck at GND
+    Warning (13410): Pin "output[83]" is stuck at GND
+    Warning (13410): Pin "output[84]" is stuck at GND
+    Warning (13410): Pin "output[85]" is stuck at GND
+    Warning (13410): Pin "output[86]" is stuck at GND
+    Warning (13410): Pin "output[87]" is stuck at GND
+    Warning (13410): Pin "output[88]" is stuck at GND
+    Warning (13410): Pin "output[89]" is stuck at GND
+    Warning (13410): Pin "output[90]" is stuck at GND
+    Warning (13410): Pin "output[91]" is stuck at GND
+    Warning (13410): Pin "output[92]" is stuck at GND
+    Warning (13410): Pin "output[93]" is stuck at GND
+    Warning (13410): Pin "output[94]" is stuck at GND
+    Warning (13410): Pin "output[95]" is stuck at GND
+    Warning (13410): Pin "output[96]" is stuck at GND
+    Warning (13410): Pin "output[97]" is stuck at GND
+    Warning (13410): Pin "output[98]" is stuck at GND
+    Warning (13410): Pin "output[99]" is stuck at GND
+    Warning (13410): Pin "output[100]" is stuck at GND
+    Warning (13410): Pin "output[101]" is stuck at GND
+    Warning (13410): Pin "output[102]" is stuck at GND
+    Warning (13410): Pin "output[103]" is stuck at GND
+    Warning (13410): Pin "output[104]" is stuck at GND
+    Warning (13410): Pin "output[105]" is stuck at GND
+    Warning (13410): Pin "output[106]" is stuck at GND
+    Warning (13410): Pin "output[107]" is stuck at GND
+    Warning (13410): Pin "output[108]" is stuck at GND
+    Warning (13410): Pin "output[109]" is stuck at GND
+    Warning (13410): Pin "output[110]" is stuck at GND
+    Warning (13410): Pin "output[111]" is stuck at GND
+    Warning (13410): Pin "output[112]" is stuck at GND
+    Warning (13410): Pin "output[113]" is stuck at GND
+    Warning (13410): Pin "output[114]" is stuck at GND
+    Warning (13410): Pin "output[115]" is stuck at GND
+    Warning (13410): Pin "output[116]" is stuck at GND
+    Warning (13410): Pin "output[117]" is stuck at GND
+    Warning (13410): Pin "output[118]" is stuck at GND
+    Warning (13410): Pin "output[119]" is stuck at GND
+    Warning (13410): Pin "output[120]" is stuck at GND
+    Warning (13410): Pin "output[121]" is stuck at GND
+    Warning (13410): Pin "output[122]" is stuck at GND
+    Warning (13410): Pin "output[123]" is stuck at GND
+    Warning (13410): Pin "output[124]" is stuck at GND
+    Warning (13410): Pin "output[125]" is stuck at GND
+    Warning (13410): Pin "output[126]" is stuck at GND
+    Warning (13410): Pin "output[127]" is stuck at GND
+    Warning (13410): Pin "output[128]" is stuck at GND
+    Warning (13410): Pin "output[129]" is stuck at GND
+    Warning (13410): Pin "output[130]" is stuck at GND
+    Warning (13410): Pin "output[131]" is stuck at GND
+    Warning (13410): Pin "output[132]" is stuck at GND
+    Warning (13410): Pin "output[133]" is stuck at GND
+    Warning (13410): Pin "output[134]" is stuck at GND
+    Warning (13410): Pin "output[135]" is stuck at GND
+    Warning (13410): Pin "output[136]" is stuck at GND
+    Warning (13410): Pin "output[137]" is stuck at GND
+    Warning (13410): Pin "output[138]" is stuck at GND
+    Warning (13410): Pin "output[139]" is stuck at GND
+    Warning (13410): Pin "output[140]" is stuck at GND
+    Warning (13410): Pin "output[141]" is stuck at GND
+    Warning (13410): Pin "output[142]" is stuck at GND
+    Warning (13410): Pin "output[143]" is stuck at GND
+    Warning (13410): Pin "output[144]" is stuck at GND
+    Warning (13410): Pin "output[145]" is stuck at GND
+    Warning (13410): Pin "output[146]" is stuck at GND
+    Warning (13410): Pin "output[147]" is stuck at GND
+    Warning (13410): Pin "output[148]" is stuck at GND
+    Warning (13410): Pin "output[149]" is stuck at GND
+    Warning (13410): Pin "output[150]" is stuck at GND
+    Warning (13410): Pin "output[151]" is stuck at GND
+    Warning (13410): Pin "output[152]" is stuck at GND
+    Warning (13410): Pin "output[153]" is stuck at GND
+    Warning (13410): Pin "output[154]" is stuck at GND
+    Warning (13410): Pin "output[155]" is stuck at GND
+    Warning (13410): Pin "output[156]" is stuck at GND
+    Warning (13410): Pin "output[157]" is stuck at GND
+    Warning (13410): Pin "output[158]" is stuck at GND
+    Warning (13410): Pin "output[159]" is stuck at GND
+    Warning (13410): Pin "output[160]" is stuck at GND
+    Warning (13410): Pin "output[161]" is stuck at GND
+    Warning (13410): Pin "output[162]" is stuck at GND
+    Warning (13410): Pin "output[163]" is stuck at GND
+    Warning (13410): Pin "output[164]" is stuck at GND
+    Warning (13410): Pin "output[165]" is stuck at GND
+    Warning (13410): Pin "output[166]" is stuck at GND
+    Warning (13410): Pin "output[167]" is stuck at GND
+    Warning (13410): Pin "output[168]" is stuck at GND
+    Warning (13410): Pin "output[169]" is stuck at GND
+    Warning (13410): Pin "output[170]" is stuck at GND
+    Warning (13410): Pin "output[171]" is stuck at GND
+    Warning (13410): Pin "output[172]" is stuck at GND
+    Warning (13410): Pin "output[173]" is stuck at GND
+    Warning (13410): Pin "output[174]" is stuck at GND
+    Warning (13410): Pin "output[175]" is stuck at GND
+    Warning (13410): Pin "output[176]" is stuck at GND
+    Warning (13410): Pin "output[177]" is stuck at GND
+    Warning (13410): Pin "output[178]" is stuck at GND
+    Warning (13410): Pin "output[179]" is stuck at GND
+    Warning (13410): Pin "output[180]" is stuck at GND
+    Warning (13410): Pin "output[181]" is stuck at GND
+    Warning (13410): Pin "output[182]" is stuck at GND
+    Warning (13410): Pin "output[183]" is stuck at GND
+    Warning (13410): Pin "output[184]" is stuck at GND
+    Warning (13410): Pin "output[185]" is stuck at GND
+    Warning (13410): Pin "output[186]" is stuck at GND
+    Warning (13410): Pin "output[187]" is stuck at GND
+    Warning (13410): Pin "output[188]" is stuck at GND
+    Warning (13410): Pin "output[189]" is stuck at GND
+    Warning (13410): Pin "output[190]" is stuck at GND
+    Warning (13410): Pin "output[191]" is stuck at GND
+    Warning (13410): Pin "output[192]" is stuck at GND
+    Warning (13410): Pin "output[193]" is stuck at GND
+    Warning (13410): Pin "output[194]" is stuck at GND
+    Warning (13410): Pin "output[195]" is stuck at GND
+    Warning (13410): Pin "output[196]" is stuck at GND
+    Warning (13410): Pin "output[197]" is stuck at GND
+    Warning (13410): Pin "output[198]" is stuck at GND
+    Warning (13410): Pin "output[199]" is stuck at GND
+    Warning (13410): Pin "output[200]" is stuck at GND
+    Warning (13410): Pin "output[201]" is stuck at GND
+    Warning (13410): Pin "output[202]" is stuck at GND
+    Warning (13410): Pin "output[203]" is stuck at GND
+    Warning (13410): Pin "output[204]" is stuck at GND
+    Warning (13410): Pin "output[205]" is stuck at GND
+    Warning (13410): Pin "output[206]" is stuck at GND
+    Warning (13410): Pin "output[207]" is stuck at GND
+    Warning (13410): Pin "output[208]" is stuck at GND
+    Warning (13410): Pin "output[209]" is stuck at GND
+    Warning (13410): Pin "output[210]" is stuck at GND
+    Warning (13410): Pin "output[211]" is stuck at GND
+    Warning (13410): Pin "output[212]" is stuck at GND
+    Warning (13410): Pin "output[213]" is stuck at GND
+    Warning (13410): Pin "output[214]" is stuck at GND
+    Warning (13410): Pin "output[215]" is stuck at GND
+    Warning (13410): Pin "output[216]" is stuck at GND
+    Warning (13410): Pin "output[217]" is stuck at GND
+    Warning (13410): Pin "output[218]" is stuck at GND
+    Warning (13410): Pin "output[219]" is stuck at GND
+    Warning (13410): Pin "output[220]" is stuck at GND
+    Warning (13410): Pin "output[221]" is stuck at GND
+    Warning (13410): Pin "output[222]" is stuck at GND
+    Warning (13410): Pin "output[223]" is stuck at GND
+    Warning (13410): Pin "output[224]" is stuck at GND
+    Warning (13410): Pin "output[225]" is stuck at GND
+    Warning (13410): Pin "output[226]" is stuck at GND
+    Warning (13410): Pin "output[227]" is stuck at GND
+    Warning (13410): Pin "output[228]" is stuck at GND
+    Warning (13410): Pin "output[229]" is stuck at GND
+    Warning (13410): Pin "output[230]" is stuck at GND
+    Warning (13410): Pin "output[231]" is stuck at GND
+    Warning (13410): Pin "output[232]" is stuck at GND
+    Warning (13410): Pin "output[233]" is stuck at GND
+    Warning (13410): Pin "output[234]" is stuck at GND
+    Warning (13410): Pin "output[235]" is stuck at GND
+    Warning (13410): Pin "output[236]" is stuck at GND
+    Warning (13410): Pin "output[237]" is stuck at GND
+    Warning (13410): Pin "output[238]" is stuck at GND
+    Warning (13410): Pin "output[239]" is stuck at GND
+    Warning (13410): Pin "output[240]" is stuck at GND
+    Warning (13410): Pin "output[241]" is stuck at GND
+    Warning (13410): Pin "output[242]" is stuck at GND
+    Warning (13410): Pin "output[243]" is stuck at GND
+    Warning (13410): Pin "output[244]" is stuck at GND
+    Warning (13410): Pin "output[245]" is stuck at GND
+    Warning (13410): Pin "output[246]" is stuck at GND
+    Warning (13410): Pin "output[247]" is stuck at GND
+    Warning (13410): Pin "output[248]" is stuck at GND
+    Warning (13410): Pin "output[249]" is stuck at GND
+    Warning (13410): Pin "output[250]" is stuck at GND
+    Warning (13410): Pin "output[251]" is stuck at GND
+    Warning (13410): Pin "output[252]" is stuck at GND
+    Warning (13410): Pin "output[253]" is stuck at GND
+    Warning (13410): Pin "output[254]" is stuck at GND
+    Warning (13410): Pin "output[255]" is stuck at GND
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 4 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "clock"
+    Warning (15610): No output dependent on input pin "chip_select"
+    Warning (15610): No output dependent on input pin "chip_ready"
+    Warning (15610): No output dependent on input pin "chip_reset"
+Info (21057): Implemented 260 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 4 input pins
+    Info (21059): Implemented 256 output pins
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 264 warnings
+    Info: Peak virtual memory: 4705 megabytes
+    Info: Processing ended: Wed Nov 15 12:34:52 2023
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
