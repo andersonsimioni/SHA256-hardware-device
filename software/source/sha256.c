@@ -37,126 +37,281 @@ uint32_t right_rotate(uint32_t n, uint32_t d)
     return (n >> d) | (n << (sizeof(uint32_t)*8 - d));
 }
 
-char* compute_sha256(char* data, int len)
+char* compute_sha256(char* data, uint8_t data_len)
 {
-    uint32_t k_bits_to_append = 0;
-    uint32_t data_words_count = len;
-    uint32_t data_bits_count = data_words_count*8;
+    //S0:
+    //READ FROM RAM
+    uint32_t len = data_len; //ctrl0
+    //->S1
 
-    printf("data_words_count: %i\n", data_words_count);
-    printf("data_bits_count: %i\n", data_bits_count);
+    //S1:
+    uint32_t i = 0; //ctrl1
+    uint32_t k_bits_to_append = 0; //ctrl2
+    uint32_t data_words_count = len; //ctrl3
+    uint32_t data_bits_count = len*8; //ctrl4
+    //->S2
     
+    //S2:
+    uint32_t total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl5
+    //->S3
+
+    //S3:
+    uint32_t is_module_of_512 = (total_size & 0x1FF); //ctrl6;
+    //->s4
+
+    //S4:
     //Calculate k_bits_to_append to append to make data multiple of 512
-    while (((data_bits_count + 1 + k_bits_to_append + 64) % chunk_bits_count)) 
-        k_bits_to_append++;
-
-    printf("k_bits_to_append: %i\n", k_bits_to_append);
-
-    uint32_t chunks_count = (data_bits_count / chunk_bits_count) + 1;
-    if (chunks_count > max_chunks_count) return "MAX CHUNKS COUNT ERROR";
-
-    //Alloc memory to chunks, initialize max chunks, (hardware limitation)
-    unsigned char chunks[640] = {0};
-
-    //Copy data to chunks
-    for (int word_id = 0; word_id < data_words_count; word_id++)
+    while (is_module_of_512 != 0) //stt0 = (is_module_of_512 != 0)
+    //if stt0 then ->S5 else ->S8
     {
-        chunks[word_id] = data[word_id];
-        if (word_id == data_words_count - 1)
-        {
-            //Append 1 bit at the end
-            chunks[word_id + 1] = 0x80;
+        //S5:
+        k_bits_to_append++; //ctrl7
+        //->S6
 
+        //S6:
+        total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl5
+        //->S7
+
+        //S7:
+        is_module_of_512 = (total_size & 0x1FF); //ctrl6
+        //->S4
+    }
+    
+    //S8:
+    //chunks_count = (total_size / 512);
+    uint32_t chunks_count = total_size >> 9;  //ctrl7
+    //->S9
+    
+    //S9:
+    if (chunks_count > max_chunks_count) //stt1 = (chunks_count > max_chunks_count)
+        return; //goto ERROR STATE
+    //if stt1 then ->ERROR else ->S10
+    
+    //S10:
+    //Alloc memory to chunks, initialize max chunks by (hardware limitation)
+    unsigned char chunks[640] = {0}; //ctrl8
+    //->S11
+
+    //S11:
+    uint32_t word_id = 0; //ctrl9
+    //->S12
+
+    //S12:
+    //Copy data to chunks
+    while (word_id < data_words_count) //stt2 = (word_id < data_words_count)
+    //if stt2 then ->S13 else ->S22
+    {
+        //S13:
+        //READ FROM RAM
+        chunks[word_id] = data[word_id]; //ctrl10
+        //->S14
+
+        //S14
+        if (word_id == data_words_count - 1) //stt3 = (word_id == data_words_count - 1)
+        //if stt3 then ->S15 else ->S21
+        {
+            //S15:
+            //Append 1 bit at the end
+            chunks[word_id + 1] = 0x80; //ctrl11
+            //->S16
+
+            //S16:
+            i = 0; //ctrl1
+            //->S17
+
+            //S17:
             //Set data_bits_len big endian at the end of the last chunk
-            for (int i = 0; i < 4; i++)
+            while (i < 4) //stt4 = (i < 4)
+            //if stt4 then ->S18 else ->S21
             {
-                uint32_t aux = (k_bits_to_append+1)/8 ;
-                char val = (char)((data_bits_count >> (8*(3-i))) & 0xff);
-                chunks[word_id + 1 + aux + 4 + i] = val;
+                //S18:
+                uint32_t aux = (k_bits_to_append+1)/8; //ctrl12
+                char val = (char)((data_bits_count >> (8*(3-i))) & 0xff); //ctrl13
+                //->S19
+                
+                //S19:
+                chunks[word_id + 1 + aux + 4 + i] = val; //ctrl14
+                //->S20
+
+                //S20
+                i++; //ctrl15
+                //->S17
             }
         }
-    }
 
-    //VHDL: PARALLEL
-    uint32_t HC[8] = {0}; //*(uint32_t*)&H;
-    for (int i = 0; i < 8; i++){
-        HC[i] = H[i];
+        //S21:
+        word_id++; //ctrl16
     }
     
+
+    //S22:
+    //VHDL: PARALLEL
+    uint32_t HC[8] = {0};
+    for (int i = 0; i < 8; i++) HC[i] = H[i]; //ctrl17 (HC <= H (PARALLEL))
+    //->S23
+    
+    //S23:
+    uint32_t chunk_id = 0; //ctrl18
+    //->S24
+
+    //S24:
     //VHDL: SEQUENTIAL
     //Process message for each 512-bits chunk
-    for (int chunk_id = 0; chunk_id < chunks_count; chunk_id++)
+    while (chunk_id < chunks_count) //stt5 = (chunk_id < chunks_count)
+    //if stt5 then ->S25 else ->S53
     {
-        uint32_t w[64] = {0};
-
+        //S25:
+        uint32_t w[64] = {0}; //ctrl19
+        //->S26
+        
+        //S26:
+        i = 0; //ctrl1
+        //->S27
+        
+        //S27:
         //VHDL: PARALLEL
         //Copy chunk to initial 16 32-bits words from w 
-        for (int i = 0; i < 16; i++)
-        {   
+        while (i < 16) //stt6 = (i < 16)
+        //if stt6 then ->S28 else ->S31
+        {
+            //S28:
             //w0 = m0 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w1 = m1 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w[i] = chunks[chunk_id*chunk_word_count + i*4 + n] && chunks[chunk_id*chunk_word_count + i*4 + (n+1)]..
-            uint32_t b3 = chunks[chunk_id*chunk_word_count + i*4 + 0];
-            uint32_t b2 = chunks[chunk_id*chunk_word_count + i*4 + 1];
-            uint32_t b1 = chunks[chunk_id*chunk_word_count + i*4 + 2];
-            uint32_t b0 = chunks[chunk_id*chunk_word_count + i*4 + 3];
-            w[i] = (b3<<8*3) | (b2<<8*2) | (b1<<8*1) | (b0<<8*0);
-        }
+            uint32_t b3 = chunks[chunk_id*chunk_word_count + i*4 + 0]<<24;  //ctrl20
+            uint32_t b2 = chunks[chunk_id*chunk_word_count + i*4 + 1]<<16;  //ctrl21
+            uint32_t b1 = chunks[chunk_id*chunk_word_count + i*4 + 2]<<8;   //ctrl22
+            uint32_t b0 = chunks[chunk_id*chunk_word_count + i*4 + 3];      //ctrl23
+            //->S29
 
+            //S29:
+            w[i] = (b3 | b2 | b1 | b0); //ctrl24
+            //->S30
+
+            //S30:
+            i++; //ctrl15
+            //->S27
+        }
+        
+        //S31:
+        i = 16; //ctrl25
+        //->S32
+
+        //S32:
         //VHDL: SEQUENTIAL
         //Extend first 16 words
-        for (int i = 16; i < 64; i++)
+        while (i < 64) //stt7 = (i < 64)
+        //if stt7 then ->S33 else ->S36
         {
-            uint32_t s0 = right_rotate(w[i-15], 7) ^ right_rotate(w[i-15], 18) ^ (w[i-15] >> 3);
-            uint32_t s1 = right_rotate(w[i-2], 17) ^ right_rotate(w[i-2], 19) ^ (w[i-2] >> 10);
-            uint32_t res = w[i-16] + s0 + w[i-7] + s1;
+            //S33:
+            uint32_t s0 = right_rotate(w[i-15], 7) ^ right_rotate(w[i-15], 18) ^ (w[i-15] >> 3); //ctrl26
+            uint32_t s1 = right_rotate(w[i-2], 17) ^ right_rotate(w[i-2], 19) ^ (w[i-2] >> 10); //ctrl27
+            //->S34
 
-            w[i] = res;
+            //S34:
+            uint32_t res = w[i-16] + s0 + w[i-7] + s1; //ctrl28
+            //->S35
+
+            //S35:
+            w[i] = res; //ctrl29
+            i++; //ctrl15
+            //->S32
         }
         
+        
+        //S36:
         //VHDL: PARALLEL
         //Initialize working variables
-        uint32_t a = H[0];
-        uint32_t b = H[1];
-        uint32_t c = H[2];
-        uint32_t d = H[3];
-        uint32_t e = H[4];
-        uint32_t f = H[5];
-        uint32_t g = H[6];
-        uint32_t h = H[7];
+        uint32_t a = H[0]; //ctrl30
+        uint32_t b = H[1]; //ctrl31
+        uint32_t c = H[2]; //ctrl32
+        uint32_t d = H[3]; //ctrl33
+        uint32_t e = H[4]; //ctrl34
+        uint32_t f = H[5]; //ctrl35
+        uint32_t g = H[6]; //ctrl36
+        uint32_t h = H[7]; //ctrl37
+        //->S37
 
+        //S37
+        i = 0; //ctrl1
+        //->S38
+
+        //S38:
         //VHDL: SEQUENTIAL
-        //BUG RANDOM HASH IN i=6
-        for (int i = 0; i < 64; i++)
+        while (i < 64) //stt8 = (i < 64)
+        //if stt8 then ->S39 else ->S51
         {
-            uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25);
-            uint32_t ch = (e & f) ^ ((~e) & g);
-            uint32_t temp1 = (h + s1 + ch + K[i] + w[i]);
-            uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22);
-            uint32_t maj = (a & b) ^ (a & c) ^ (b & c);
-            uint32_t temp2 = (s0 + maj);
+            //S39:
+            uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl38
+            uint32_t ch = (e & f) ^ ((~e) & g); //ctrl39
+            //->S40
 
-            h = g;
-            g = f;
-            f = e;
-            e = d + temp1;
-            d = c;
-            c = b;
-            b = a;
-            a = temp1 + temp2;
+            //S40:
+            uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl40
+            uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22); //ctrl41
+            uint32_t maj = (a & b) ^ (a & c) ^ (b & c); //ctrl42
+            //->S41
+
+            //S41:
+            uint32_t temp2 = (s0 + maj); //ctrl43
+            //->S42
+
+            //S42:
+            h = g; //ctrl44
+            //->S43
+
+            //S43:
+            g = f; //ctrl45
+            //->S44
+            
+            //S44:
+            f = e; //ctrl46
+            //->S45
+            
+            //S45:
+            e = d + temp1; //ctrl47
+            //->S46
+            
+            //S46:
+            d = c; //ctrl48
+            //->S47
+            
+            //S47:
+            c = b; //ctrl49
+            //->S48
+            
+            //S48:
+            b = a; //ctrl50
+            //->S49
+            
+            //S49:
+            a = temp1 + temp2; //ctrl51
+            //->S50
+
+            //S50:
+            i++; //ctrl15
+            //->S38
         }
         
+        
+        //S51:
         //VHDL: PARALLEL
-        HC[0] += a;
-        HC[1] += b;
-        HC[2] += c;
-        HC[3] += d;
-        HC[4] += e;
-        HC[5] += f;
-        HC[6] += g;
-        HC[7] += h;
+        HC[0] += a; //ctrl52
+        HC[1] += b; //ctrl53
+        HC[2] += c; //ctrl54
+        HC[3] += d; //ctrl55
+        HC[4] += e; //ctrl56
+        HC[5] += f; //ctrl57
+        HC[6] += g; //ctrl58
+        HC[7] += h; //ctrl59
+        //->S52
+        
+        //S52:
+        chunk_id++; //ctrl60
+        //->S24
     }
 
+    //S53:
     printf("\n%x %x %x %x %x %x %x %x", HC[0], HC[1], HC[2], HC[3], HC[4], HC[5], HC[6], HC[7]);
 
     return "   SUCCESS";
