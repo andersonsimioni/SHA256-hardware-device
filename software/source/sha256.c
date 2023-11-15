@@ -48,7 +48,7 @@ char* compute_sha256(char* data, uint8_t data_len)
     uint32_t i = 0; //ctrl1
     uint32_t k_bits_to_append = 0; //ctrl2
     uint32_t data_words_count = len; //ctrl3
-    uint32_t data_bits_count = len*8; //ctrl4
+    uint32_t data_bits_count = len<<3; //ctrl4
     //->S2
     
     //S2:
@@ -57,7 +57,7 @@ char* compute_sha256(char* data, uint8_t data_len)
 
     //S3:
     uint32_t is_module_of_512 = (total_size & 0x1FF); //ctrl6;
-    //->s4
+    //->S4
 
     //S4:
     //Calculate k_bits_to_append to append to make data multiple of 512
@@ -126,7 +126,7 @@ char* compute_sha256(char* data, uint8_t data_len)
             {
                 //S18:
                 uint32_t aux = (k_bits_to_append+1)/8; //ctrl12
-                char val = (char)((data_bits_count >> (8*(3-i))) & 0xff); //ctrl13
+                char val = (char)((data_bits_count >> ((3-i)<<3)) & 0xff); //ctrl13
                 //->S19
                 
                 //S19:
@@ -178,10 +178,10 @@ char* compute_sha256(char* data, uint8_t data_len)
             //w0 = m0 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w1 = m1 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w[i] = chunks[chunk_id*chunk_word_count + i*4 + n] && chunks[chunk_id*chunk_word_count + i*4 + (n+1)]..
-            uint32_t b3 = chunks[chunk_id*chunk_word_count + i*4 + 0]<<24;  //ctrl20
-            uint32_t b2 = chunks[chunk_id*chunk_word_count + i*4 + 1]<<16;  //ctrl21
-            uint32_t b1 = chunks[chunk_id*chunk_word_count + i*4 + 2]<<8;   //ctrl22
-            uint32_t b0 = chunks[chunk_id*chunk_word_count + i*4 + 3];      //ctrl23
+            uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24;  //ctrl20
+            uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16;  //ctrl21
+            uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;   //ctrl22
+            uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];      //ctrl23
             //->S29
 
             //S29:
