@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus II 64-Bit"
 -- VERSION "Version 13.1.0 Build 162 10/23/2013 SJ Web Edition"
 
--- DATE "11/15/2023 12:35:15"
+-- DATE "11/15/2023 12:44:58"
 
 -- 
 -- Device: Altera EP4CGX50DF27C6 Package FBGA672
@@ -37,7 +37,7 @@ ENTITY 	sha256_top_level IS
 	chip_select : IN std_logic;
 	chip_ready : IN std_logic;
 	chip_reset : IN std_logic;
-	output : BUFFER std_logic_vector(255 DOWNTO 0)
+	output : OUT std_logic_vector(255 DOWNTO 0)
 	);
 END sha256_top_level;
 

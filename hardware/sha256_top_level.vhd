@@ -18,7 +18,7 @@ architecture sha256_top_level_arch of sha256_top_level is
         ctrl30, ctrl31, ctrl32, ctrl33, ctrl34, ctrl35, ctrl36, ctrl37, ctrl38, ctrl39,
         ctrl40, ctrl41, ctrl42, ctrl43, ctrl44, ctrl45, ctrl46, ctrl47, ctrl48, ctrl49,
         ctrl50, ctrl51, ctrl52, ctrl53, ctrl54, ctrl55, ctrl56, ctrl57, ctrl58, ctrl59,
-        ctrl60
+        ctrl60, ctrl61
     : std_logic;
 
     signal 
