@@ -1,5 +1,5 @@
 Fitter report for sha256
-Thu Nov 16 21:09:30 2023
+Fri Nov 17 00:11:10 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -66,7 +66,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Fitter Summary                                                                  ;
 +------------------------------------+--------------------------------------------+
-; Fitter Status                      ; Successful - Thu Nov 16 21:09:30 2023      ;
+; Fitter Status                      ; Successful - Fri Nov 17 00:11:10 2023      ;
 ; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
 ; Revision Name                      ; sha256                                     ;
 ; Top-level Entity Name              ; sha256_top_level                           ;
@@ -2721,7 +2721,7 @@ Info (176215): I/O bank details before I/O pin placement
         Info (176213): I/O bank number 8 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  48 pins available
         Info (176213): I/O bank number 8B does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  2 pins available
         Info (176213): I/O bank number 9 does not use VREF pins and has undetermined VCCIO pins. 4 total pin(s) used --  0 pins available
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:02
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:03
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
 Info (170191): Fitter placement operations beginning
@@ -2734,20 +2734,20 @@ Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 0.25 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.23 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:02
 Warning (169177): 2 pins must meet Altera requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV GX Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
     Info (169178): Pin clock uses I/O standard 2.5 V at T15
     Info (169178): Pin chip_reset uses I/O standard 2.5 V at T14
 Info (144001): Generated suppressed messages file C:/Users/Anderson Simioni/Desktop/SHA256/hardware/output_files/sha256.fit.smsg
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 5140 megabytes
-    Info: Processing ended: Thu Nov 16 21:09:30 2023
-    Info: Elapsed time: 00:00:19
+    Info: Peak virtual memory: 5136 megabytes
+    Info: Processing ended: Fri Nov 17 00:11:10 2023
+    Info: Elapsed time: 00:00:20
     Info: Total CPU time (on all processors): 00:00:18
 
 

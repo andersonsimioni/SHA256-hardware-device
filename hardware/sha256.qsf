@@ -67,4 +67,5 @@ set_global_assignment -name MIF_FILE ram_k.mif
 set_global_assignment -name QIP_FILE ram_h.qip
 set_global_assignment -name MIF_FILE ram_h.mif
 set_global_assignment -name QIP_FILE ram_32.qip
+set_global_assignment -name VHDL_FILE shifterRotator.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

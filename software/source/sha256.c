@@ -116,28 +116,40 @@ char* compute_sha256(unsigned char* ram)
             chunks[word_id + 1] = 0x80; //ctrl12
             //->S16
 
-            //S16:
-            i = 0; //ctrl1
-            //->S17
 
-            //S17:
-            //Set data_bits_len big endian at the end of the last chunk
-            while (i < 4) //stt4 = (i < 4)
-            //if stt4 then ->S18 else ->S21
-            {
-                //S18:
-                uint32_t aux = (k_bits_to_append+1) >> 3; //ctrl13
-                char val = (char)((data_bits_count >> ((3-i)<<3)) & 0xff); //ctrl14
-                //->S19
-                
-                //S19:
-                chunks[word_id + 1 + aux + 4 + i] = val; //ctrl15
-                //->S20
+            //S16_0:
+            uint32_t aux = (k_bits_to_append+1) >> 3; //ctrl13
+            char val = (char)((data_bits_count >> 24) & 0xff); //ctrl14
+            //->S16_1
 
-                //S20
-                i++; //ctrl16
-                //->S17
-            }
+            //S16_1:
+            chunks[word_id + 1 + aux + 4 + 0] = val; //ctrl15
+            //->S16_2
+
+            //S16_2:
+            val = (char)((data_bits_count >> 16) & 0xff); //ctrl14
+            //->S16_3
+
+            //S16_3:
+            chunks[word_id + 1 + aux + 4 + 1] = val; //ctrl15
+            //->S16_4
+
+            //S16_4:
+            val = (char)((data_bits_count >> 8) & 0xff); //ctrl14
+            //->S16_5
+
+            //S16_5:
+            chunks[word_id + 1 + aux + 4 + 2] = val; //ctrl15
+            //->S16_6
+
+            //S16_6:
+            val = (char)((data_bits_count) & 0xff); //ctrl14
+            //->S16_7
+
+            //S16_7:
+            chunks[word_id + 1 + aux + 4 + 3] = val; //ctrl15
+            //->S21
+
         }
 
         //S21:
@@ -239,10 +251,18 @@ char* compute_sha256(unsigned char* ram)
             //S33_2:
             uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3); //ctrl27
             uint32_t s1 = right_rotate(w_i_sub_2, 17) ^ right_rotate(w_i_sub_2, 19) ^ (w_i_sub_2 >> 10); //ctrl28
-            //->S34
+            //->S34_0
 
-            //S34:
-            uint32_t res = w[i-16] + s0 + w[i-7] + s1; //ctrl29
+            //S34_0:
+            uint32_t w_i_sub_16 = w[i-16];
+            //->S34_1
+
+            //S34_1:
+            uint32_t w_i_sub_7 = w[i-7];
+            //->S34_2:
+
+            //S34_2:
+            uint32_t res = w_i_sub_16 + s0 + w_i_sub_7 + s1; //ctrl29
             //->S35
 
             //S35:

@@ -23,6 +23,7 @@ source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/ram_h.vhd
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/ram_h.mif
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/ram_32.qip
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/ram_32.vhd
+source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/shifterRotator.vhd
 source_file = 1, C:/Users/Anderson Simioni/Desktop/SHA256/hardware/db/sha256.cbx.xml
 source_file = 1, c:/altera/13.1/quartus/libraries/vhdl/ieee/prmtvs_b.vhd
 source_file = 1, c:/altera/13.1/quartus/libraries/vhdl/ieee/prmtvs_p.vhd
