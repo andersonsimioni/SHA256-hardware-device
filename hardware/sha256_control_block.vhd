@@ -4,19 +4,18 @@ use ieee.std_logic_unsigned.all;
 
 entity sha256_control_block is
   port (
-    clock, chip_select, chip_reset : in std_logic;
-	 chip_ready : out std_logic;
-	 
-	 stt0, stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8 : in std_logic;
-	 
-	 ctrl0, ctrl1, ctrl2, ctrl3, ctrl4, ctrl5, ctrl6, ctrl7, ctrl8, ctrl9,
-	 ctrl10, ctrl11, ctrl12, ctrl13, ctrl14, ctrl15, ctrl16, ctrl17, ctrl18, ctrl19,
-	 ctrl20, ctrl21, ctrl22, ctrl23, ctrl24, ctrl25, ctrl26, ctrl27, ctrl28, ctrl29,
-	 ctrl30, ctrl31, ctrl32, ctrl33, ctrl34, ctrl35, ctrl36, ctrl37, ctrl38, ctrl39,
-	 ctrl40, ctrl41, ctrl42, ctrl43, ctrl44, ctrl45, ctrl46, ctrl47, ctrl48, ctrl49,
-	 ctrl50, ctrl51, ctrl52, ctrl53, ctrl54, ctrl55, ctrl56, ctrl57, ctrl58, ctrl59,
-	 ctrl60, ctrl61 : out std_logic
-	 
+		clock, chip_select, chip_reset : in std_logic;
+		chip_ready : out std_logic;
+		 
+		stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9 : in std_logic;
+		 
+		ctrl1,ctrl2,ctrl3,ctrl4,ctrl5,ctrl6,ctrl7,ctrl8,ctrl9,ctrl10,ctrl11,ctrl12,ctrl13,ctrl14,ctrl15,
+		ctrl16,ctrl17,ctrl18,ctrl19,ctrl20,ctrl21,ctrl22,ctrl23,ctrl24,ctrl26,ctrl27,ctrl28,ctrl29,ctrl30,
+		ctrl31,ctrl32,ctrl33,ctrl34,ctrl35,ctrl36,ctrl37,ctrl38,ctrl39,ctrl40,ctrl41,ctrl42,ctrl43,ctrl44,
+		ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
+		ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
+		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
+		ctrl87,ctrl88 : out std_logic
   ) ;
 end sha256_control_block;
 
@@ -24,223 +23,215 @@ architecture sha256_control_block_arch of sha256_control_block is
 
     type state is
     (
-        S0,  S1,  S2,  S3,  S4,  S5,  S6,  S7,  S8,  S9,
-        S10, S11, S12, S13, S14, S15, S16, S17, S18, S19,
-        S20, S21, S22, S23, S24, S25, S26, S27, S28, S29,
-        S30, S31, S32, S33, S34, S35, S36, S37, S38, S39,
-        S40, S41, S42, S43, S44, S45, S46, S47, S48, S49,
-        S50, S51, S52, S53
+		L42,L43,L44,L45,L46,L47,L48,L49,L50,L51,L52,L53,L54,L55,L56,L57,L58,L59,L60,L61,L62,L63,
+		L64,L65,L66,L67,L68,L69,L70,L71,L72,L73,L74,L75,L76,L77,L78,L79,L80,L81,L82,L83,L84,L85,
+		L86,L87,L88,L89,L90,L91,L92,L93,L94,L95,L96,L97,L98,L99,L100,L101,L102,L103,L104,L105,L106,
+		L107,L108,L109,L110,L111,L112,L113,L114,L115,L116,L117,L118,L119,L120,L121,L122,L123,L124,
+		L125,L126,L127,L128,L129,L130,L131,L132,L133,L134,L135,L136,L137,L138
     );
     
     signal current_state, next_state : state;
 
 begin
 
-	next_state_logic_process: process(next_state, stt0, stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8)
+	next_state_logic_process: process(next_state, stt0, stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9)
 	begin
 		case current_state is			
-			when S0 =>
-				if chip_select='1' then
-					next_state <= S1;
-				else
-					next_state <= S0;
-				end if;
-				
-			when S1 =>
-				next_state <= S2;
+						
+			when L42 =>
 
-			when S2 =>
-				next_state <= S3;
+			when L43 =>
 
-			when S3 =>
-				next_state <= S4;
+			when L44 =>
 
-			when S4 =>
-				if stt0='1' then
-					next_state <= S5;
-				else
-					next_state <= S8;
-				end if;
+			when L45 =>
 
-			when S5 =>
-				next_state <= S6;
+			when L46 =>
 
-			when S6 =>
-				next_state <= S7;
+			when L47 =>
 
-			when S7 =>
-				next_state <= S4;
+			when L48 =>
 
-			when S8 =>
-				next_state <= S9;
+			when L49 =>
 
-			when S9 =>
-				if stt1='1' then
-					next_state <= S0; --TODO: ERROR STATE
-				else
-					next_state <= S10;
-				end if;
+			when L50 =>
 
-			when S10 =>
-				next_state <= S11;
+			when L51 =>
 
-			when S11 =>
-				next_state <= S12;
+			when L52 =>
 
-			when S12 =>
-				if stt2='1' then
-					next_state <= S13;
-				else
-					next_state <= S22;
-				end if;
+			when L53 =>
 
-			when S13 =>
-				next_state <= S14;
+			when L54 =>
 
-			when S14 =>
-				if stt3='1' then
-					next_state <= S15;
-				else
-					next_state <= S21;
-				end if;
+			when L55 =>
 
-			when S15 =>
-				next_state <= S16;
+			when L56 =>
 
-			when S16 =>
-				next_state <= S17;
+			when L57 =>
 
-			when S17 =>
-				if stt4='1' then
-					next_state <= S18;
-				else
-					next_state <= S21;
-				end if;
+			when L58 =>
 
-			when S18 =>
-				next_state <= S19;
+			when L59 =>
 
-			when S19 =>
-				next_state <= S20;
+			when L60 =>
 
-			when S20 =>
-				next_state <= S17;
+			when L61 =>
 
-			when S21 =>
-				next_state <= S12;
+			when L62 =>
 
-			when S22 =>
-				next_state <= S23;
+			when L63, =>
 
-			when S23 =>
-				next_state <= S24;
+			when L64 =>
 
-			when S24 =>
-				if stt5='1' then
-					next_state <= S25;
-				else
-					next_state <= S53;
-				end if;
+			when L65 =>
 
-			when S25 =>
-				next_state <= S26;
+			when L66 =>
 
-			when S26 =>
-				next_state <= S27;
+			when L67 =>
 
-			when S27 =>
-				if stt6='1' then
-					next_state <= S28;
-				else
-					next_state <= S31;
-				end if;
+			when L68 =>
 
-			when S28 =>
-				next_state <= S29;
+			when L69 =>
 
-			when S29 =>
-				next_state <= S30;
+			when L70 =>
 
-			when S30 =>
-				next_state <= S27;
+			when L71 =>
 
-			when S31 =>
-				next_state <= S32;
+			when L72 =>
 
-			when S32 =>
-				if stt7='1' then
-					next_state <= S33;
-				else
-					next_state <= S36;
-				end if;
+			when L73 =>
 
-			when S33 =>
-				next_state <= S34;
+			when L74 =>
 
-			when S34 =>
-				next_state <= S35;
+			when L75 =>
 
-			when S35 =>
-				next_state <= S32;
+			when L76 =>
 
-			when S36 =>
-				next_state <= S37;
+			when L77 =>
 
-			when S37 =>
-				next_state <= S38;
+			when L78 =>
 
-			when S38 =>
-				if stt8='1' then
-					next_state <= S39;
-				else
-					next_state <= S51;
-				end if;
+			when L79 =>
 
-			when S39 =>
-				next_state <= S40;
+			when L80 =>
 
-			when S40 =>
-				next_state <= S41;
+			when L81 =>
 
-			when S41 =>
-				next_state <= S42;
+			when L82 =>
 
-			when S42 =>
-				next_state <= S43;
+			when L83 =>
 
-			when S43 =>
-				next_state <= S44;
+			when L84 =>
 
-			when S44 =>
-				next_state <= S45;
+			when L85, =>
 
-			when S45 =>
-				next_state <= S46;
+			when L86 =>
 
-			when S46 =>
-				next_state <= S47;
+			when L87 =>
 
-			when S47 =>
-				next_state <= S48;
+			when L88 =>
 
-			when S48 =>
-				next_state <= S49;
+			when L89 =>
 
-			when S49 =>
-				next_state <= S50;
+			when L90 =>
 
-			when S50 =>
-				next_state <= S38;
+			when L91 =>
 
-			when S51 =>
-				next_state <= S52;
+			when L92 =>
 
-			when S52 =>
-				next_state <= S24;
+			when L93 =>
 
-			when S53 =>
-				next_state <= S0;
-		
+			when L94 =>
+
+			when L95 =>
+
+			when L96 =>
+
+			when L97 =>
+
+			when L98 =>
+
+			when L99 =>
+
+			when L100 =>
+
+			when L101 =>
+
+			when L102 =>
+
+			when L103 =>
+
+			when L104 =>
+
+			when L105 =>
+
+			when L106, =>
+
+			when L107 =>
+
+			when L108 =>
+
+			when L109 =>
+
+			when L110 =>
+
+			when L111 =>
+
+			when L112 =>
+
+			when L113 =>
+
+			when L114 =>
+
+			when L115 =>
+
+			when L116 =>
+
+			when L117 =>
+
+			when L118 =>
+
+			when L119 =>
+
+			when L120 =>
+
+			when L121 =>
+
+			when L122 =>
+
+			when L123 =>
+
+			when L124, =>
+
+			when L125 =>
+
+			when L126 =>
+
+			when L127 =>
+
+			when L128 =>
+
+			when L129 =>
+
+			when L130 =>
+
+			when L131 =>
+
+			when L132 =>
+
+			when L133 =>
+
+			when L134 =>
+
+			when L135 =>
+
+			when L136 =>
+
+			when L137 =>
+
+			when L138 =>
+
 		end case;
 	end process;
 	
@@ -256,76 +247,94 @@ begin
 	end process;
 	
 	
-	chip_ready <= '1' when current_state = S0 else '0';
+	chip_ready <= '1' when current_state = L42 else '0';
 	
-	ctrl0 <= '1' when current_state = S0 else '0';
-	
-	--i=0
-	ctrl1 <= '1' when (current_state = S1 or current_state = S16 or current_state = S26 or current_state = S37) else '0'; --TODO MULTI STATE
-	
-	ctrl2 <= '1' when current_state = S1 else '0';
-	ctrl3 <= '1' when current_state = S1 else '0';
-	ctrl4 <= '1' when current_state = S1 else '0';
-	ctrl5 <= '1' when current_state = S2 else '0';
-	ctrl6 <= '1' when current_state = S3 else '0';
-	ctrl7 <= '1' when current_state = S5 else '0';
-	ctrl8 <= '1' when current_state = S8 else '0';
-	ctrl9 <= '1' when current_state = S10 else '0';
-	ctrl10 <= '1' when current_state = S11 else '0';
-	ctrl11 <= '1' when current_state = S13 else '0';
-	ctrl12 <= '1' when current_state = S15 else '0';
-	ctrl13 <= '1' when current_state = S18 else '0';
-	ctrl14 <= '1' when current_state = S8 else '0';
-	ctrl15 <= '1' when current_state = S19 else '0';
-	
-	--i++
-	ctrl16 <= '1' when (current_state = S20 or current_state = S30 or current_state = S35 or current_state = S50) else '0'; --TODO MULTI STATE
-	
-	ctrl17 <= '1' when current_state = S21 else '0';
-	ctrl18 <= '1' when current_state = S22 else '0';
-	ctrl19 <= '1' when current_state = S23 else '0';
-	ctrl20 <= '1' when current_state = S25 else '0';
-	ctrl21 <= '1' when current_state = S8 else '0';
-	ctrl22 <= '1' when current_state = S8 else '0';
-	ctrl23 <= '1' when current_state = S8 else '0';
-	ctrl24 <= '1' when current_state = S8 else '0';
-	ctrl25 <= '1' when current_state = S29 else '0';
-	ctrl26 <= '1' when current_state = S31 else '0';
-	ctrl27 <= '1' when current_state = S33 else '0';
-	ctrl28 <= '1' when current_state = S33 else '0';
-	ctrl29 <= '1' when current_state = S34 else '0';
-	ctrl30 <= '1' when current_state = S35 else '0';
-	ctrl31 <= '1' when current_state = S36 else '0';
-	ctrl32 <= '1' when current_state = S36 else '0';
-	ctrl33 <= '1' when current_state = S36 else '0';
-	ctrl34 <= '1' when current_state = S36 else '0';
-	ctrl35 <= '1' when current_state = S36 else '0';
-	ctrl36 <= '1' when current_state = S36 else '0';
-	ctrl37 <= '1' when current_state = S36 else '0';
-	ctrl38 <= '1' when current_state = S36 else '0';
-	ctrl39 <= '1' when current_state = S39 else '0';
-	ctrl40 <= '1' when current_state = S39 else '0';
-	ctrl41 <= '1' when current_state = S40 else '0';
-	ctrl42 <= '1' when current_state = S40 else '0';
-	ctrl43 <= '1' when current_state = S40 else '0';
-	ctrl44 <= '1' when current_state = S41 else '0';
-	ctrl45 <= '1' when current_state = S42 else '0';
-	ctrl46 <= '1' when current_state = S43 else '0';
-	ctrl47 <= '1' when current_state = S44 else '0';
-	ctrl48 <= '1' when current_state = S45 else '0';
-	ctrl49 <= '1' when current_state = S46 else '0';
-	ctrl50 <= '1' when current_state = S47 else '0';
-	ctrl51 <= '1' when current_state = S48 else '0';
-	ctrl52 <= '1' when current_state = S49 else '0';
-	ctrl53 <= '1' when current_state = S51 else '0';
-	ctrl54 <= '1' when current_state = S51 else '0';
-	ctrl55 <= '1' when current_state = S51 else '0';
-	ctrl56 <= '1' when current_state = S51 else '0';
-	ctrl57 <= '1' when current_state = S51 else '0';
-	ctrl58 <= '1' when current_state = S51 else '0';
-	ctrl59 <= '1' when current_state = S51 else '0';
-	ctrl60 <= '1' when current_state = S51 else '0';
-	
-	ctrl61 <= '1' when current_state = S52 else '0';
+	ctrl1 <= '1' when current_state = L else '0';
+	ctrl2 <= '1' when current_state = L else '0';
+	ctrl3 <= '1' when current_state = L else '0';
+	ctrl4 <= '1' when current_state = L else '0';
+	ctrl5 <= '1' when current_state = L else '0';
+	ctrl6 <= '1' when current_state = L else '0';
+	ctrl7 <= '1' when current_state = L else '0';
+	ctrl8 <= '1' when current_state = L else '0';
+	ctrl9 <= '1' when current_state = L else '0';
+	ctrl10 <= '1' when current_state = L else '0';
+	ctrl11 <= '1' when current_state = L else '0';
+	ctrl12 <= '1' when current_state = L else '0';
+	ctrl13 <= '1' when current_state = L else '0';
+	ctrl14 <= '1' when current_state = L else '0';
+	ctrl15 <= '1' when current_state = L else '0';
+	ctrl16 <= '1' when current_state = L else '0';
+	ctrl17 <= '1' when current_state = L else '0';
+	ctrl18 <= '1' when current_state = L else '0';
+	ctrl19 <= '1' when current_state = L else '0';
+	ctrl20 <= '1' when current_state = L else '0';
+	ctrl21 <= '1' when current_state = L else '0';
+	ctrl22 <= '1' when current_state = L else '0';
+	ctrl23 <= '1' when current_state = L else '0';
+	ctrl24 <= '1' when current_state = L else '0';
+	ctrl26 <= '1' when current_state = L else '0';
+	ctrl27 <= '1' when current_state = L else '0';
+	ctrl28 <= '1' when current_state = L else '0';
+	ctrl29 <= '1' when current_state = L else '0';
+	ctrl30 <= '1' when current_state = L else '0';
+	ctrl31 <= '1' when current_state = L else '0';
+	ctrl32 <= '1' when current_state = L else '0';
+	ctrl33 <= '1' when current_state = L else '0';
+	ctrl34 <= '1' when current_state = L else '0';
+	ctrl35 <= '1' when current_state = L else '0';
+	ctrl36 <= '1' when current_state = L else '0';
+	ctrl37 <= '1' when current_state = L else '0';
+	ctrl38 <= '1' when current_state = L else '0';
+	ctrl39 <= '1' when current_state = L else '0';
+	ctrl40 <= '1' when current_state = L else '0';
+	ctrl41 <= '1' when current_state = L else '0';
+	ctrl42 <= '1' when current_state = L else '0';
+	ctrl43 <= '1' when current_state = L else '0';
+	ctrl44 <= '1' when current_state = L else '0';
+	ctrl45 <= '1' when current_state = L else '0';
+	ctrl46 <= '1' when current_state = L else '0';
+	ctrl47 <= '1' when current_state = L else '0';
+	ctrl48 <= '1' when current_state = L else '0';
+	ctrl49 <= '1' when current_state = L else '0';
+	ctrl50 <= '1' when current_state = L else '0';
+	ctrl51 <= '1' when current_state = L else '0';
+	ctrl52 <= '1' when current_state = L else '0';
+	ctrl53 <= '1' when current_state = L else '0';
+	ctrl54 <= '1' when current_state = L else '0';
+	ctrl55 <= '1' when current_state = L else '0';
+	ctrl56 <= '1' when current_state = L else '0';
+	ctrl57 <= '1' when current_state = L else '0';
+	ctrl58 <= '1' when current_state = L else '0';
+	ctrl59 <= '1' when current_state = L else '0';
+	ctrl60 <= '1' when current_state = L else '0';
+	ctrl61 <= '1' when current_state = L else '0';
+	ctrl62 <= '1' when current_state = L else '0';
+	ctrl63 <= '1' when current_state = L else '0';
+	ctrl64 <= '1' when current_state = L else '0';
+	ctrl65 <= '1' when current_state = L else '0';
+	ctrl66 <= '1' when current_state = L else '0';
+	ctrl67 <= '1' when current_state = L else '0';
+	ctrl68 <= '1' when current_state = L else '0';
+	ctrl69 <= '1' when current_state = L else '0';
+	ctrl70 <= '1' when current_state = L else '0';
+	ctrl71 <= '1' when current_state = L else '0';
+	ctrl72 <= '1' when current_state = L else '0';
+	ctrl73 <= '1' when current_state = L else '0';
+	ctrl74 <= '1' when current_state = L else '0';
+	ctrl75 <= '1' when current_state = L else '0';
+	ctrl76 <= '1' when current_state = L else '0';
+	ctrl77 <= '1' when current_state = L else '0';
+	ctrl78 <= '1' when current_state = L else '0';
+	ctrl79 <= '1' when current_state = L else '0';
+	ctrl80 <= '1' when current_state = L else '0';
+	ctrl81 <= '1' when current_state = L else '0';
+	ctrl82 <= '1' when current_state = L else '0';
+	ctrl83 <= '1' when current_state = L else '0';
+	ctrl84 <= '1' when current_state = L else '0';
+	ctrl85 <= '1' when current_state = L else '0';
+	ctrl86 <= '1' when current_state = L else '0';
+	ctrl87 <= '1' when current_state = L else '0';
+	ctrl88 <= '1' when current_state = L else '0';
 
 end sha256_control_block_arch ; -- sha256_control_block_arch

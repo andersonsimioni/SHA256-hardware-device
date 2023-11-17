@@ -39,102 +39,102 @@ uint32_t right_rotate(uint32_t n, uint32_t d)
 
 void compute_sha256(unsigned char* ram, unsigned char* output)
 {
-    uint32_t len = ram[0];
-    uint32_t i = 0;
-    uint32_t k_bits_to_append = 0;
-    uint32_t data_words_count = len;
-    uint32_t data_bits_count = len<<3;
-    uint32_t total_size = (data_bits_count + 1 + k_bits_to_append + 64);
-    uint32_t is_module_of_512 = (total_size & 0x1FF);
-    while (is_module_of_512 != 0){
-        k_bits_to_append++;
-        total_size = (data_bits_count + 1 + k_bits_to_append + 64);
-        is_module_of_512 = (total_size & 0x1FF);}
-    uint32_t chunks_count = total_size >> 9; 
-    if (chunks_count > max_chunks_count) return; 
-    unsigned char chunks[640] = {0};
-    uint32_t word_id = 0;
-    while (word_id < data_words_count){
-        chunks[word_id] = ram[1 + word_id];
-        if (word_id == data_words_count - 1){
-            chunks[word_id + 1] = 0x80;
-            uint32_t aux = (k_bits_to_append+1) >> 3;
-            char val = (char)((data_bits_count >> 24) & 0xff);
-            chunks[word_id + 1 + aux + 4 + 0] = val;
-            val = (char)((data_bits_count >> 16) & 0xff);
-            chunks[word_id + 1 + aux + 4 + 1] = val;
-            val = (char)((data_bits_count >> 8) & 0xff);
-            chunks[word_id + 1 + aux + 4 + 2] = val;
-            val = (char)((data_bits_count) & 0xff);
-            chunks[word_id + 1 + aux + 4 + 3] = val;}
-        word_id++;}
-    uint32_t HC[8] = {0};
-    i = 0;
-    while (i < 8){
-        HC[i] = H[i];
-        i++;}
-    uint32_t chunk_id = 0;
-    while (chunk_id < chunks_count){
-        uint32_t w[64] = {0};
-        i = 0;
-        while (i < 16){
-            uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24; 
-            uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16; 
-            uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;  
-            uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];     
-            w[i] = (b3 | b2 | b1 | b0);
-            i++;}
-        i = 16;
-        while (i < 64){
-            uint32_t w_i_sub_15 = w[i-15];
-            uint32_t w_i_sub_2 = w[i-2];
-            uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3);
-            uint32_t s1 = right_rotate(w_i_sub_2, 17) ^ right_rotate(w_i_sub_2, 19) ^ (w_i_sub_2 >> 10);
-            uint32_t w_i_sub_16 = w[i-16];
-            uint32_t w_i_sub_7 = w[i-7];
-            uint32_t res = w_i_sub_16 + s0 + w_i_sub_7 + s1;
-            w[i] = res;
-            i++;}
-        uint32_t a = 0x6a09e667;
-        uint32_t b = 0xbb67ae85;
-        uint32_t c = 0x3c6ef372;
-        uint32_t d = 0xa54ff53a;
-        uint32_t e = 0x510e527f;
-        uint32_t f = 0x9b05688c;
-        uint32_t g = 0x1f83d9ab;
-        uint32_t h = 0x5be0cd19;
-        i = 0;
-        while (i < 64){
-            uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25);
-            uint32_t ch = (e & f) ^ ((~e) & g);
-            uint32_t temp1 = (h + s1 + ch + K[i] + w[i]);
-            uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22);
-            uint32_t maj = (a & b) ^ (a & c) ^ (b & c);
-            uint32_t temp2 = (s0 + maj);
-            h = g;
-            g = f;
-            f = e;
-            e = d + temp1;
-            d = c;
-            c = b;
-            b = a;
-            a = temp1 + temp2;
-            i++;}
-        HC[0] += a;
-        HC[1] += b;
-        HC[2] += c;
-        HC[3] += d;
-        HC[4] += e;
-        HC[5] += f;
-        HC[6] += g;
-        HC[7] += h;
-        chunk_id++;}
-    i=0;
-    while (i < 32){
-        output[(i<<2)] = (HC[i]>>24) & 0xff;
-        output[(i<<2)+1] = (HC[i]>>16) & 0xff;
-        output[(i<<2)+2] = (HC[i]>>8) & 0xff;
-        output[(i<<2)+3] = (HC[i]>>0) & 0xff;
-        i++;}
+    /*L42*/ uint32_t len = ram[0]; //ctrl1
+    /*L43*/ uint32_t i = 0; //ctrl2
+    /*L44*/ uint32_t k_bits_to_append = 0; //ctrl3
+    /*L45*/ uint32_t data_words_count = len; //ctrl4
+    /*L46*/ uint32_t data_bits_count = len<<3; //ctrl5
+    /*L47*/ uint32_t total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl6
+    /*L48*/ uint32_t is_module_of_512 = (total_size & 0x1FF); //ctrl7
+    /*L49*/ while (is_module_of_512 != 0){ //stt1
+        /*L50*/ k_bits_to_append++; //ctrl8
+        /*L51*/ total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl9
+        /*L52*/ is_module_of_512 = (total_size & 0x1FF);} //ctrl10
+    /*L53*/ uint32_t chunks_count = total_size >> 9;  //ctrl11
+    /*L54*/ if (chunks_count > max_chunks_count) return;  //stt2
+    /*L55*/ unsigned char chunks[640] = {0}; //ctrl12
+    /*L56*/ uint32_t word_id = 0; //ctrl13
+    /*L57*/ while (word_id < data_words_count){ //stt3
+        /*L58*/ chunks[word_id] = ram[1 + word_id]; //ctrl14
+        /*L59*/ if (word_id == data_words_count - 1){ //stt4
+            /*L60*/ chunks[word_id + 1] = 0x80; //ctrl15
+            /*L61*/ uint32_t aux = (k_bits_to_append+1) >> 3; //ctrl16
+            /*L62*/ char val = (char)((data_bits_count >> 24) & 0xff); //ctrl17
+            /*L63*/ chunks[word_id + 1 + aux + 4 + 0] = val; //ctrl18
+            /*L64*/ val = (char)((data_bits_count >> 16) & 0xff); //ctrl19
+            /*L65*/ chunks[word_id + 1 + aux + 4 + 1] = val; //ctrl20
+            /*L66*/ val = (char)((data_bits_count >> 8) & 0xff); //ctrl21
+            /*L67*/ chunks[word_id + 1 + aux + 4 + 2] = val; //ctrl22
+            /*L68*/ val = (char)((data_bits_count) & 0xff); //ctrl23
+            /*L69*/ chunks[word_id + 1 + aux + 4 + 3] = val;} //ctrl24
+        /*L70*/ word_id++;} //ctrl26
+    /*L71*/ uint32_t HC[8] = {0}; //ctrl27
+    /*L72*/ i = 0; //ctrl28
+    /*L73*/ while (i < 8){
+        /*L74*/ HC[i] = H[i]; //ctrl29
+        /*L75*/ i++;} //ctrl30
+    /*L76*/ uint32_t chunk_id = 0; //ctrl31
+    /*L77*/ while (chunk_id < chunks_count){ //stt5
+        /*L78*/ uint32_t w[64] = {0}; //ctrl32
+        /*L79*/ i = 0; //ctrl33
+        /*L80*/ while (i < 16){ //stt6
+            /*L81*/ uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24; //ctrl34
+            /*L82*/ uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16; //ctrl35
+            /*L83*/ uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;  //ctrl36
+            /*L84*/ uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];     //ctrl37
+            /*L85*/ w[i] = (b3 | b2 | b1 | b0); //ctrl38
+            /*L86*/ i++;} //ctrl39
+        /*L87*/ i = 16; //ctrl40
+        /*L88*/ while (i < 64){ //stt7
+            /*L89*/ uint32_t w_i_sub_15 = w[i-15]; //ctrl41
+            /*L90*/ uint32_t w_i_sub_2 = w[i-2]; //ctrl42
+            /*L91*/ uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3); //ctrl43
+            /*L92*/ uint32_t s1 = right_rotate(w_i_sub_2, 17) ^ right_rotate(w_i_sub_2, 19) ^ (w_i_sub_2 >> 10); //ctrl44
+            /*L93*/ uint32_t w_i_sub_16 = w[i-16]; //ctrl45
+            /*L94*/ uint32_t w_i_sub_7 = w[i-7]; //ctrl46
+            /*L95*/ uint32_t res = w_i_sub_16 + s0 + w_i_sub_7 + s1; //ctrl47
+            /*L96*/ w[i] = res; //ctrl48
+            /*L97*/ i++;} //ctrl49
+        /*L98*/ uint32_t a = 0x6a09e667; //ctrl50
+        /*L99*/ uint32_t b = 0xbb67ae85; //ctrl51
+        /*L100*/ uint32_t c = 0x3c6ef372; //ctrl52
+        /*L101*/ uint32_t d = 0xa54ff53a; //ctrl53
+        /*L102*/ uint32_t e = 0x510e527f; //ctrl54
+        /*L103*/ uint32_t f = 0x9b05688c; //ctrl55
+        /*L104*/ uint32_t g = 0x1f83d9ab; //ctrl56
+        /*L105*/ uint32_t h = 0x5be0cd19; //ctrl57
+        /*L106*/ i = 0; //ctrl58
+        /*L107*/ while (i < 64){ //stt8
+            /*L108*/ uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl59
+            /*L109*/ uint32_t ch = (e & f) ^ ((~e) & g);  //ctrl60
+            /*L110*/ uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl61
+            /*L111*/ uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22);  //ctrl62
+            /*L112*/ uint32_t maj = (a & b) ^ (a & c) ^ (b & c);  //ctrl63
+            /*L113*/ uint32_t temp2 = (s0 + maj);  //ctrl64
+            /*L114*/ h = g;  //ctrl65
+            /*L115*/ g = f;  //ctrl66
+            /*L116*/ f = e;  //ctrl67
+            /*L117*/ e = d + temp1;  //ctrl68
+            /*L118*/ d = c;  //ctrl69
+            /*L119*/ c = b;  //ctrl70
+            /*L120*/ b = a;  //ctrl71
+            /*L121*/ a = temp1 + temp2;  //ctrl72
+            /*L122*/ i++;}  //ctrl73
+        /*L123*/ HC[0] += a;  //ctrl74
+        /*L124*/ HC[1] += b;  //ctrl75
+        /*L125*/ HC[2] += c;  //ctrl76
+        /*L126*/ HC[3] += d;  //ctrl77
+        /*L127*/ HC[4] += e;  //ctrl78
+        /*L128*/ HC[5] += f;  //ctrl79
+        /*L129*/ HC[6] += g;  //ctrl80
+        /*L130*/ HC[7] += h;  //ctrl81
+        /*L131*/ chunk_id++;}  //ctrl82
+    /*L132*/ i=0;  //ctrl83
+    /*L133*/ while (i < 32){ //stt9
+        /*L134*/ output[(i<<2)] = (HC[i]>>24) & 0xff;  //ctrl84
+        /*L135*/ output[(i<<2)+1] = (HC[i]>>16) & 0xff;  //ctrl85
+        /*L136*/ output[(i<<2)+2] = (HC[i]>>8) & 0xff;  //ctrl86
+        /*L137*/ output[(i<<2)+3] = (HC[i]>>0) & 0xff;  //ctrl87
+        /*L138*/ i++;}  //ctrl88
     return;
 }
