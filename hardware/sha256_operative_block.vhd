@@ -242,18 +242,101 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	-- END REGISTERS CONTROL --
 	
 	
+	
+	
 	-- LA OPERATIONS --
 	signal len_shift_left_3 : std_logic_vector(31 downto 0) := (others => '0');
 	signal word_id_add_1 : std_logic_vector(31 downto 0) := (others => '0');
 	signal i_add_1 : std_logic_vector(31 downto 0) := (others => '0');
 	
-	signal data_bits_count_add_1, k_bits_to_append_add_64, data_bits_count_add_1_add_k_bits_to_append_add_64 : std_logic_vector(31 downto 0);
+	signal data_bits_count_add_1 : std_logic_vector(31 downto 0);
+	signal k_bits_to_append_add_64 : std_logic_vector(31 downto 0);
+	signal data_bits_count_add_1_add_k_bits_to_append_add_64 : std_logic_vector(31 downto 0);
 	
 	signal total_size_and_1ff : std_logic_vector(31 downto 0) := (others => '0');
 	signal total_size_shift_right_9 : std_logic_vector(31 downto 0) := (others => '0');
 	
 	signal chunks_count_higher_than_max_chunks_count : std_logic;
 	signal word_id_less_than_data_words_count : std_logic;
+	
+	signal data_words_count_sub_1 : std_logic_vector(31 downto 0);
+	signal i_shift_left_2 : std_logic_vector(31 downto 0);
+	
+	signal i_less_than_64 : std_logic;
+	signal i_less_than_16 : std_logic;
+	signal i_less_than_18 : std_logic;
+	signal i_less_than_4 : std_logic;
+	
+	signal i_sub_16 : std_logic_vector(31 downto 0);
+	signal i_sub_15 : std_logic_vector(31 downto 0);
+	signal i_sub_7 : std_logic_vector(31 downto 0);
+	signal i_sub_2 : std_logic_vector(31 downto 0);
+	
+	signal k_bits_to_append_add_1 : std_logic_vector(31 downto 0);
+	signal k_bits_to_append_add_1_shift_right_3 : std_logic_vector(31 downto 0);
+	
+	signal aux_add_4 : std_logic_vector(31 downto 0);
+	signal word_id_add_1_add_aux_add_4 : std_logic_vector(31 downto 0);
+	signal word_id_add_1_add_aux_add_4_add_0 : std_logic_vector(31 downto 0);
+	signal word_id_add_1_add_aux_add_4_add_1 : std_logic_vector(31 downto 0);
+	signal word_id_add_1_add_aux_add_4_add_2 : std_logic_vector(31 downto 0);
+	signal word_id_add_1_add_aux_add_4_add_3 : std_logic_vector(31 downto 0);
+	
+	
+	signal data_bits_count_shift_right_24 : std_logic_vector(31 downto 0);
+	signal data_bits_count_shift_right_16 : std_logic_vector(31 downto 0);
+	signal data_bits_count_shift_right_8 : std_logic_vector(31 downto 0);
+	
+	signal data_bits_count_shift_right_24_and_ff : std_logic_vector(31 downto 0);
+	signal data_bits_count_shift_right_16_and_ff : std_logic_vector(31 downto 0);
+	signal data_bits_count_shift_right_8_and_ff : std_logic_vector(31 downto 0);
+	
+	signal data_bits_count_and_ff : std_logic_vector(31 downto 0);
+	
+	signal chunk_id_less_than_chunks_count : std_logic;
+	
+	signal chunk_id_shift_left_6 : std_logic_vector(31 downto 0);
+	signal chunk_id_shift_left_6_add_i_shift_left_2 : std_logic_vector(31 downto 0);
+	signal chunk_id_shift_left_6_add_i_shift_left_2_add_0 : std_logic_vector(31 downto 0);
+	signal chunk_id_shift_left_6_add_i_shift_left_2_add_1 : std_logic_vector(31 downto 0);
+	signal chunk_id_shift_left_6_add_i_shift_left_2_add_2 : std_logic_vector(31 downto 0);
+	signal chunk_id_shift_left_6_add_i_shift_left_2_add_3 : std_logic_vector(31 downto 0);
+	signal b3_or_b2_or_b1_or_b0 : std_logic_vector(31 downto 0);
+
+	signal w_i_sub_15_rotate_right_7 : std_logic_vector(31 downto 0);
+	signal w_i_sub_15_rotate_right_18 : std_logic_vector(31 downto 0);
+	signal w_i_sub_15_rotate_right_3 : std_logic_vector(31 downto 0);
+	signal w_i_sub_15_rotate_right_7_xor_w_i_sub_15_rotate_right_18_xor_w_i_sub_15_shift_right_3 : std_logic_vector(31 downto 0);
+
+	signal w_i_sub_2_rotate_right_17 : std_logic_vector(31 downto 0);
+	signal w_i_sub_2_rotate_right_19 : std_logic_vector(31 downto 0);
+	signal w_i_sub_2_rotate_right_10 : std_logic_vector(31 downto 0);
+	signal w_i_sub_16_add_s0 : std_logic_vector(31 downto 0);
+	signal w_i_sub_7_add_s1 : std_logic_vector(31 downto 0);
+	signal w_i_sub_16_add_s0_add_w_i_sub_7_add_s1 : std_logic_vector(31 downto 0);
+
+	signal e_rotate_right_6 : std_logic_vector(31 downto 0);
+	signal e_rotate_right_11 : std_logic_vector(31 downto 0);
+	signal e_rotate_right_25 : std_logic_vector(31 downto 0);
+	signal e_rotate_right_6_xor_e_rotate_right_11_xor_e_rotate_right_25 : std_logic_vector(31 downto 0);
+	signal e_and_f_xor_not_e_and_g : std_logic_vector(31 downto 0);
+	signal h_add_s1 : std_logic_vector(31 downto 0);
+
+	signal h_add_s1_add_ch : std_logic_vector(31 downto 0);
+	signal k_i_add_w_i : std_logic_vector(31 downto 0);
+	signal h_add_s1_add_ch_add_k_i_add_w_i : std_logic_vector(31 downto 0);
+	signal a_rotate_right_2 : std_logic_vector(31 downto 0);
+	signal a_rotate_right_13 : std_logic_vector(31 downto 0);
+	signal a_rotate_right_22 : std_logic_vector(31 downto 0);
+	signal a_rotate_right_2_xor_a_rotate_right_13_xor_a_rotate_right_22 : std_logic_vector(31 downto 0);
+	signal a_and_b_xor_a_and_c_xor_b_and_c : std_logic_vector(31 downto 0);
+
+	signal s0_add_maj : std_logic_vector(31 downto 0);
+	signal d_add_temp1 : std_logic_vector(31 downto 0);
+	signal temp1_add_temp2 : std_logic_vector(31 downto 0);
+	
+	signal w_i_sub_2_rotate_right_17_xor_w_i_sub_2_rotate_right_19_xor_w_i_sub_2_shift_right_10 : std_logic_vector(31 downto 0);
+
 	-- END LA OPERATIONS --
 	
 begin
@@ -613,7 +696,7 @@ begin
 	--(i < 16)
 	i_less_than_16_comp: component compare
 	generic map(	width => 32, generateLessThan => true,
-				useFixedSecodOperand => true;
+				useFixedSecodOperand => true,
 				fixedSecodOperand => 16  )
 	port map(	
 			input0 => i_reg_out, 
@@ -625,7 +708,7 @@ begin
 	--(i < 8)
 	i_less_than_8_comp: component compare
 	generic map(	width => 32, generateLessThan => true,
-				useFixedSecodOperand => true;
+				useFixedSecodOperand => true,
 				fixedSecodOperand => 8  )
 	port map(	
 			input0 => i_reg_out, 
@@ -637,7 +720,7 @@ begin
 	--(i < 4)
 	i_less_than_4_comp: component compare
 	generic map(	width => 32, generateLessThan => true,
-				useFixedSecodOperand => true;
+				useFixedSecodOperand => true,
 				fixedSecodOperand => 4  )
 	port map(	
 			input0 => i_reg_out, 
@@ -650,7 +733,7 @@ begin
 	--(i < 64)
 	i_less_than_64_comp: component compare
 	generic map(	width => 32, generateLessThan => true,
-				useFixedSecodOperand => true;
+				useFixedSecodOperand => true,
 				fixedSecodOperand => 64  )
 	port map(	
 			input0 => i_reg_out, 
@@ -762,13 +845,13 @@ begin
 		a => word_id_reg_out, b => aux_add_4,
 		result => word_id_add_1_add_aux_add_4 );
 		
-	word_id_add_1_add_aux_add_4_add_0 < = word_id_add_1_add_aux_add_4;
+	word_id_add_1_add_aux_add_4_add_0 <= word_id_add_1_add_aux_add_4;
 		
 		
 		
 	
 	--word_id + 1 + aux + 4 + 1
-	word_id_add_1_add_aux_add_4_add_0_comp: addersubtractor
+	word_id_add_1_add_aux_add_4_add_1_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -782,7 +865,7 @@ begin
 		
 		
 	--word_id + 1 + aux + 4 + 2
-	word_id_add_1_add_aux_add_4_add_0_comp: addersubtractor
+	word_id_add_1_add_aux_add_4_add_2_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -796,7 +879,7 @@ begin
 		
 		
 	--word_id + 1 + aux + 4 + 3
-	word_id_add_1_add_aux_add_4_add_0_comp: addersubtractor
+	word_id_add_1_add_aux_add_4_add_3_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -830,7 +913,7 @@ begin
 	
 	
 	--(data_bits_count >> 16) & 0xff
-	data_bits_count_shift_right_24_comp : shifterRotator
+	data_bits_count_shift_right_16_comp : shifterRotator
 	generic map(
 		width => 32,
 		isShifter => true,
@@ -915,7 +998,7 @@ begin
 	
 	
 	--(chunk_id<<6) + (i<<2) + 1
-	chunk_id_shift_left_6_add_i_shift_left_2_comp: addersubtractor
+	chunk_id_shift_left_6_add_i_shift_left_2_add_1_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -929,7 +1012,7 @@ begin
 	
 	
 	--(chunk_id<<6) + (i<<2) + 2
-	chunk_id_shift_left_6_add_i_shift_left_2_comp: addersubtractor
+	chunk_id_shift_left_6_add_i_shift_left_2_add_2_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -943,7 +1026,7 @@ begin
 	
 	
 	--(chunk_id<<6) + (i<<2) + 3
-	chunk_id_shift_left_6_add_i_shift_left_2_comp: addersubtractor
+	chunk_id_shift_left_6_add_i_shift_left_2_add_3_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -1076,7 +1159,7 @@ begin
 			fixedSecodOperand => 0)
 	port map(	
 		op => '0',
-		a => w_i_sub_17_reg_out, b=>s1_reg_out,
+		a => w_i_sub_7_reg_out, b=>s1_reg_out,
 		result => w_i_sub_7_add_s1 );
 		
 	w_i_sub_16_add_s0_add_w_i_sub_7_add_s1_comp: addersubtractor

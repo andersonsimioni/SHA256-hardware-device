@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus II 64-Bit"
 -- VERSION "Version 13.1.0 Build 162 10/23/2013 SJ Web Edition"
 
--- DATE "11/17/2023 00:11:22"
+-- DATE "11/17/2023 16:34:19"
 
 -- 
 -- Device: Altera EP4CGX50DF27C6 Package FBGA672
@@ -613,8 +613,8 @@ SIGNAL \sha256_control_block_0|current_state.S53~feeder_combout\ : std_logic;
 SIGNAL \sha256_control_block_0|current_state.S53~q\ : std_logic;
 SIGNAL \sha256_control_block_0|Selector0~0_combout\ : std_logic;
 SIGNAL \sha256_control_block_0|current_state.S0~q\ : std_logic;
-SIGNAL \ALT_INV_chip_reset~inputclkctrl_outclk\ : std_logic;
 SIGNAL \sha256_control_block_0|ALT_INV_current_state.S0~q\ : std_logic;
+SIGNAL \ALT_INV_chip_reset~inputclkctrl_outclk\ : std_logic;
 
 BEGIN
 
@@ -630,8 +630,8 @@ ww_devpor <= devpor;
 \clock~inputclkctrl_INCLK_bus\ <= (vcc & vcc & vcc & \clock~input_o\);
 
 \chip_reset~inputclkctrl_INCLK_bus\ <= (vcc & vcc & vcc & \chip_reset~input_o\);
-\ALT_INV_chip_reset~inputclkctrl_outclk\ <= NOT \chip_reset~inputclkctrl_outclk\;
 \sha256_control_block_0|ALT_INV_current_state.S0~q\ <= NOT \sha256_control_block_0|current_state.S0~q\;
+\ALT_INV_chip_reset~inputclkctrl_outclk\ <= NOT \chip_reset~inputclkctrl_outclk\;
 
 -- Location: IOOBUF_X33_Y0_N2
 \chip_ready~output\ : cycloneiv_io_obuf
