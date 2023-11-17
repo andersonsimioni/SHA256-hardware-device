@@ -70,14 +70,14 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
         /*L70*/ word_id++;} //ctrl26
     /*L71*/ uint32_t HC[8] = {0}; //ctrl27
     /*L72*/ i = 0; //ctrl28
-    /*L73*/ while (i < 8){
+    /*L73*/ while (i < 8){ //stt5
         /*L74*/ HC[i] = H[i]; //ctrl29
         /*L75*/ i++;} //ctrl30
     /*L76*/ uint32_t chunk_id = 0; //ctrl31
-    /*L77*/ while (chunk_id < chunks_count){ //stt5
+    /*L77*/ while (chunk_id < chunks_count){ //stt6
         /*L78*/ uint32_t w[64] = {0}; //ctrl32
         /*L79*/ i = 0; //ctrl33
-        /*L80*/ while (i < 16){ //stt6
+        /*L80*/ while (i < 16){ //stt7
             /*L81*/ uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24; //ctrl34
             /*L82*/ uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16; //ctrl35
             /*L83*/ uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;  //ctrl36
@@ -85,7 +85,7 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
             /*L85*/ w[i] = (b3 | b2 | b1 | b0); //ctrl38
             /*L86*/ i++;} //ctrl39
         /*L87*/ i = 16; //ctrl40
-        /*L88*/ while (i < 64){ //stt7
+        /*L88*/ while (i < 64){ //stt8
             /*L89*/ uint32_t w_i_sub_15 = w[i-15]; //ctrl41
             /*L90*/ uint32_t w_i_sub_2 = w[i-2]; //ctrl42
             /*L91*/ uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3); //ctrl43
@@ -104,7 +104,7 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
         /*L104*/ uint32_t g = 0x1f83d9ab; //ctrl56
         /*L105*/ uint32_t h = 0x5be0cd19; //ctrl57
         /*L106*/ i = 0; //ctrl58
-        /*L107*/ while (i < 64){ //stt8
+        /*L107*/ while (i < 64){ //stt9
             /*L108*/ uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl59
             /*L109*/ uint32_t ch = (e & f) ^ ((~e) & g);  //ctrl60
             /*L110*/ uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl61
@@ -130,7 +130,7 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
         /*L130*/ HC[7] += h;  //ctrl81
         /*L131*/ chunk_id++;}  //ctrl82
     /*L132*/ i=0;  //ctrl83
-    /*L133*/ while (i < 32){ //stt9
+    /*L133*/ while (i < 32){ //stt10
         /*L134*/ output[(i<<2)] = (HC[i]>>24) & 0xff;  //ctrl84
         /*L135*/ output[(i<<2)+1] = (HC[i]>>16) & 0xff;  //ctrl85
         /*L136*/ output[(i<<2)+2] = (HC[i]>>8) & 0xff;  //ctrl86

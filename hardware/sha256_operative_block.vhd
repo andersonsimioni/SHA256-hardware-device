@@ -13,7 +13,7 @@ entity sha256_operative_block is port(
 	ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
 	ctrl87,ctrl88 : in std_logic;
 	
-	stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9 : out std_logic;
+	stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9, stt10 : out std_logic;
 	
 	output : out std_logic_vector(255 downto 0)
 );
