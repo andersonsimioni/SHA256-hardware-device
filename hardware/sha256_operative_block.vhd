@@ -1365,6 +1365,12 @@ begin
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	--main ram address set
 	--ram[0]; //ctrl0
 	--ram[1 + word_id]; //ctrl11
