@@ -29,21 +29,435 @@
 (DELAYFILE
   (SDFVERSION "2.1")
   (DESIGN "sha256_top_level")
-  (DATE "11/15/2023 16:36:05")
+  (DATE "11/16/2023 21:09:41")
   (VENDOR "Altera")
   (PROGRAM "Quartus II 64-Bit")
   (VERSION "Version 13.1.0 Build 162 10/23/2013 SJ Web Edition")
   (DIVIDER .)
   (TIMESCALE 1 ps)
 
-	// No Timing Cells with timing info are found in the compiled design. A dummy “dff” Timing Cell is created.
   (CELL
-    (CELLTYPE "dff")
-    (INSTANCE * )
+    (CELLTYPE "cycloneiv_io_obuf")
+    (INSTANCE \\chip_ready\~output\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT i (555:555:555) (539:539:539))
+        (IOPATH i o (2732:2732:2732) (2763:2763:2763))
+      )
+    )
   )
-	// No Timing Cells with timing info are found in the compiled design. A dummy “dff” Timing Cell is created.
   (CELL
-    (CELLTYPE "dff")
-    (INSTANCE * )
+    (CELLTYPE "cycloneiv_io_ibuf")
+    (INSTANCE \\clock\~input\\)
+    (DELAY
+      (ABSOLUTE
+        (IOPATH i o (614:614:614) (779:779:779))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_clkctrl")
+    (INSTANCE \\clock\~inputclkctrl\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT inclk[0] (488:488:488) (472:472:472))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_io_ibuf")
+    (INSTANCE \\chip_select\~input\\)
+    (DELAY
+      (ABSOLUTE
+        (IOPATH i o (594:594:594) (759:759:759))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|next_state\.S1\~0\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datac (1158:1158:1158) (1158:1158:1158))
+        (PORT datad (237:237:237) (305:305:305))
+        (IOPATH datac combout (243:243:243) (241:241:241))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_io_ibuf")
+    (INSTANCE \\chip_reset\~input\\)
+    (DELAY
+      (ABSOLUTE
+        (IOPATH i o (614:614:614) (779:779:779))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_clkctrl")
+    (INSTANCE \\chip_reset\~inputclkctrl\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT inclk[0] (488:488:488) (472:472:472))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S1\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S2\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datac (221:221:221) (290:290:290))
+        (IOPATH datac combout (243:243:243) (242:242:242))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S2\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S3\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (218:218:218) (283:283:283))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S3\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S4\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (218:218:218) (284:284:284))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S4\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S8\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (219:219:219) (286:286:286))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S8\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S9\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (217:217:217) (283:283:283))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S9\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S10\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (219:219:219) (285:285:285))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S10\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S11\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datac (223:223:223) (293:293:293))
+        (IOPATH datac combout (243:243:243) (242:242:242))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S11\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S12\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datac (223:223:223) (294:294:294))
+        (IOPATH datac combout (243:243:243) (242:242:242))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S12\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S22\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datac (220:220:220) (290:290:290))
+        (IOPATH datac combout (243:243:243) (242:242:242))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S22\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S23\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (219:219:219) (285:285:285))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S23\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S24\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (217:217:217) (283:283:283))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S24\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S53\~feeder\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datad (216:216:216) (282:282:282))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S53\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
+  )
+  (CELL
+    (CELLTYPE "cycloneiv_lcell_comb")
+    (INSTANCE \\sha256_control_block_0\|Selector0\~0\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT datab (1192:1192:1192) (1188:1188:1188))
+        (PORT datad (219:219:219) (287:287:287))
+        (IOPATH datab combout (355:355:355) (369:369:369))
+        (IOPATH datac combout (353:353:353) (369:369:369))
+        (IOPATH datad combout (130:130:130) (120:120:120))
+      )
+    )
+  )
+  (CELL
+    (CELLTYPE "dffeas")
+    (INSTANCE \\sha256_control_block_0\|current_state\.S0\\)
+    (DELAY
+      (ABSOLUTE
+        (PORT clk (2083:2083:2083) (2019:2019:2019))
+        (PORT d (74:74:74) (91:91:91))
+        (PORT clrn (2112:2112:2112) (2026:2026:2026))
+        (IOPATH (posedge clk) q (199:199:199) (199:199:199))
+        (IOPATH (negedge clrn) q (194:194:194) (194:194:194))
+      )
+    )
+    (TIMINGCHECK
+      (HOLD d (posedge clk) (157:157:157))
+    )
   )
 )

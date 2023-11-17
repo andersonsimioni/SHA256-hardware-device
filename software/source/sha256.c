@@ -126,7 +126,7 @@ char* compute_sha256(unsigned char* ram)
             //if stt4 then ->S18 else ->S21
             {
                 //S18:
-                uint32_t aux = (k_bits_to_append+1)/8; //ctrl13
+                uint32_t aux = (k_bits_to_append+1) >> 3; //ctrl13
                 char val = (char)((data_bits_count >> ((3-i)<<3)) & 0xff); //ctrl14
                 //->S19
                 
@@ -145,12 +145,26 @@ char* compute_sha256(unsigned char* ram)
         //->S12
     }
     
-
     //S22:
     //VHDL: PARALLEL
-    uint32_t HC[8] = {0};
-    for (int i = 0; i < 8; i++) HC[i] = H[i]; //ctrl18 (HC <= H (PARALLEL))
-    //->S23
+    uint32_t HC[8] = {0}; //ctrl62
+    //->S22_1
+
+    //S22_0:
+    i = 0; //ctrl1
+
+    //S22_1:
+    while (i < 8) //stt9 = (i < 8)
+    //if stt9 then ->S22-2 else ->S23
+    {
+        //S22_2:
+        HC[i] = H[i]; //ctrl18
+        //->S22_3
+
+        //S22_3:
+        i++;
+        //->S22_1
+    }
     
     //S23:
     uint32_t chunk_id = 0; //ctrl19
@@ -176,13 +190,22 @@ char* compute_sha256(unsigned char* ram)
         while (i < 16) //stt6 = (i < 16)
         //if stt6 then ->S28 else ->S31
         {
-            //S28:
+            //S28_0:
             //w0 = m0 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w1 = m1 = 00000000 00000000 00000000 00000000 (CHUNK 8-bits WORDS)
             //w[i] = chunks[chunk_id*chunk_word_count + i*4 + n] && chunks[chunk_id*chunk_word_count + i*4 + (n+1)]..
             uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24;  //ctrl21
+            //S28_1
+
+            //S28_1:
             uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16;  //ctrl22
+            //->S28_2
+
+            //S28_2:
             uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;   //ctrl23
+            //->S28_3
+
+            //S28_3:
             uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];      //ctrl24
             //->S29
 
@@ -203,11 +226,19 @@ char* compute_sha256(unsigned char* ram)
         //VHDL: SEQUENTIAL
         //Extend first 16 words
         while (i < 64) //stt7 = (i < 64)
-        //if stt7 then ->S33 else ->S36
+        //if stt7 then ->S33_0 else ->S36
         {
-            //S33:
-            uint32_t s0 = right_rotate(w[i-15], 7) ^ right_rotate(w[i-15], 18) ^ (w[i-15] >> 3); //ctrl27
-            uint32_t s1 = right_rotate(w[i-2], 17) ^ right_rotate(w[i-2], 19) ^ (w[i-2] >> 10); //ctrl28
+            //S33_0:
+            uint32_t w_i_sub_15 = w[i-15];
+            //->S33_1
+
+            //S33_1:
+            uint32_t w_i_sub_2 = w[i-2];
+            //S33_3
+
+            //S33_2:
+            uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3); //ctrl27
+            uint32_t s1 = right_rotate(w_i_sub_2, 17) ^ right_rotate(w_i_sub_2, 19) ^ (w_i_sub_2 >> 10); //ctrl28
             //->S34
 
             //S34:
@@ -220,18 +251,18 @@ char* compute_sha256(unsigned char* ram)
             //->S32
         }
         
-        
+    
         //S36:
         //VHDL: PARALLEL
         //Initialize working variables
-        uint32_t a = H[0]; //ctrl31
-        uint32_t b = H[1]; //ctrl32
-        uint32_t c = H[2]; //ctrl33
-        uint32_t d = H[3]; //ctrl34
-        uint32_t e = H[4]; //ctrl35
-        uint32_t f = H[5]; //ctrl36
-        uint32_t g = H[6]; //ctrl37
-        uint32_t h = H[7]; //ctrl38
+        uint32_t a = 0x6a09e667; //ctrl31
+        uint32_t b = 0xbb67ae85; //ctrl32
+        uint32_t c = 0x3c6ef372; //ctrl33
+        uint32_t d = 0xa54ff53a; //ctrl34
+        uint32_t e = 0x510e527f; //ctrl35
+        uint32_t f = 0x9b05688c; //ctrl36
+        uint32_t g = 0x1f83d9ab; //ctrl37
+        uint32_t h = 0x5be0cd19; //ctrl38
         //->S37
 
         //S37
@@ -295,16 +326,35 @@ char* compute_sha256(unsigned char* ram)
             //->S38
         }
         
-        
         //S51:
-        //VHDL: PARALLEL
         HC[0] += a; //ctrl53
+        //->S51_1
+
+        //S51_1:
         HC[1] += b; //ctrl54
+        //->S51_2
+
+        //S51_2:
         HC[2] += c; //ctrl55
+        //->S51_3
+
+        //S51_3:
         HC[3] += d; //ctrl56
+        //->S51_4
+
+        //S51_4:
         HC[4] += e; //ctrl57
+        //->S51_5
+
+        //S51_5:
         HC[5] += f; //ctrl58
+        //->S51_6
+
+        //S51_6:
         HC[6] += g; //ctrl59
+        //->S51_7
+
+        //S51_7:
         HC[7] += h; //ctrl60
         //->S52
         
