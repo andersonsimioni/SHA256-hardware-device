@@ -2240,7 +2240,7 @@ begin
 	mux_b_reg_in_0_comp: multiplexer2x1
 	generic map(	width => 32 )
 	port map(	
-			input0 => "00111100011011101111001101110010", 
+			input0 => "10111011011001111010111010000101", 
 			input1 => a_reg_out,
 			sel => ctrl71,
 			output => b_reg_in);
