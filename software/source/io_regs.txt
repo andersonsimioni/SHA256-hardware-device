@@ -1,0 +1,99 @@
+uint32_t len = ram[0]; //ctrl1
+
+uint32_t i = 0; //ctrl2
+i = 0; //ctrl28
+i = 0; //ctrl33
+i = 16; //ctrl40
+i = 0; //ctrl58
+i++; //ctrl30
+i++; //ctrl39
+i++; //ctrl49
+i++;  //ctrl73
+i++;  //ctrl88
+
+char val = (char)((data_bits_count >> 24) & 0xff); //ctrl17
+val = (char)((data_bits_count >> 16) & 0xff); //ctrl19
+val = (char)((data_bits_count >> 8) & 0xff); //ctrl21
+val = (char)((data_bits_count) & 0xff); //ctrl23
+
+
+uint32_t word_id = 0; //ctrl13
+word_id++; //ctrl26
+
+
+uint32_t k_bits_to_append = 0; //ctrl3
+k_bits_to_append++; //ctrl8
+
+uint32_t data_words_count = len; //ctrl4
+uint32_t data_bits_count = len<<3; //ctrl5
+
+uint32_t total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl6
+total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl9
+
+uint32_t is_module_of_512 = (total_size & 0x1FF); //ctrl7
+is_module_of_512 = (total_size & 0x1FF);} //ctrl10
+
+uint32_t chunks_count = total_size >> 9;  //ctrl11
+
+uint32_t aux = (k_bits_to_append+1) >> 3; //ctrl16
+
+
+
+uint32_t chunk_id = 0; //ctrl31
+chunk_id++;  //ctrl82
+
+
+uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24; //ctrl34
+uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16; //ctrl35
+uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;  //ctrl36
+uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];     //ctrl37
+
+uint32_t w_i_sub_15 = w[i-15]; //ctrl41
+uint32_t w_i_sub_2 = w[i-2]; //ctrl42
+
+uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3); //ctrl43
+uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22);  //ctrl62
+
+uint32_t s1 = right_rotate(w_i_sub_2, 17) ^ right_rotate(w_i_sub_2, 19) ^ (w_i_sub_2 >> 10); //ctrl44
+uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl59
+
+uint32_t w_i_sub_16 = w[i-16]; //ctrl45
+uint32_t w_i_sub_7 = w[i-7]; //ctrl46
+
+uint32_t res = w_i_sub_16 + s0 + w_i_sub_7 + s1; //ctrl47
+
+uint32_t ch = (e & f) ^ ((~e) & g);  //ctrl60
+uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl61
+
+uint32_t maj = (a & b) ^ (a & c) ^ (b & c);  //ctrl63
+uint32_t temp2 = (s0 + maj);  //ctrl64
+
+
+uint32_t h = 0x5be0cd19; //ctrl57
+h = g;  //ctrl65
+
+uint32_t g = 0x1f83d9ab; //ctrl56
+g = f;  //ctrl66
+
+uint32_t f = 0x9b05688c; //ctrl55
+f = e;  //ctrl67
+
+uint32_t e = 0x510e527f; //ctrl54
+e = d + temp1;  //ctrl68
+
+uint32_t d = 0xa54ff53a; //ctrl53
+d = c;  //ctrl69
+
+uint32_t c = 0x3c6ef372; //ctrl52
+c = b;  //ctrl70
+
+uint32_t b = 0xbb67ae85; //ctrl51
+b = a;  //ctrl71
+
+uint32_t a = 0x6a09e667; //ctrl50
+a = temp1 + temp2;  //ctrl72
+
+
+
+
+

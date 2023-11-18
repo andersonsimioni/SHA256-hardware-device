@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus II 64-Bit"
 -- VERSION "Version 13.1.0 Build 162 10/23/2013 SJ Web Edition"
 
--- DATE "11/17/2023 19:31:11"
+-- DATE "11/17/2023 23:24:52"
 
 -- 
 -- Device: Altera EP4CGX50DF27C6 Package FBGA672
@@ -583,8 +583,8 @@ SIGNAL \chip_select~input_o\ : std_logic;
 SIGNAL \sha256_control_block_0|current_state.L42~0_combout\ : std_logic;
 SIGNAL \chip_reset~input_o\ : std_logic;
 SIGNAL \sha256_control_block_0|current_state.L42~q\ : std_logic;
-SIGNAL \ALT_INV_chip_reset~input_o\ : std_logic;
 SIGNAL \sha256_control_block_0|ALT_INV_current_state.L42~q\ : std_logic;
+SIGNAL \ALT_INV_chip_reset~input_o\ : std_logic;
 
 BEGIN
 
@@ -596,8 +596,8 @@ output <= ww_output;
 ww_devoe <= devoe;
 ww_devclrn <= devclrn;
 ww_devpor <= devpor;
-\ALT_INV_chip_reset~input_o\ <= NOT \chip_reset~input_o\;
 \sha256_control_block_0|ALT_INV_current_state.L42~q\ <= NOT \sha256_control_block_0|current_state.L42~q\;
+\ALT_INV_chip_reset~input_o\ <= NOT \chip_reset~input_o\;
 
 -- Location: IOOBUF_X33_Y0_N23
 \chip_ready~output\ : cycloneiv_io_obuf

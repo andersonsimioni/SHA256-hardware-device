@@ -142,10 +142,10 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	-- RAM MEMORY PART --
 	signal main_ram_out, main_ram_address : std_logic_vector(31 downto 0) := (others => '0');
 	
-	signal chunks_ram_aclr : std_logic;
+	signal chunks_ram_aclr, chunks_ram_wren : std_logic;
 	signal chunks_ram_out, chunks_ram_in, chunks_ram_address : std_logic_vector(31 downto 0) := (others => '0');
 	
-	signal w_ram_aclr : std_logic;
+	signal w_ram_aclr, w_ram_wren : std_logic;
 	signal w_ram_out, w_ram_in, w_ram_address : std_logic_vector(31 downto 0) := (others => '0');
 	
 	signal k_ram_aclr : std_logic;
@@ -153,6 +153,9 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	
 	signal h_ram_aclr : std_logic;
 	signal h_ram_out, h_ram_in, h_ram_address : std_logic_vector(31 downto 0) := (others => '0');
+	
+	signal hc_ram_aclr, hc_ram_wren : std_logic;
+	signal hc_ram_out, hc_ram_in, hc_ram_address : std_logic_vector(31 downto 0) := (others => '0');
 	-- END RAM MEMORY PART --
 	
 	
@@ -336,8 +339,60 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal temp1_add_temp2 : std_logic_vector(31 downto 0);
 	
 	signal w_i_sub_2_rotate_right_17_xor_w_i_sub_2_rotate_right_19_xor_w_i_sub_2_shift_right_10 : std_logic_vector(31 downto 0);
-
+	
+	signal hc_add_a : std_logic_vector(31 downto 0);
+	signal hc_add_b : std_logic_vector(31 downto 0);
+	signal hc_add_c : std_logic_vector(31 downto 0);
+	signal hc_add_d : std_logic_vector(31 downto 0);
+	signal hc_add_e : std_logic_vector(31 downto 0);
+	signal hc_add_f : std_logic_vector(31 downto 0);
+	signal hc_add_g : std_logic_vector(31 downto 0);
+	signal hc_add_h : std_logic_vector(31 downto 0);
+	
 	-- END LA OPERATIONS --
+	
+	
+	
+	
+	-- RAM ADDRESS MUXs OPs --
+	signal mux_chunks_ram_address_0 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_1 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_2 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_3 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_4 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_5 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_6 : std_logic_vector(31 downto 0);
+	signal mux_chunks_ram_address_7 : std_logic_vector(31 downto 0);
+	
+	
+	signal mux_hc_ram_address_0 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_address_1 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_address_2 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_address_3 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_address_4 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_address_5 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_address_6 : std_logic_vector(31 downto 0);
+	
+	
+	signal mux_w_ram_address_0 : std_logic_vector(31 downto 0);
+	signal mux_w_ram_address_1 : std_logic_vector(31 downto 0);
+	signal mux_w_ram_address_2 : std_logic_vector(31 downto 0);
+	-- END RAM ADDRESS MUXs OPS --
+	
+	
+	
+	
+	-- RAM IN MUXs OPs --
+	signal mux_chunks_ram_in_0 : std_logic_vector(31 downto 0);
+	
+	signal mux_hc_ram_in_0 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_in_1 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_in_2 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_in_3 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_in_4 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_in_5 : std_logic_vector(31 downto 0);
+	signal mux_hc_ram_in_6 : std_logic_vector(31 downto 0);
+	-- END RAM IN MUXs OPs --
 	
 begin
 	
@@ -349,6 +404,15 @@ begin
 		data => h_ram_in,
 		wren => '0',
 		q	=> h_ram_out
+	);
+	
+	hc_ram_0: ram_h port map
+	(
+		clock=>clock,
+		address => hc_ram_address(4 downto 0),
+		data => hc_ram_in,
+		wren => hc_ram_wren,
+		q	=> hc_ram_out
 	);
 	
 	k_ram_0: ram_k port map
@@ -365,7 +429,7 @@ begin
 		clock=>clock,
 		address => chunks_ram_address(9 downto 0),
 		data => chunks_ram_in,
-		wren => '0',
+		wren => chunks_ram_wren,
 		q	=> chunks_ram_out
 	);
 	
@@ -374,7 +438,7 @@ begin
 		clock=>clock,
 		address => w_ram_address(9 downto 0),
 		data => w_ram_in,
-		wren => '0',
+		wren => w_ram_wren,
 		q	=> w_ram_out
 	);
 			
@@ -1358,6 +1422,46 @@ begin
 		result => temp1_add_temp2 );
 	
 	
+	
+	--HC + a
+	hc_add_a_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => a_reg_out, result => hc_add_a);
+	
+	--HC + b
+	hc_add_b_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => b_reg_out, result => hc_add_b);
+	
+	--HC + c
+	hc_add_c_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => c_reg_out, result => hc_add_c);
+	
+	--HC + d
+	hc_add_d_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => d_reg_out, result => hc_add_d);
+	
+	--HC + e
+	hc_add_e_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => e_reg_out, result => hc_add_e);
+	
+	--HC + f
+	hc_add_f_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => f_reg_out, result => hc_add_f);
+
+	--HC + g
+	hc_add_g_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => g_reg_out, result => hc_add_g);
+	
+	--HC + h
+	hc_add_h_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
+	port map( op => '0', a => hc_ram_out, b => h_reg_out, result => hc_add_h);
 	-- END LA OPERATIONS --
 	
 	
@@ -1368,20 +1472,419 @@ begin
 	
 	
 	
+	-- RAM MEMORIES ADDRESS MUXs --
 	
+	--H[i]; //ctrl29
+	h_ram_address <= i_reg_out;
+	
+	
+	--K[i]  //ctrl61
+	k_ram_address <= i_reg_out;
 	
 	
 	--main ram address set
-	--ram[0]; //ctrl0
-	--ram[1 + word_id]; //ctrl11
+	--ram[0]; //ctrl1
+	--ram[1 + word_id]; //ctrl14
 	mux_main_ram_address: multiplexer2x1
 	generic map(	width => 32 )
 	port map(	
 			input0 => (others => '0'), 
 			input1 => word_id_add_1,
-			sel => ctrl11,
+			sel => ctrl14,
 			output => main_ram_address
 			);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	--chunks[640] = {0}; //ctrl12
+	chunks_ram_aclr <= ctrl12;
+	
+	
+	--chunks[word_id] //ctrl14
+	--chunks[word_id + 1] = 0x80; //ctrl15
+	mux_chunks_ram_address_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => word_id_reg_out, 
+			input1 => word_id_add_1,
+			sel => ctrl15,
+			output => mux_chunks_ram_address_0
+			);
+			
+	--chunks[word_id + 1 + aux + 4 + 0] //ctrl18
+	mux_chunks_ram_address_1_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_0, 
+			input1 => word_id_add_1_add_aux_add_4_add_0,
+			sel => ctrl18,
+			output => mux_chunks_ram_address_1
+			);
+			
+	--chunks[word_id + 1 + aux + 4 + 1] //ctrl20
+	mux_chunks_ram_address_2_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_1, 
+			input1 => word_id_add_1_add_aux_add_4_add_1,
+			sel => ctrl20,
+			output => mux_chunks_ram_address_2
+			);
+			
+	--chunks[word_id + 1 + aux + 4 + 2] //ctrl22
+	mux_chunks_ram_address_3_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_2, 
+			input1 => word_id_add_1_add_aux_add_4_add_2,
+			sel => ctrl22,
+			output => mux_chunks_ram_address_3
+			);
+	
+	--chunks[word_id + 1 + aux + 4 + 3] //ctrl24
+	mux_chunks_ram_address_4_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_3, 
+			input1 => word_id_add_1_add_aux_add_4_add_3,
+			sel => ctrl24,
+			output => mux_chunks_ram_address_4
+			);
+			
+	--chunks[(chunk_id<<6) + (i<<2) + 0] //ctrl34
+	mux_chunks_ram_address_5_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_4, 
+			input1 => chunk_id_shift_left_6_add_i_shift_left_2_add_0,
+			sel => ctrl34,
+			output => mux_chunks_ram_address_5
+			);
+			
+	--chunks[(chunk_id<<6) + (i<<2) + 1] //ctrl35
+	mux_chunks_ram_address_6_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_5, 
+			input1 => chunk_id_shift_left_6_add_i_shift_left_2_add_1,
+			sel => ctrl35,
+			output => mux_chunks_ram_address_6
+			);
+			
+	--chunks[(chunk_id<<6) + (i<<2) + 2]  //ctrl36
+	mux_chunks_ram_address_7_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_6, 
+			input1 => chunk_id_shift_left_6_add_i_shift_left_2_add_2,
+			sel => ctrl36,
+			output => mux_chunks_ram_address_7
+			);
+	
+	--chunks[(chunk_id<<6) + (i<<2) + 3]     //ctrl37
+	mux_chunks_ram_address_8_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_address_7, 
+			input1 => chunk_id_shift_left_6_add_i_shift_left_2_add_3,
+			sel => ctrl37,
+			output => chunks_ram_address --mux_chunks_ram_address_8
+			);
+	
+	
+	
+	
+	
+	
+	
+	--uint32_t HC[8] = {0}; //ctrl27
+	hc_ram_aclr <= ctrl27;
+	
+	--HC[0] //ctrl74
+	--HC[1] //ctrl75
+	mux_hc_ram_address_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => (others => '0'), 
+			input1 => (0 => '1', others => '0'),
+			sel => ctrl75,
+			output => mux_hc_ram_address_0);
+		
+	--HC[2] //ctrl76
+	mux_hc_ram_address_1_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_0, 
+			input1 => (1 => '1', others => '0'),
+			sel => ctrl76,
+			output => mux_hc_ram_address_1);
+			
+	--HC[3] //ctrl77
+	mux_hc_ram_address_2_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_1, 
+			input1 => (0 => '1', 1 => '1', others => '0'),
+			sel => ctrl77,
+			output => mux_hc_ram_address_2);
+			
+	--HC[4] //ctrl78
+	mux_hc_ram_address_3_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_2, 
+			input1 => (2 => '1', others => '0'),
+			sel => ctrl78,
+			output => mux_hc_ram_address_3);
+			
+	--HC[5] //ctrl79
+	mux_hc_ram_address_4_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_3, 
+			input1 => (0 => '1', 2 => '1', others => '0'),
+			sel => ctrl79,
+			output => mux_hc_ram_address_4);
+			
+	--HC[6] //ctrl80
+	mux_hc_ram_address_5_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_4, 
+			input1 => (2 => '1', 1 => '1', others => '0'),
+			sel => ctrl80,
+			output => mux_hc_ram_address_5);
+			
+	--HC[7] //ctrl81
+	mux_hc_ram_address_6_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_5, 
+			input1 => (2 => '1', 1 => '1', 0 => '1', others => '0'),
+			sel => ctrl81,
+			output => mux_hc_ram_address_6);
+	
+	--HC[i] //ctrl84
+	--HC[i] //ctrl85
+	--HC[i] //ctrl86
+	--HC[i] //ctrl87
+	--HC[i] //ctrl29
+	mux_hc_ram_address_7_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_address_6, 
+			input1 => i_reg_out,
+			sel => (ctrl84 or ctrl85 or ctrl86 or ctrl87 or ctrl29),
+			output => hc_ram_address);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	--w[64] = {0} //ctrl32
+	w_ram_aclr <= ctrl32;
+	
+	
+	--w[i-15] //ctrl41
+	--w[i-2] //ctrl42
+	mux_w_ram_address_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => i_sub_15, 
+			input1 => i_sub_2,
+			sel => ctrl42,
+			output => mux_w_ram_address_0);
+	
+	--w[i-16] //ctrl45
+	mux_w_ram_address_1_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_w_ram_address_0, 
+			input1 => i_sub_16,
+			sel => ctrl45,
+			output => mux_w_ram_address_1);
+			
+	--w[i-7] //ctrl46
+	mux_w_ram_address_2_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_w_ram_address_1, 
+			input1 => i_sub_7,
+			sel => ctrl46,
+			output => mux_w_ram_address_2);
+	
+	--w[i] //ctrl38
+	--w[i] //ctrl48
+	--w[i] //ctrl61
+	mux_w_ram_3_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_w_ram_address_2, 
+			input1 => i_reg_out,
+			sel => (ctrl38 or ctrl48 or ctrl61),
+			output => w_ram_address);
+
+	-- END RAM MEMORIES ADDRESS MUXs --
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	-- RAM MEMORIES IN MUXs --
+	
+	--chunks[word_id] = ram[1 + word_id]; //ctrl14
+	--chunks[word_id + 1] = 0x80; //ctrl15
+	mux_chunks_ram_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => main_ram_out, 
+			input1 => (0 => '1', others => '0'),
+			sel => ctrl15,
+			output => mux_chunks_ram_in_0);
+			
+	--chunks[word_id + 1 + aux + 4 + 0] = val; //ctrl18
+	--chunks[word_id + 1 + aux + 4 + 1] = val; //ctrl20
+	--chunks[word_id + 1 + aux + 4 + 2] = val; //ctrl22
+	--chunks[word_id + 1 + aux + 4 + 3] = val //ctrl24
+	mux_chunks_ram_in_1_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_chunks_ram_in_0, 
+			input1 => ("000000000000000000000000" & val_reg_out),
+			sel => (ctrl18 or ctrl20 or ctrl22 or ctrl24),
+			output => chunks_ram_in);
+	
+	chunks_ram_wren <= (ctrl14 or ctrl15 or ctrl18 or ctrl20 or ctrl22 or ctrl24);
+	
+	
+	
+	
+	
+	
+	
+	
+	--w[i] = (b3 | b2 | b1 | b0); //ctrl38
+	--w[i] = res; //ctrl48
+	mux_w_ram_in_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => b3_or_b2_or_b1_or_b0, 
+			input1 => res_reg_out,
+			sel => ctrl48,
+			output => w_ram_in);
+	
+	w_ram_wren <= (ctrl38 or ctrl48);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	--HC[i] = H[i]; //ctrl29
+	--HC[0] += a;  //ctrl74
+	mux_hc_ram_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => h_ram_out, 
+			input1 => hc_add_a,
+			sel => ctrl74,
+			output => mux_hc_ram_in_0);
+			
+	--HC[1] += b;  //ctrl75
+	mux_hc_ram_in_1_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_0, 
+			input1 => hc_add_b,
+			sel => ctrl75,
+			output => mux_hc_ram_in_1);
+			
+	--HC[2] += c;  //ctrl76
+	mux_hc_ram_in_2_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_1, 
+			input1 => hc_add_c,
+			sel => ctrl76,
+			output => mux_hc_ram_in_2);
+			
+	--HC[3] += d;  //ctrl77
+	mux_hc_ram_in_3_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_2, 
+			input1 => hc_add_d,
+			sel => ctrl77,
+			output => mux_hc_ram_in_3);
+			
+	--HC[4] += e;  //ctrl78
+	mux_hc_ram_in_4_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_3, 
+			input1 => hc_add_e,
+			sel => ctrl78,
+			output => mux_hc_ram_in_4);
+			
+	--HC[5] += f;  //ctrl79
+	mux_hc_ram_in_5_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_4, 
+			input1 => hc_add_f,
+			sel => ctrl79,
+			output => mux_hc_ram_in_5);
+			
+	--HC[6] += g;  //ctrl80
+	mux_hc_ram_in_6_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_5, 
+			input1 => hc_add_g,
+			sel => ctrl80,
+			output => mux_hc_ram_in_6);
+			
+			
+	--HC[7] += h;  //ctrl81
+	mux_hc_ram_in_7_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_hc_ram_in_6, 
+			input1 => hc_add_h,
+			sel => ctrl81,
+			output => hc_ram_in);
+	
+	-- END RAM MEMORIES IN MUXs --
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
