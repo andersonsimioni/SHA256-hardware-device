@@ -199,7 +199,7 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal maj_reg_out, maj_reg_in : std_logic_vector(31 downto 0);
 	signal temp2_reg_out, temp2_reg_in : std_logic_vector(31 downto 0);
 	
-	signal val_reg_out, val_reg_in : std_logic_vector(7 downto 0);
+	signal val_reg_out, val_reg_in : std_logic_vector(31 downto 0);
 	-- END REGISTERS IO --
 	
 	
@@ -266,8 +266,9 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal i_shift_left_2 : std_logic_vector(31 downto 0);
 	
 	signal i_less_than_64 : std_logic;
+	signal i_less_than_32 : std_logic;
 	signal i_less_than_16 : std_logic;
-	signal i_less_than_18 : std_logic;
+	signal i_less_than_8 : std_logic;
 	signal i_less_than_4 : std_logic;
 	
 	signal i_sub_16 : std_logic_vector(31 downto 0);
@@ -296,8 +297,11 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	
 	signal data_bits_count_and_ff : std_logic_vector(31 downto 0);
 	
+	signal word_id_equal_data_words_count_sub_1 : std_logic;
 	signal chunk_id_less_than_chunks_count : std_logic;
+	signal is_module_of_512_equal_0 : std_logic;
 	
+	signal chunk_id_add_1 : std_logic_vector(31 downto 0);
 	signal chunk_id_shift_left_6 : std_logic_vector(31 downto 0);
 	signal chunk_id_shift_left_6_add_i_shift_left_2 : std_logic_vector(31 downto 0);
 	signal chunk_id_shift_left_6_add_i_shift_left_2_add_0 : std_logic_vector(31 downto 0);
@@ -393,6 +397,14 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal mux_hc_ram_in_5 : std_logic_vector(31 downto 0);
 	signal mux_hc_ram_in_6 : std_logic_vector(31 downto 0);
 	-- END RAM IN MUXs OPs --
+	
+	
+	
+	
+	-- REGISTERS IN MUXs OPs --
+	signal mux_val_reg_in_0 : std_logic_vector(31 downto 0);
+	signal mux_val_reg_in_1 : std_logic_vector(31 downto 0);
+	-- END REGISTERS IN MUXs OPs --
 	
 begin
 	
@@ -601,7 +613,7 @@ begin
 	
 	val_reg_comp : registerN
 	generic map( width => 8, generateLoad => true, clearValue => 0 )
-	port map( clock=>clock, clear => val_reg_clear, load => val_reg_load, input => val_reg_in, output => val_reg_out);
+	port map( clock=>clock, clear => val_reg_clear, load => val_reg_load, input => val_reg_in(7 downto 0), output => val_reg_out(7 downto 0));
 	-- END REGISTERS INSTANCES --
 	
 	
@@ -678,6 +690,12 @@ begin
 	);
 	
 	
+	--(is_module_of_512 == 0)
+	is_module_of_512_equal_0_comp : compare
+	generic map(	width => 32, generateEqual => true, useFixedSecodOperand => true, fixedSecodOperand => 0 )
+	port  map(	input0 => is_module_of_512_reg_out, input1 => (others=>'0'), equal => is_module_of_512_equal_0);
+	
+	
 	--(chunks_count > max_chunks_count)
 	chunks_count_higher_than_max_chunks_count_comp: component compare
 	generic map(	width => 32, generateLessThan => true )
@@ -697,8 +715,14 @@ begin
 			lessThan => word_id_less_than_data_words_count
 		);
 	
-	
-	
+	--word_id == data_words_count - 1
+	word_id_equal_data_words_count_sub_1_comp: component compare
+	generic map(	width => 32, generateLessThan => false, generateEqual => true )
+	port map(	
+			input0 => word_id_reg_out, 
+			input1 => data_words_count_sub_1,
+			equal => word_id_equal_data_words_count_sub_1
+		);
 	
 		
 	--1 + word_id
@@ -768,7 +792,6 @@ begin
 			lessThan => i_less_than_16
 		);
 	
-	
 	--(i < 8)
 	i_less_than_8_comp: component compare
 	generic map(	width => 32, generateLessThan => true,
@@ -777,9 +800,8 @@ begin
 	port map(	
 			input0 => i_reg_out, 
 			input1 => (others => '0'),
-			lessThan => i_less_than_18
+			lessThan => i_less_than_8
 		);
-		
 		
 	--(i < 4)
 	i_less_than_4_comp: component compare
@@ -792,8 +814,6 @@ begin
 			lessThan => i_less_than_4
 		);
 		
-		
-		
 	--(i < 64)
 	i_less_than_64_comp: component compare
 	generic map(	width => 32, generateLessThan => true,
@@ -803,6 +823,17 @@ begin
 			input0 => i_reg_out, 
 			input1 => (others => '0'),
 			lessThan => i_less_than_64
+		);
+		
+	--(i < 32)
+	i_less_than_32_comp: component compare
+	generic map(	width => 32, generateLessThan => true,
+				useFixedSecodOperand => true,
+				fixedSecodOperand => 32  )
+	port map(	
+			input0 => i_reg_out, 
+			input1 => (others => '0'),
+			lessThan => i_less_than_32
 		);
 		
 		
@@ -1462,6 +1493,15 @@ begin
 	hc_add_h_comp : addersubtractor
 	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
 	port map( op => '0', a => hc_ram_out, b => h_reg_out, result => hc_add_h);
+	
+	
+	
+	--chunk_id + 1
+	chunk_id_add_1_comp : addersubtractor
+	generic map( width => 32, isAdder => true, fixedSecodOperand => 1 )
+	port map( op => '0', a => chunk_id_reg_out, b => (others=>'0'), result => chunk_id_add_1);
+	
+	
 	-- END LA OPERATIONS --
 	
 	
@@ -1769,7 +1809,7 @@ begin
 	generic map(	width => 32 )
 	port map(	
 			input0 => mux_chunks_ram_in_0, 
-			input1 => ("000000000000000000000000" & val_reg_out),
+			input1 => val_reg_out,
 			sel => (ctrl18 or ctrl20 or ctrl22 or ctrl24),
 			output => chunks_ram_in);
 	
@@ -1886,6 +1926,386 @@ begin
 	
 	
 	
+	
+	
+	
+	
+	
+	-- REGISTERS IN MUXs --
+	
+	--uint32_t len = ram[0]; //ctrl1
+	len_reg_load <= ctrl1;
+	len_reg_in <= main_ram_out;
+	
+	
+	
+	
+	--uint32_t i = 0; //ctrl2
+	--i = 0; //ctrl28
+	--i = 0; //ctrl33
+	--i = 0; //ctrl58
+	
+	--i = 16; //ctrl40
+	--i++; //ctrl30
+	--i++; //ctrl39
+	--i++; //ctrl49
+	--i++;  //ctrl73
+	--i++;  //ctrl88
+	mux_i_reg_in_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => (4 => '1', others => '0'), 
+			input1 => i_add_1,
+			sel => (ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88),
+			output => i_reg_in);
+	
+	i_reg_clear <= (ctrl2 or ctrl28 or ctrl33 or ctrl58);
+	i_reg_load <= (ctrl40 or ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88);
+	
+	
+	
+	
+	
+	
+	
+	--char val = (char)((data_bits_count >> 24) & 0xff); //ctrl17
+	--val = (char)((data_bits_count >> 16) & 0xff); //ctrl19
+	mux_val_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => data_bits_count_shift_right_24_and_ff, 
+			input1 => data_bits_count_shift_right_16_and_ff,
+			sel => ctrl19,
+			output => mux_val_reg_in_0);
+	
+	--val = (char)((data_bits_count >> 8) & 0xff); //ctrl21
+	mux_val_reg_in_1_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_val_reg_in_0, 
+			input1 => data_bits_count_shift_right_8_and_ff,
+			sel => ctrl21,
+			output => mux_val_reg_in_1);
+			
+	--val = (char)((data_bits_count) & 0xff); //ctrl23
+	mux_val_reg_in_2_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => mux_val_reg_in_1, 
+			input1 => data_bits_count_and_ff,
+			sel => ctrl23,
+			output => val_reg_in);
+	
+	val_reg_load <= (ctrl17 or ctrl19 or ctrl21 or ctrl23);
+	
+	
+	
+	
+	
+	--uint32_t word_id = 0; //ctrl13
+	--word_id++; //ctrl26
+	word_id_reg_clear <= ctrl13;
+	word_id_reg_load <= ctrl26;
+	word_id_reg_in <= word_id_add_1;
+	
+	
+	
+	
+	--uint32_t k_bits_to_append = 0; //ctrl3
+	--k_bits_to_append++; //ctrl8
+	k_bits_to_append_reg_clear <= ctrl3;
+	k_bits_to_append_reg_load <= ctrl8;
+	k_bits_to_append_reg_in <= k_bits_to_append_add_1;
+	
+	
+	
+	
+	--uint32_t data_words_count = len; //ctrl4
+	data_words_count_reg_load <= ctrl4;
+	data_words_count_reg_in <= len_reg_out;
+	
+	
+	
+	--uint32_t data_bits_count = len<<3; //ctrl5
+	data_bits_count_reg_load <= ctrl5;
+	data_bits_count_reg_in <= len_shift_left_3;
+	
+	
+	
+	
+	
+	--uint32_t total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl6
+	--total_size = (data_bits_count + 1 + k_bits_to_append + 64); //ctrl9
+	total_size_reg_load <= (ctrl6 or ctrl9);
+	total_size_reg_in <= data_bits_count_add_1_add_k_bits_to_append_add_64;
+	
+	
+	
+	
+	--uint32_t is_module_of_512 = (total_size & 0x1FF); //ctrl7
+	--is_module_of_512 = (total_size & 0x1FF) //ctrl10
+	is_module_of_512_reg_load <= (ctrl7 or ctrl10);
+	is_module_of_512_reg_in <= total_size_and_1ff;
+	
+	
+	--uint32_t chunks_count = total_size >> 9;  //ctrl11
+	chunks_count_reg_load <= ctrl11;
+	chunks_count_reg_in <= total_size_shift_right_9;
+	
+	
+	--uint32_t aux = (k_bits_to_append+1) >> 3; //ctrl16
+	aux_reg_load <= ctrl16;
+	aux_reg_in <= k_bits_to_append_add_1_shift_right_3;
+	
+	
+	
+	--uint32_t chunk_id = 0; //ctrl31
+	--chunk_id++;  //ctrl82
+	chunk_id_reg_clear <= ctrl31;
+	chunk_id_reg_load <= ctrl82;
+	chunk_id_reg_in <= chunk_id_add_1;
+	
+	
+	
+	
+	--uint32_t b3 = chunks[(chunk_id<<6) + (i<<2) + 0]<<24; //ctrl34
+	b3_reg_load <= ctrl34;
+	b3_reg_in <= chunks_ram_out;
+	
+	--uint32_t b2 = chunks[(chunk_id<<6) + (i<<2) + 1]<<16; //ctrl35
+	b2_reg_load <= ctrl35;
+	b2_reg_in <= chunks_ram_out;
+	
+	--uint32_t b1 = chunks[(chunk_id<<6) + (i<<2) + 2]<<8;  //ctrl36
+	b1_reg_load <= ctrl36;
+	b1_reg_in <= chunks_ram_out;
+	
+	--uint32_t b0 = chunks[(chunk_id<<6) + (i<<2) + 3];     //ctrl37
+	b0_reg_load <= ctrl37;
+	b0_reg_in <= chunks_ram_out;
+	
+	
+	
+	--uint32_t w_i_sub_15 = w[i-15]; //ctrl41
+	w_i_sub_15_reg_load <= ctrl41;
+	w_i_sub_15_reg_in <= w_ram_out;
+	
+	--uint32_t w_i_sub_2 = w[i-2]; //ctrl42
+	w_i_sub_2_reg_load <= ctrl42;
+	w_i_sub_2_reg_in <= w_ram_out;
+	
+	--uint32_t w_i_sub_16 = w[i-16]; //ctrl45
+	w_i_sub_16_reg_load <= ctrl45;
+	w_i_sub_16_reg_in <= w_ram_out;
+	
+	--uint32_t w_i_sub_7 = w[i-7]; //ctrl46
+	w_i_sub_7_reg_load <= ctrl46;
+	w_i_sub_7_reg_in <= w_ram_out;
+	
+	
+	
+	--uint32_t s0 = right_rotate(w_i_sub_15, 7) ^ right_rotate(w_i_sub_15, 18) ^ (w_i_sub_15 >> 3); //ctrl43
+	--uint32_t s0 = right_rotate(a, 2) ^ right_rotate(a, 13) ^ right_rotate(a, 22);  //ctrl62
+	mux_s0_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => w_i_sub_15_rotate_right_7_xor_w_i_sub_15_rotate_right_18_xor_w_i_sub_15_shift_right_3, 
+			input1 => a_rotate_right_2_xor_a_rotate_right_13_xor_a_rotate_right_22,
+			sel => ctrl62,
+			output => s0_reg_in);
+	
+	s0_reg_load <= (ctrl43 or ctrl62);
+	
+	
+	--uint32_t s1 = right_rotate(w_i_sub_2, 17) ^ right_rotate(w_i_sub_2, 19) ^ (w_i_sub_2 >> 10); //ctrl44
+	--uint32_t s1 = right_rotate(e, 6) ^ right_rotate(e, 11) ^ right_rotate(e, 25); //ctrl59
+	mux_s1_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => w_i_sub_2_rotate_right_17_xor_w_i_sub_2_rotate_right_19_xor_w_i_sub_2_shift_right_10, 
+			input1 => e_rotate_right_6_xor_e_rotate_right_11_xor_e_rotate_right_25,
+			sel => ctrl59,
+			output => s1_reg_in);
+	
+	s1_reg_load <= (ctrl44 or ctrl59);
+	
+	
+
+	
+	--uint32_t res = w_i_sub_16 + s0 + w_i_sub_7 + s1; //ctrl47
+	res_reg_load <= ctrl47;
+	res_reg_in <= w_i_sub_16_add_s0_add_w_i_sub_7_add_s1;
+	
+	
+	--uint32_t ch = (e & f) ^ ((~e) & g);  //ctrl60
+	ch_reg_load <= ctrl60;
+	ch_reg_in <= e_and_f_xor_not_e_and_g;
+	
+	
+	--uint32_t temp1 = (h + s1 + ch + K[i] + w[i]); //ctrl61
+	temp1_reg_load <= ctrl61;
+	temp1_reg_in <= h_add_s1_add_ch_add_k_i_add_w_i;
+	
+	--uint32_t maj = (a & b) ^ (a & c) ^ (b & c);  //ctrl63
+	maj_reg_load <= ctrl63;
+	maj_reg_in <= a_and_b_xor_a_and_c_xor_b_and_c;
+	
+	--uint32_t temp2 = (s0 + maj);  //ctrl64
+	temp2_reg_load <= ctrl64;
+	temp2_reg_in <= s0_add_maj;
+	
+	
+	
+	--uint32_t h = 0x5be0cd19; //ctrl57
+	--h = g;  //ctrl65
+	mux_h_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "01011011111000001100110100011001", 
+			input1 => g_reg_out,
+			sel => ctrl65,
+			output => h_reg_in);
+	
+	h_reg_load <= (ctrl57 or ctrl65);
+	
+	
+	--uint32_t g = 0x1f83d9ab; //ctrl56
+	--g = f;  //ctrl66
+	mux_g_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "00011111100000111101100110101011", 
+			input1 => f_reg_out,
+			sel => ctrl66,
+			output => g_reg_in);
+	
+	g_reg_load <= (ctrl56 or ctrl66);
+	
+	
+	--uint32_t f = 0x9b05688c; //ctrl55
+	--f = e;  //ctrl67
+	mux_f_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "10011011000001010110100010001100", 
+			input1 => e_reg_out,
+			sel => ctrl67,
+			output => f_reg_in);
+	
+	f_reg_load <= (ctrl55 or ctrl67);
+	
+	
+	--uint32_t e = 0x510e527f; //ctrl54
+	--e = d + temp1;  //ctrl68
+	mux_e_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "01010001000011100101001001111111", 
+			input1 => d_add_temp1,
+			sel => ctrl68,
+			output => e_reg_in);
+	
+	e_reg_load <= (ctrl54 or ctrl68);
+	
+	
+	--uint32_t d = 0xa54ff53a; //ctrl53
+	--d = c;  //ctrl69
+	mux_d_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "10100101010011111111010100111010", 
+			input1 => c_reg_out,
+			sel => ctrl69,
+			output => d_reg_in);
+	
+	d_reg_load <= (ctrl53 or ctrl69);
+	
+	
+	--uint32_t c = 0x3c6ef372; //ctrl52
+	--c = b;  //ctrl70
+	mux_c_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "00111100011011101111001101110010", 
+			input1 => b_reg_out,
+			sel => ctrl70,
+			output => c_reg_in);
+	
+	c_reg_load <= (ctrl52 or ctrl70);
+	
+	
+	
+	--uint32_t b = 0xbb67ae85; //ctrl51
+	--b = a;  //ctrl71
+	mux_b_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "00111100011011101111001101110010", 
+			input1 => a_reg_out,
+			sel => ctrl71,
+			output => b_reg_in);
+	
+	b_reg_load <= (ctrl51 or ctrl71);
+	
+	
+	
+	--uint32_t a = 0x6a09e667; //ctrl50
+	--a = temp1 + temp2;  //ctrl72
+	mux_a_reg_in_0_comp: multiplexer2x1
+	generic map(	width => 32 )
+	port map(	
+			input0 => "01101010000010011110011001100111", 
+			input1 => temp1_add_temp2,
+			sel => ctrl72,
+			output => a_reg_in);
+	
+	a_reg_load <= (ctrl50 or ctrl72);
+	
+	-- END REGISTERS IN MUXs --
+	
+	
+	
+	
+	-- STTs --
+	
+	--while (is_module_of_512 != 0){ //stt1
+	stt1 <= not is_module_of_512_equal_0;
+	
+	--if (chunks_count > max_chunks_count) return;  //stt2
+	stt2 <= chunks_count_higher_than_max_chunks_count;
+	
+			
+	--while (word_id < data_words_count){ //stt3
+	stt3 <= word_id_less_than_data_words_count;
+	
+	--if (word_id == data_words_count - 1){ //stt4
+	stt4 <= word_id_equal_data_words_count_sub_1;
+	
+	--while (chunk_id < chunks_count){ //stt6
+	stt6 <= chunk_id_less_than_chunks_count;
+	
+	--while (i < 8){ //stt5
+	stt5 <= i_less_than_8;
+	
+	--while (i < 16){ //stt7
+	stt7 <= i_less_than_16;
+	
+	--while (i < 64){ //stt8
+	stt8 <= i_less_than_64;
+	
+	--while (i < 64){ //stt9
+	stt9 <= i_less_than_64;
+	
+	--while (i < 32){ //stt10
+	stt10 <= i_less_than_32;
+	
+	-- END STTs --
+	
+	
+	
+	
+	
+	output(31 downto 0) <= hc_ram_out(31 downto 0);
 	
 	
 	
