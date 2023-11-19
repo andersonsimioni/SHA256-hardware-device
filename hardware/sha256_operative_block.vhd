@@ -1944,6 +1944,7 @@ begin
 	--i = 0; //ctrl28
 	--i = 0; //ctrl33
 	--i = 0; //ctrl58
+	--i = 0; //ctrl83
 	
 	--i = 16; //ctrl40
 	--i++; //ctrl30
@@ -1959,7 +1960,7 @@ begin
 			sel => (ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88),
 			output => i_reg_in);
 	
-	i_reg_clear <= (ctrl2 or ctrl28 or ctrl33 or ctrl58);
+	i_reg_clear <= (ctrl2 or ctrl28 or ctrl33 or ctrl58 or ctrl83);
 	i_reg_load <= (ctrl40 or ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88);
 	
 	

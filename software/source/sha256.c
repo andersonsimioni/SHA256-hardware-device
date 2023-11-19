@@ -129,7 +129,7 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
         /*L129*/ HC[6] += g;  //ctrl80
         /*L130*/ HC[7] += h;  //ctrl81
         /*L131*/ chunk_id++;}  //ctrl82
-    /*L132*/ i=0;  //ctrl83
+    /*L132*/ i = 0;  //ctrl83
     /*L133*/ while (i < 32){ //stt10
         /*L134*/ output[(i<<2)] = (HC[i]>>24) & 0xff;  //ctrl84
         /*L135*/ output[(i<<2)+1] = (HC[i]>>16) & 0xff;  //ctrl85
