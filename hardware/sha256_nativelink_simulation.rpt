@@ -1,9 +1,8 @@
 Info: Start Nativelink Simulation process
-Info: NativeLink has detected VHDL design -- VHDL simulation models will be used
 
 ========= EDA Simulation Settings =====================
 
-Sim Mode              :  RTL
+Sim Mode              :  Gate
 Family                :  cycloneivgx
 Quartus root          :  c:/altera/13.1/quartus/bin64/
 Quartus sim root      :  c:/altera/13.1/quartus/eda/sim_lib
@@ -11,8 +10,8 @@ Simulation Tool       :  modelsim-altera
 Simulation Language   :  vhdl
 Version               :  93
 Simulation Mode       :  GUI
-Sim Output File       :  
-Sim SDF file          :  
+Sim Output File       :  sha256_6_1200mv_85c_slow.vho
+Sim SDF File       :  sha256_6_1200mv_85c_vhd_slow.sdo
 Sim dir               :  simulation\modelsim
 
 =======================================================

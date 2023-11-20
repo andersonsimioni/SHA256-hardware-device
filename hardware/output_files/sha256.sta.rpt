@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for sha256
-Mon Nov 20 12:43:57 2023
+Mon Nov 20 13:34:15 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -3568,7 +3568,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
     Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
-    Info: Processing started: Mon Nov 20 12:43:53 2023
+    Info: Processing started: Mon Nov 20 13:34:11 2023
 Info: Command: quartus_sta sha256 -c sha256
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
@@ -3605,8 +3605,6 @@ Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119): ========= =================== =====================
     Info (332119):    -3.000           -1192.612 clock 
 Info: Analyzing Slow 1200mV 0C Model
-Info (334003): Started post-fitting delay annotation
-Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the TimeQuest Timing Analyzer.
@@ -3657,8 +3655,8 @@ Info (332146): Worst-case minimum pulse width slack is -3.000
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 4703 megabytes
-    Info: Processing ended: Mon Nov 20 12:43:57 2023
+    Info: Peak virtual memory: 4700 megabytes
+    Info: Processing ended: Mon Nov 20 13:34:15 2023
     Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 

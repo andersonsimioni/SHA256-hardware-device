@@ -1,5 +1,5 @@
 Flow report for sha256
-Mon Nov 20 12:44:15 2023
+Mon Nov 20 13:34:15 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -115,7 +115,8 @@ applicable agreement for further details.
 ; Assembler                 ; 00:00:04     ; 1.0                     ; 4667 MB             ; 00:00:03                           ;
 ; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 4703 MB             ; 00:00:03                           ;
 ; EDA Netlist Writer        ; 00:00:03     ; 1.0                     ; 4637 MB             ; 00:00:03                           ;
-; Total                     ; 00:00:48     ; --                      ; --                  ; 00:00:43                           ;
+; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 4700 MB             ; 00:00:03                           ;
+; Total                     ; 00:00:52     ; --                      ; --                  ; 00:00:46                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -129,6 +130,7 @@ applicable agreement for further details.
 ; Assembler                 ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
 ; TimeQuest Timing Analyzer ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
 ; EDA Netlist Writer        ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
+; TimeQuest Timing Analyzer ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 
@@ -140,6 +142,7 @@ quartus_fit --read_settings_files=off --write_settings_files=off sha256 -c sha25
 quartus_asm --read_settings_files=off --write_settings_files=off sha256 -c sha256
 quartus_sta sha256 -c sha256
 quartus_eda --read_settings_files=off --write_settings_files=off sha256 -c sha256
+quartus_sta sha256 -c sha256
 
 
 

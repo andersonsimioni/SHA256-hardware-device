@@ -169,7 +169,7 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
     /*L169*/ unsigned char ob29 = (HC[i]>>16) & 0xff; //ctrl120
     /*L170*/ unsigned char ob30 = (HC[i]>>8) & 0xff; //ctrl121
     /*L171*/ unsigned char ob31 = (HC[i]>>0) & 0xff; //ctrl122
-    
+    //VHDL OUTPUT = ob0 & ob1 & ob3.....
     output[0] = ob0;
     output[1] = ob1;
     output[2] = ob2;
