@@ -25,7 +25,10 @@ architecture sha256_top_level_arch of sha256_top_level is
 			ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 			ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 			ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-			ctrl87,ctrl88 : out std_logic
+			ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+			ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+			ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
+			: out std_logic
 		 
 	  ) ;
 	end component;
@@ -39,7 +42,10 @@ architecture sha256_top_level_arch of sha256_top_level is
 		ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 		ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-		ctrl87,ctrl88 : in std_logic;
+		ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+		ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
+		: in std_logic;
 		
 		stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9, stt10 : out std_logic;
 		
@@ -57,7 +63,9 @@ architecture sha256_top_level_arch of sha256_top_level is
 		ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 		ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-		ctrl87,ctrl88
+		ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+		ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
     : std_logic;
 
     signal 
@@ -82,7 +90,9 @@ begin
 		ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 		ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-		ctrl87,ctrl88
+		ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+		ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
 		 
 	  ) ;
 	  
@@ -100,7 +110,9 @@ begin
 		ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 		ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-		ctrl87,ctrl88,
+		ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+		ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122,
 		
 		stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9, stt10,
 		

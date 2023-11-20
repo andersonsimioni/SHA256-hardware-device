@@ -11,7 +11,10 @@ entity sha256_operative_block is port(
 	ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 	ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 	ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-	ctrl87,ctrl88 : in std_logic;
+	ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+	ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+	ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
+	: in std_logic;
 	
 	stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9, stt10 : out std_logic;
 	
@@ -200,6 +203,39 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal temp2_reg_out, temp2_reg_in : std_logic_vector(31 downto 0);
 	
 	signal val_reg_out, val_reg_in : std_logic_vector(31 downto 0);
+	
+	signal ob0_reg_out, ob0_reg_in : std_logic_vector(7 downto 0);
+	signal ob1_reg_out, ob1_reg_in : std_logic_vector(7 downto 0);
+	signal ob2_reg_out, ob2_reg_in : std_logic_vector(7 downto 0);
+	signal ob3_reg_out, ob3_reg_in : std_logic_vector(7 downto 0);
+	signal ob4_reg_out, ob4_reg_in : std_logic_vector(7 downto 0);
+	signal ob5_reg_out, ob5_reg_in : std_logic_vector(7 downto 0);
+	signal ob6_reg_out, ob6_reg_in : std_logic_vector(7 downto 0);
+	signal ob7_reg_out, ob7_reg_in : std_logic_vector(7 downto 0);
+	signal ob8_reg_out, ob8_reg_in : std_logic_vector(7 downto 0);
+	signal ob9_reg_out, ob9_reg_in : std_logic_vector(7 downto 0);
+	signal ob10_reg_out, ob10_reg_in : std_logic_vector(7 downto 0);
+	signal ob11_reg_out, ob11_reg_in : std_logic_vector(7 downto 0);
+	signal ob12_reg_out, ob12_reg_in : std_logic_vector(7 downto 0);
+	signal ob13_reg_out, ob13_reg_in : std_logic_vector(7 downto 0);
+	signal ob14_reg_out, ob14_reg_in : std_logic_vector(7 downto 0);
+	signal ob15_reg_out, ob15_reg_in : std_logic_vector(7 downto 0);
+	signal ob16_reg_out, ob16_reg_in : std_logic_vector(7 downto 0);
+	signal ob17_reg_out, ob17_reg_in : std_logic_vector(7 downto 0);
+	signal ob18_reg_out, ob18_reg_in : std_logic_vector(7 downto 0);
+	signal ob19_reg_out, ob19_reg_in : std_logic_vector(7 downto 0);
+	signal ob20_reg_out, ob20_reg_in : std_logic_vector(7 downto 0);
+	signal ob21_reg_out, ob21_reg_in : std_logic_vector(7 downto 0);
+	signal ob22_reg_out, ob22_reg_in : std_logic_vector(7 downto 0);
+	signal ob23_reg_out, ob23_reg_in : std_logic_vector(7 downto 0);
+	signal ob24_reg_out, ob24_reg_in : std_logic_vector(7 downto 0);
+	signal ob25_reg_out, ob25_reg_in : std_logic_vector(7 downto 0);
+	signal ob26_reg_out, ob26_reg_in : std_logic_vector(7 downto 0);
+	signal ob27_reg_out, ob27_reg_in : std_logic_vector(7 downto 0);
+	signal ob28_reg_out, ob28_reg_in : std_logic_vector(7 downto 0);
+	signal ob29_reg_out, ob29_reg_in : std_logic_vector(7 downto 0);
+	signal ob30_reg_out, ob30_reg_in : std_logic_vector(7 downto 0);
+	signal ob31_reg_out, ob31_reg_in : std_logic_vector(7 downto 0);
 	-- END REGISTERS IO --
 	
 	
@@ -242,6 +278,39 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal maj_reg_load, maj_reg_clear : std_logic;
 	signal temp2_reg_load, temp2_reg_clear : std_logic;
 	signal val_reg_load, val_reg_clear : std_logic;
+	
+	signal ob0_reg_load, ob0_reg_clear : std_logic;
+	signal ob1_reg_load, ob1_reg_clear : std_logic;
+	signal ob2_reg_load, ob2_reg_clear : std_logic;
+	signal ob3_reg_load, ob3_reg_clear : std_logic;
+	signal ob4_reg_load, ob4_reg_clear : std_logic;
+	signal ob5_reg_load, ob5_reg_clear : std_logic;
+	signal ob6_reg_load, ob6_reg_clear : std_logic;
+	signal ob7_reg_load, ob7_reg_clear : std_logic;
+	signal ob8_reg_load, ob8_reg_clear : std_logic;
+	signal ob9_reg_load, ob9_reg_clear : std_logic;
+	signal ob10_reg_load, ob10_reg_clear : std_logic;
+	signal ob11_reg_load, ob11_reg_clear : std_logic;
+	signal ob12_reg_load, ob12_reg_clear : std_logic;
+	signal ob13_reg_load, ob13_reg_clear : std_logic;
+	signal ob14_reg_load, ob14_reg_clear : std_logic;
+	signal ob15_reg_load, ob15_reg_clear : std_logic;
+	signal ob16_reg_load, ob16_reg_clear : std_logic;
+	signal ob17_reg_load, ob17_reg_clear : std_logic;
+	signal ob18_reg_load, ob18_reg_clear : std_logic;
+	signal ob19_reg_load, ob19_reg_clear : std_logic;
+	signal ob20_reg_load, ob20_reg_clear : std_logic;
+	signal ob21_reg_load, ob21_reg_clear : std_logic;
+	signal ob22_reg_load, ob22_reg_clear : std_logic;
+	signal ob23_reg_load, ob23_reg_clear : std_logic;
+	signal ob24_reg_load, ob24_reg_clear : std_logic;
+	signal ob25_reg_load, ob25_reg_clear : std_logic;
+	signal ob26_reg_load, ob26_reg_clear : std_logic;
+	signal ob27_reg_load, ob27_reg_clear : std_logic;
+	signal ob28_reg_load, ob28_reg_clear : std_logic;
+	signal ob29_reg_load, ob29_reg_clear : std_logic;
+	signal ob30_reg_load, ob30_reg_clear : std_logic;
+	signal ob31_reg_load, ob31_reg_clear : std_logic;
 	-- END REGISTERS CONTROL --
 	
 	
@@ -352,6 +421,15 @@ architecture sha256_operative_block_arch of sha256_operative_block is
 	signal hc_add_f : std_logic_vector(31 downto 0);
 	signal hc_add_g : std_logic_vector(31 downto 0);
 	signal hc_add_h : std_logic_vector(31 downto 0);
+	
+	signal hc_shift_right_24 : std_logic_vector(31 downto 0);
+	signal hc_shift_right_16 : std_logic_vector(31 downto 0);
+	signal hc_shift_right_8 : std_logic_vector(31 downto 0);
+	signal hc_shift_right_24_and_ff : std_logic_vector(31 downto 0);
+	signal hc_shift_right_16_and_ff : std_logic_vector(31 downto 0);
+	signal hc_shift_right_8_and_ff : std_logic_vector(31 downto 0);
+	signal hc_shift_right_0 : std_logic_vector(31 downto 0);
+	signal hc_shift_right_0_and_ff : std_logic_vector(31 downto 0);
 	
 	-- END LA OPERATIONS --
 	
@@ -614,6 +692,136 @@ begin
 	val_reg_comp : registerN
 	generic map( width => 8, generateLoad => true, clearValue => 0 )
 	port map( clock=>clock, clear => val_reg_clear, load => val_reg_load, input => val_reg_in(7 downto 0), output => val_reg_out(7 downto 0));
+	
+	
+	ob0_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob0_reg_clear, load => ob0_reg_load, input => ob0_reg_in, output => ob0_reg_out);
+
+	ob1_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob1_reg_clear, load => ob1_reg_load, input => ob1_reg_in, output => ob1_reg_out);
+
+	ob2_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob2_reg_clear, load => ob2_reg_load, input => ob2_reg_in, output => ob2_reg_out);
+
+	ob3_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob3_reg_clear, load => ob3_reg_load, input => ob3_reg_in, output => ob3_reg_out);
+
+	ob4_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob4_reg_clear, load => ob4_reg_load, input => ob4_reg_in, output => ob4_reg_out);
+
+	ob5_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob5_reg_clear, load => ob5_reg_load, input => ob5_reg_in, output => ob5_reg_out);
+
+	ob6_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob6_reg_clear, load => ob6_reg_load, input => ob6_reg_in, output => ob6_reg_out);
+
+	ob7_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob7_reg_clear, load => ob7_reg_load, input => ob7_reg_in, output => ob7_reg_out);
+
+	ob8_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob8_reg_clear, load => ob8_reg_load, input => ob8_reg_in, output => ob8_reg_out);
+
+	ob9_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob9_reg_clear, load => ob9_reg_load, input => ob9_reg_in, output => ob9_reg_out);
+
+	ob10_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob10_reg_clear, load => ob10_reg_load, input => ob10_reg_in, output => ob10_reg_out);
+
+	ob11_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob11_reg_clear, load => ob11_reg_load, input => ob11_reg_in, output => ob11_reg_out);
+
+	ob12_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob12_reg_clear, load => ob12_reg_load, input => ob12_reg_in, output => ob12_reg_out);
+
+	ob13_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob13_reg_clear, load => ob13_reg_load, input => ob13_reg_in, output => ob13_reg_out);
+
+	ob14_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob14_reg_clear, load => ob14_reg_load, input => ob14_reg_in, output => ob14_reg_out);
+
+	ob15_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob15_reg_clear, load => ob15_reg_load, input => ob15_reg_in, output => ob15_reg_out);
+
+	ob16_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob16_reg_clear, load => ob16_reg_load, input => ob16_reg_in, output => ob16_reg_out);
+
+	ob17_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob17_reg_clear, load => ob17_reg_load, input => ob17_reg_in, output => ob17_reg_out);
+
+	ob18_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob18_reg_clear, load => ob18_reg_load, input => ob18_reg_in, output => ob18_reg_out);
+
+	ob19_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob19_reg_clear, load => ob19_reg_load, input => ob19_reg_in, output => ob19_reg_out);
+
+	ob20_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob20_reg_clear, load => ob20_reg_load, input => ob20_reg_in, output => ob20_reg_out);
+
+	ob21_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob21_reg_clear, load => ob21_reg_load, input => ob21_reg_in, output => ob21_reg_out);
+
+	ob22_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob22_reg_clear, load => ob22_reg_load, input => ob22_reg_in, output => ob22_reg_out);
+
+	ob23_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob23_reg_clear, load => ob23_reg_load, input => ob23_reg_in, output => ob23_reg_out);
+
+	ob24_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob24_reg_clear, load => ob24_reg_load, input => ob24_reg_in, output => ob24_reg_out);
+
+	ob25_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob25_reg_clear, load => ob25_reg_load, input => ob25_reg_in, output => ob25_reg_out);
+
+	ob26_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob26_reg_clear, load => ob26_reg_load, input => ob26_reg_in, output => ob26_reg_out);
+
+	ob27_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob27_reg_clear, load => ob27_reg_load, input => ob27_reg_in, output => ob27_reg_out);
+
+	ob28_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob28_reg_clear, load => ob28_reg_load, input => ob28_reg_in, output => ob28_reg_out);
+
+	ob29_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob29_reg_clear, load => ob29_reg_load, input => ob29_reg_in, output => ob29_reg_out);
+
+	ob30_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob30_reg_clear, load => ob30_reg_load, input => ob30_reg_in, output => ob30_reg_out);
+
+	ob31_reg_comp : registerN
+	generic map(width => 8, generateLoad => true, clearValue => 0)
+	port map(clock => clock, clear => ob31_reg_clear, load => ob31_reg_load, input => ob31_reg_in, output => ob31_reg_out);
+
 	-- END REGISTERS INSTANCES --
 	
 	
@@ -754,7 +962,7 @@ begin
 	
 	
 	--i++
-	addersubtractor1: addersubtractor
+	i_add_1_comp: addersubtractor
 	generic map(	
 			width => 32,
 			isAdder => true,
@@ -1454,6 +1662,61 @@ begin
 	
 	
 	
+	
+	
+	
+	--(HC[i]>>24) & 0xff
+	hc_shift_right_24_comp : shifterRotator
+	generic map(
+		width => 32,
+		isShifter => true,
+		isLogical => true,
+		toLeft => false,
+		bitsToShift => 24
+	)
+	port map(
+		input => hc_ram_out,
+		output => hc_shift_right_24
+	);
+	hc_shift_right_24_and_ff <= hc_shift_right_24 and "00000000000000000000000011111111";
+	
+
+	--(HC[i]>>16) & 0xff
+	hc_shift_right_16_comp : shifterRotator
+	generic map(
+		width => 32,
+		isShifter => true,
+		isLogical => true,
+		toLeft => false,
+		bitsToShift => 16
+	)
+	port map(
+		input => hc_ram_out,
+		output => hc_shift_right_16
+	);
+	hc_shift_right_16_and_ff <= hc_shift_right_16 and "00000000000000000000000011111111";
+
+	
+	--(HC[i]>>8) & 0xff
+	hc_shift_right_8_comp : shifterRotator
+	generic map(
+		width => 32,
+		isShifter => true,
+		isLogical => true,
+		toLeft => false,
+		bitsToShift => 8
+	)
+	port map(
+		input => hc_ram_out,
+		output => hc_shift_right_8
+	);
+	hc_shift_right_8_and_ff <= hc_shift_right_8 and "00000000000000000000000011111111";
+
+	--(HC[i]>>0) & 0xff
+	hc_shift_right_0 <= hc_ram_out;
+	hc_shift_right_0_and_ff <= hc_shift_right_0 and "00000000000000000000000011111111";
+	
+	
 	--HC + a
 	hc_add_a_comp : addersubtractor
 	generic map( width => 32, isAdder => true, fixedSecodOperand => 0 )
@@ -1710,17 +1973,21 @@ begin
 			sel => ctrl81,
 			output => mux_hc_ram_address_6);
 	
-	--HC[i] //ctrl84
-	--HC[i] //ctrl85
-	--HC[i] //ctrl86
-	--HC[i] //ctrl87
-	--HC[i] //ctrl29
+
+	--HC[i] //ctrl29 ctrl84 ctrl85 ctrl86 ctrl87 ctrl89 ctrl90 ctrl91 ctrl92 ctrl94 
+	--			ctrl95 ctrl96 ctrl97 ctrl99 ctrl100 ctrl101 ctrl102 ctrl104 ctrl105 ctrl106 ctrl107 
+	--			ctrl109 ctrl110 ctrl111 ctrl112 ctrl114 ctrl115 ctrl116 ctrl117 ctrl119 ctrl120 ctrl121 ctrl122
 	mux_hc_ram_address_7_comp: multiplexer2x1
 	generic map(	width => 32 )
 	port map(	
 			input0 => mux_hc_ram_address_6, 
 			input1 => i_reg_out,
-			sel => (ctrl84 or ctrl85 or ctrl86 or ctrl87 or ctrl29),
+			sel => (
+				ctrl29 or ctrl84 or ctrl85 or ctrl86 or ctrl87 or ctrl89
+				or ctrl90 or ctrl91 or ctrl92 or ctrl94 or ctrl95 or ctrl96 or ctrl97 or ctrl99 or ctrl100 or ctrl101 
+				or ctrl102 or ctrl104 or ctrl105 or ctrl106 or ctrl107 or ctrl109 or ctrl110 or ctrl111 or ctrl112 
+				or ctrl114 or ctrl115 or ctrl116 or ctrl117 or ctrl119 or ctrl120 or ctrl121 or ctrl122
+			),
 			output => hc_ram_address);
 	
 	
@@ -1957,11 +2224,11 @@ begin
 	port map(	
 			input0 => (4 => '1', others => '0'), 
 			input1 => i_add_1,
-			sel => (ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88),
+			sel => (ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88 or ctrl93 or ctrl98 or ctrl103 or ctrl108 or ctrl113 or ctrl118),
 			output => i_reg_in);
 	
 	i_reg_clear <= (ctrl2 or ctrl28 or ctrl33 or ctrl58 or ctrl83);
-	i_reg_load <= (ctrl40 or ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88);
+	i_reg_load <= (ctrl40 or ctrl30 or ctrl39 or ctrl49 or ctrl73 or ctrl88 or ctrl93 or ctrl98 or ctrl103 or ctrl108 or ctrl113 or ctrl118);
 	
 	
 	
@@ -2262,7 +2529,87 @@ begin
 	
 	a_reg_load <= (ctrl50 or ctrl72);
 	
+	
+	
+	
+	
+	
+	
+	ob0_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob1_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob2_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob3_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob4_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob5_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob6_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob7_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob8_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob9_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob10_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob11_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob12_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob13_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob14_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob15_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob16_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob17_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob18_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob19_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob20_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob21_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob22_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob23_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob24_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob25_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob26_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob27_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob28_reg_in <= hc_shift_right_24_and_ff(7 downto 0);
+	ob29_reg_in <= hc_shift_right_16_and_ff(7 downto 0);
+	ob30_reg_in <= hc_shift_right_8_and_ff(7 downto 0);
+	ob31_reg_in <= hc_shift_right_0_and_ff(7 downto 0);
+	ob0_reg_load <= ctrl84;
+	ob1_reg_load <= ctrl85;
+	ob2_reg_load <= ctrl86;
+	ob3_reg_load <= ctrl87;
+	ob4_reg_load <= ctrl89;
+	ob5_reg_load <= ctrl90;
+	ob6_reg_load <= ctrl91;
+	ob7_reg_load <= ctrl92;
+	ob8_reg_load <= ctrl94;
+	ob9_reg_load <= ctrl95;
+	ob10_reg_load <= ctrl96;
+	ob11_reg_load <= ctrl97;
+	ob12_reg_load <= ctrl99;
+	ob13_reg_load <= ctrl100;
+	ob14_reg_load <= ctrl101;
+	ob15_reg_load <= ctrl102;
+	ob16_reg_load <= ctrl104;
+	ob17_reg_load <= ctrl105;
+	ob18_reg_load <= ctrl106;
+	ob19_reg_load <= ctrl107;
+	ob20_reg_load <= ctrl109;
+	ob21_reg_load <= ctrl110;
+	ob22_reg_load <= ctrl111;
+	ob23_reg_load <= ctrl112;
+	ob24_reg_load <= ctrl114;
+	ob25_reg_load <= ctrl115;
+	ob26_reg_load <= ctrl116;
+	ob27_reg_load <= ctrl117;
+	ob28_reg_load <= ctrl119;
+	ob29_reg_load <= ctrl120;
+	ob30_reg_load <= ctrl121;
+	ob31_reg_load <= ctrl122;
+	
+	
+	
+	
 	-- END REGISTERS IN MUXs --
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -2305,8 +2652,11 @@ begin
 	
 	
 	
-	
-	output(31 downto 0) <= hc_ram_out(31 downto 0);
+	output<= ob0_reg_out & ob1_reg_out & ob2_reg_out & ob3_reg_out & ob4_reg_out & ob5_reg_out 
+	& ob6_reg_out & ob7_reg_out & ob8_reg_out & ob9_reg_out & ob10_reg_out & ob11_reg_out & ob12_reg_out 
+	& ob13_reg_out & ob14_reg_out & ob15_reg_out & ob16_reg_out & ob17_reg_out & ob18_reg_out & ob19_reg_out 
+	& ob20_reg_out & ob21_reg_out & ob22_reg_out & ob23_reg_out & ob24_reg_out & ob25_reg_out & ob26_reg_out 
+	& ob27_reg_out & ob28_reg_out & ob29_reg_out & ob30_reg_out & ob31_reg_out;
 	
 	
 	

@@ -1,5 +1,5 @@
 Flow report for sha256
-Sun Nov 19 20:15:57 2023
+Mon Nov 20 12:44:15 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -40,15 +40,15 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Sun Nov 19 20:15:57 2023      ;
+; Flow Status                        ; Successful - Mon Nov 20 12:44:15 2023      ;
 ; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
 ; Revision Name                      ; sha256                                     ;
 ; Top-level Entity Name              ; sha256_top_level                           ;
 ; Family                             ; Cyclone IV GX                              ;
-; Total logic elements               ; 2,553 / 49,888 ( 5 % )                     ;
-;     Total combinational functions  ; 2,352 / 49,888 ( 5 % )                     ;
-;     Dedicated logic registers      ; 1,067 / 49,888 ( 2 % )                     ;
-; Total registers                    ; 1067                                       ;
+; Total logic elements               ; 2,587 / 49,888 ( 5 % )                     ;
+;     Total combinational functions  ; 2,328 / 49,888 ( 5 % )                     ;
+;     Dedicated logic registers      ; 1,107 / 49,888 ( 2 % )                     ;
+; Total registers                    ; 1107                                       ;
 ; Total pins                         ; 260 / 343 ( 76 % )                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 71,680 / 2,562,048 ( 3 % )                 ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/19/2023 20:14:58 ;
+; Start date & time ; 11/20/2023 12:42:26 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; sha256              ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+--------------------------------+---------------+------------------+----------------+
 ; Assignment Name                     ; Value                          ; Default Value ; Entity Name      ; Section Id     ;
 +-------------------------------------+--------------------------------+---------------+------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 13432881294342.170043569805752 ; --            ; --               ; --             ;
+; COMPILER_SIGNATURE_ID               ; 13432881294342.170049494611516 ; --            ; --               ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                           ; --            ; --               ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)         ; <None>        ; --               ; --             ;
 ; IP_TOOL_NAME                        ; RAM: 1-PORT                    ; --            ; --               ; --             ;
@@ -110,12 +110,12 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:10     ; 1.0                     ; 4764 MB             ; 00:00:07                           ;
-; Fitter                    ; 00:00:32     ; 1.0                     ; 5186 MB             ; 00:00:28                           ;
-; Assembler                 ; 00:00:04     ; 1.0                     ; 4651 MB             ; 00:00:03                           ;
-; TimeQuest Timing Analyzer ; 00:00:05     ; 1.0                     ; 4700 MB             ; 00:00:03                           ;
-; EDA Netlist Writer        ; 00:00:03     ; 1.0                     ; 4640 MB             ; 00:00:03                           ;
-; Total                     ; 00:00:54     ; --                      ; --                  ; 00:00:44                           ;
+; Analysis & Synthesis      ; 00:00:08     ; 1.0                     ; 4772 MB             ; 00:00:07                           ;
+; Fitter                    ; 00:00:29     ; 1.0                     ; 5193 MB             ; 00:00:27                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 4667 MB             ; 00:00:03                           ;
+; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 4703 MB             ; 00:00:03                           ;
+; EDA Netlist Writer        ; 00:00:03     ; 1.0                     ; 4637 MB             ; 00:00:03                           ;
+; Total                     ; 00:00:48     ; --                      ; --                  ; 00:00:43                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

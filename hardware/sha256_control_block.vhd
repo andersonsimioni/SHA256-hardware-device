@@ -15,7 +15,10 @@ entity sha256_control_block is
 		ctrl45,ctrl46,ctrl47,ctrl48,ctrl49,ctrl50,ctrl51,ctrl52,ctrl53,ctrl54,ctrl55,ctrl56,ctrl57,ctrl58,
 		ctrl59,ctrl60,ctrl61,ctrl62,ctrl63,ctrl64,ctrl65,ctrl66,ctrl67,ctrl68,ctrl69,ctrl70,ctrl71,ctrl72,
 		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
-		ctrl87,ctrl88 : out std_logic
+		ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
+		ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
+		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
+		: out std_logic
   ) ;
 end sha256_control_block;
 
@@ -27,7 +30,9 @@ architecture sha256_control_block_arch of sha256_control_block is
 		L64,L65,L66,L67,L68,L69,L70,L71,L72,L73,L74,L75,L76,L77,L78,L79,L80,L81,L82,L83,L84,L85,
 		L86,L87,L88,L89,L90,L91,L92,L93,L94,L95,L96,L97,L98,L99,L100,L101,L102,L103,L104,L105,L106,
 		L107,L108,L109,L110,L111,L112,L113,L114,L115,L116,L117,L118,L119,L120,L121,L122,L123,L124,
-		L125,L126,L127,L128,L129,L130,L131,L132,L133,L134,L135,L136,L137,L138
+		L125,L126,L127,L128,L129,L130,L131,L132,L133,L134,L135,L136,L137,L138,L139,L140,L141,L142,
+		L143,L144,L145,L146,L147,L148,L149,L150,L151,L152,L153,L154,L155,L156,L157,L158,L159,L160,
+		L161,L162,L163,L164,L165,L166,L167,L168,L169,L170,L171
     );
     
     signal current_state, next_state : state;
@@ -382,11 +387,7 @@ begin
 				next_state <= L133;
 
 			when L133 =>
-				if stt10 = '1' then
-					next_state <= L134;
-				else
-					next_state <= L42;
-				end if;
+				next_state <= L134;
 
 			when L134 =>
 				next_state <= L135;
@@ -402,6 +403,106 @@ begin
 
 			when L138 =>
 				next_state <= L133;
+				
+			when L139 =>
+				next_state <= L140;
+
+			when L140 =>
+				 next_state <= L141;
+
+			when L141 =>
+				 next_state <= L142;
+
+			when L142 =>
+				 next_state <= L143;
+
+			when L143 =>
+				 next_state <= L144;
+
+			when L144 =>
+				 next_state <= L145;
+
+			when L145 =>
+				 next_state <= L146;
+
+			when L146 =>
+				 next_state <= L147;
+
+			when L147 =>
+				 next_state <= L148;
+
+			when L148 =>
+				 next_state <= L149;
+
+			when L149 =>
+				 next_state <= L150;
+
+			when L150 =>
+				 next_state <= L151;
+
+			when L151 =>
+				 next_state <= L152;
+
+			when L152 =>
+				 next_state <= L153;
+
+			when L153 =>
+				 next_state <= L154;
+
+			when L154 =>
+				 next_state <= L155;
+
+			when L155 =>
+				 next_state <= L156;
+
+			when L156 =>
+				 next_state <= L157;
+
+			when L157 =>
+				 next_state <= L158;
+
+			when L158 =>
+				 next_state <= L159;
+
+			when L159 =>
+				 next_state <= L160;
+
+			when L160 =>
+				 next_state <= L161;
+
+			when L161 =>
+				 next_state <= L162;
+
+			when L162 =>
+				 next_state <= L163;
+
+			when L163 =>
+				 next_state <= L164;
+
+			when L164 =>
+				 next_state <= L165;
+
+			when L165 =>
+				 next_state <= L166;
+
+			when L166 =>
+				 next_state <= L167;
+
+			when L167 =>
+				 next_state <= L168;
+
+			when L168 =>
+				 next_state <= L169;
+
+			when L169 =>
+				 next_state <= L170;
+
+			when L170 =>
+				 next_state <= L171;
+
+			when L171 => 
+				 next_state <= L42;
+
 
 		end case;
 	end process;
@@ -502,10 +603,44 @@ begin
 	ctrl81 <= '1' when current_state = L130 else '0';
 	ctrl82 <= '1' when current_state = L131 else '0';
 	ctrl83 <= '1' when current_state = L132 else '0';
-	ctrl84 <= '1' when current_state = L134 else '0';
-	ctrl85 <= '1' when current_state = L135 else '0';
-	ctrl86 <= '1' when current_state = L136 else '0';
-	ctrl87 <= '1' when current_state = L137 else '0';
-	ctrl88 <= '1' when current_state = L138 else '0';
+	ctrl84 <= '1' when current_state = L133 else '0';
+	ctrl85 <= '1' when current_state = L134 else '0';
+	ctrl86 <= '1' when current_state = L135 else '0';
+	ctrl87 <= '1' when current_state = L136 else '0';
+	ctrl88 <= '1' when current_state = L137 else '0';
+	ctrl89 <= '1' when current_state = L138 else '0';
+	ctrl90 <= '1' when current_state = L139 else '0';
+	ctrl91 <= '1' when current_state = L140 else '0';
+	ctrl92 <= '1' when current_state = L141 else '0';
+	ctrl93 <= '1' when current_state = L142 else '0';
+	ctrl94 <= '1' when current_state = L143 else '0';
+	ctrl95 <= '1' when current_state = L144 else '0';
+	ctrl96 <= '1' when current_state = L145 else '0';
+	ctrl97 <= '1' when current_state = L146 else '0';
+	ctrl98 <= '1' when current_state = L147 else '0';
+	ctrl99 <= '1' when current_state = L148 else '0';
+	ctrl100 <= '1' when current_state = L149 else '0';
+	ctrl101 <= '1' when current_state = L150 else '0';
+	ctrl102 <= '1' when current_state = L151 else '0';
+	ctrl103 <= '1' when current_state = L152 else '0';
+	ctrl104 <= '1' when current_state = L153 else '0';
+	ctrl105 <= '1' when current_state = L154 else '0';
+	ctrl106 <= '1' when current_state = L155 else '0';
+	ctrl107 <= '1' when current_state = L156 else '0';
+	ctrl108 <= '1' when current_state = L157 else '0';
+	ctrl109 <= '1' when current_state = L158 else '0';
+	ctrl110 <= '1' when current_state = L159 else '0';
+	ctrl111 <= '1' when current_state = L160 else '0';
+	ctrl112 <= '1' when current_state = L161 else '0';
+	ctrl113 <= '1' when current_state = L162 else '0';
+	ctrl114 <= '1' when current_state = L163 else '0';
+	ctrl115 <= '1' when current_state = L164 else '0';
+	ctrl116 <= '1' when current_state = L165 else '0';
+	ctrl117 <= '1' when current_state = L166 else '0';
+	ctrl118 <= '1' when current_state = L167 else '0';
+	ctrl119 <= '1' when current_state = L168 else '0';
+	ctrl120 <= '1' when current_state = L169 else '0';
+	ctrl121 <= '1' when current_state = L170 else '0';
+	ctrl122 <= '1' when current_state = L171 else '0';
 
 end sha256_control_block_arch ; -- sha256_control_block_arch
