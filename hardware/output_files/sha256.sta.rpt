@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for sha256
-Sat Nov 25 03:02:32 2023
+Sat Nov 25 03:13:44 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -6295,7 +6295,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
     Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
-    Info: Processing started: Sat Nov 25 03:02:26 2023
+    Info: Processing started: Sat Nov 25 03:13:38 2023
 Info: Command: quartus_sta sha256 -c sha256
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
@@ -6399,8 +6399,8 @@ Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 9 warnings
     Info: Peak virtual memory: 4709 megabytes
-    Info: Processing ended: Sat Nov 25 03:02:32 2023
+    Info: Processing ended: Sat Nov 25 03:13:44 2023
     Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:04
+    Info: Total CPU time (on all processors): 00:00:03
 
 

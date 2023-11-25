@@ -1,5 +1,5 @@
 Flow report for sha256
-Sat Nov 25 03:02:37 2023
+Sat Nov 25 03:13:49 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Sat Nov 25 03:02:37 2023      ;
+; Flow Status                        ; Successful - Sat Nov 25 03:13:49 2023      ;
 ; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
 ; Revision Name                      ; sha256                                     ;
 ; Top-level Entity Name              ; sha256_top_level                           ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/25/2023 03:01:25 ;
+; Start date & time ; 11/25/2023 03:12:41 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; sha256              ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+--------------------------------+---------------+------------------+----------------+
 ; Assignment Name                     ; Value                          ; Default Value ; Entity Name      ; Section Id     ;
 +-------------------------------------+--------------------------------+---------------+------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 13432881294342.170089208564388 ; --            ; --               ; --             ;
+; COMPILER_SIGNATURE_ID               ; 13432881294342.170089276146160 ; --            ; --               ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                           ; --            ; --               ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)         ; <None>        ; --               ; --             ;
 ; IP_TOOL_NAME                        ; RAM: 1-PORT                    ; --            ; --               ; --             ;
@@ -110,12 +110,12 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:11     ; 1.0                     ; 4772 MB             ; 00:00:09                           ;
-; Fitter                    ; 00:00:41     ; 1.0                     ; 5182 MB             ; 00:00:32                           ;
-; Assembler                 ; 00:00:04     ; 1.0                     ; 4665 MB             ; 00:00:02                           ;
-; TimeQuest Timing Analyzer ; 00:00:06     ; 1.0                     ; 4709 MB             ; 00:00:04                           ;
+; Analysis & Synthesis      ; 00:00:10     ; 1.0                     ; 4773 MB             ; 00:00:09                           ;
+; Fitter                    ; 00:00:37     ; 1.0                     ; 5183 MB             ; 00:00:34                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 4665 MB             ; 00:00:03                           ;
+; TimeQuest Timing Analyzer ; 00:00:06     ; 1.0                     ; 4709 MB             ; 00:00:03                           ;
 ; EDA Netlist Writer        ; 00:00:04     ; 1.0                     ; 4643 MB             ; 00:00:03                           ;
-; Total                     ; 00:01:06     ; --                      ; --                  ; 00:00:50                           ;
+; Total                     ; 00:01:01     ; --                      ; --                  ; 00:00:52                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
