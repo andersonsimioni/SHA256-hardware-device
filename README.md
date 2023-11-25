@@ -15,9 +15,9 @@ The C implementation is designed to be portable and efficient, suitable for inte
 ### Features
 
 - High portability across different platforms
-- Optimized for performance with a focus on minimal memory footprint
-- Easy-to-use API for hashing data
 - Comprehensive set of unit tests ensuring algorithm correctness
+
+![Simulation](preview.png)
 
 ### Usage
 
@@ -28,6 +28,18 @@ The C implementation is designed to be portable and efficient, suitable for inte
 
 ### Building
 
-```shell
-gcc -o sha256c sha256.c -std=c99
-./sha256c "Your input string here"
+#### VHDL
+To synthesize the SHA256 implementation in VHDL:
+
+1. Open your hardware synthesis tool (Intel Quartus ONLY).
+2. Create a new project and add the VHDL files from the VHDL directory.
+3. Set up your synthesis, implementation, and programming settings according to your hardware target.
+4. Run the synthesis process.
+5. If desired, run a simulation to verify functional correctness.
+6. Generate a bitstream or netlist for your hardware.
+
+#### C
+```bash
+$ git clone <repository-url>
+$ cd <repository-name>/software
+$ make run
