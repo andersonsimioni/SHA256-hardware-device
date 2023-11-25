@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Mon Nov 20 12:42:35 2023
+Analysis & Synthesis Status : Successful - Sat Nov 25 03:01:36 2023
 Quartus II 64-Bit Version : 13.1.0 Build 162 10/23/2013 SJ Web Edition
 Revision Name : sha256
 Top-level Entity Name : sha256_top_level
 Family : Cyclone IV GX
-Total logic elements : 2,760
-    Total combinational functions : 2,328
-    Dedicated logic registers : 1,107
-Total registers : 1107
+Total logic elements : 3,163
+    Total combinational functions : 2,520
+    Dedicated logic registers : 1,349
+Total registers : 1349
 Total pins : 260
 Total virtual pins : 0
 Total memory bits : 71,680

@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <LOG_ROOT>
 	<PROJECT NAME="sha256">
-		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram:main_ram_data|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_oqr3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram_32:chunks_ram|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_jqq3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram_h:h_ram_0|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_h0s3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram_k:k_ram_0|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_q0s3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram_32:w_ram|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_jqq3.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram_data:main_ram_data|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_has3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|sha256_top_level|sha256_operative_block:sha256_operative_block_0|ram_h:hc_ram_0|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_h0s3.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

@@ -1,5 +1,5 @@
 Flow report for sha256
-Mon Nov 20 13:34:15 2023
+Sat Nov 25 03:02:37 2023
 Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
 
 
@@ -40,15 +40,15 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Flow Summary                                                                    ;
 +------------------------------------+--------------------------------------------+
-; Flow Status                        ; Successful - Mon Nov 20 12:44:15 2023      ;
+; Flow Status                        ; Successful - Sat Nov 25 03:02:37 2023      ;
 ; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
 ; Revision Name                      ; sha256                                     ;
 ; Top-level Entity Name              ; sha256_top_level                           ;
 ; Family                             ; Cyclone IV GX                              ;
-; Total logic elements               ; 2,587 / 49,888 ( 5 % )                     ;
-;     Total combinational functions  ; 2,328 / 49,888 ( 5 % )                     ;
-;     Dedicated logic registers      ; 1,107 / 49,888 ( 2 % )                     ;
-; Total registers                    ; 1107                                       ;
+; Total logic elements               ; 2,928 / 49,888 ( 6 % )                     ;
+;     Total combinational functions  ; 2,520 / 49,888 ( 5 % )                     ;
+;     Dedicated logic registers      ; 1,349 / 49,888 ( 3 % )                     ;
+; Total registers                    ; 1349                                       ;
 ; Total pins                         ; 260 / 343 ( 76 % )                         ;
 ; Total virtual pins                 ; 0                                          ;
 ; Total memory bits                  ; 71,680 / 2,562,048 ( 3 % )                 ;
@@ -68,7 +68,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/20/2023 12:42:26 ;
+; Start date & time ; 11/25/2023 03:01:25 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; sha256              ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ applicable agreement for further details.
 +-------------------------------------+--------------------------------+---------------+------------------+----------------+
 ; Assignment Name                     ; Value                          ; Default Value ; Entity Name      ; Section Id     ;
 +-------------------------------------+--------------------------------+---------------+------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 13432881294342.170049494611516 ; --            ; --               ; --             ;
+; COMPILER_SIGNATURE_ID               ; 13432881294342.170089208564388 ; --            ; --               ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                           ; --            ; --               ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)         ; <None>        ; --               ; --             ;
 ; IP_TOOL_NAME                        ; RAM: 1-PORT                    ; --            ; --               ; --             ;
@@ -92,11 +92,11 @@ applicable agreement for further details.
 ; IP_TOOL_VERSION                     ; 13.1                           ; --            ; --               ; --             ;
 ; IP_TOOL_VERSION                     ; 13.1                           ; --            ; --               ; --             ;
 ; IP_TOOL_VERSION                     ; 13.1                           ; --            ; --               ; --             ;
-; MISC_FILE                           ; ram.cmp                        ; --            ; --               ; --             ;
-; MISC_FILE                           ; ram_8.cmp                      ; --            ; --               ; --             ;
+; MISC_FILE                           ; ram_no_q.cmp                   ; --            ; --               ; --             ;
 ; MISC_FILE                           ; ram_k.cmp                      ; --            ; --               ; --             ;
 ; MISC_FILE                           ; ram_h.cmp                      ; --            ; --               ; --             ;
 ; MISC_FILE                           ; ram_32.cmp                     ; --            ; --               ; --             ;
+; MISC_FILE                           ; ram_data.cmp                   ; --            ; --               ; --             ;
 ; PARTITION_COLOR                     ; 16764057                       ; --            ; sha256_top_level ; Top            ;
 ; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING          ; --            ; sha256_top_level ; Top            ;
 ; PARTITION_NETLIST_TYPE              ; SOURCE                         ; --            ; sha256_top_level ; Top            ;
@@ -110,13 +110,12 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:08     ; 1.0                     ; 4772 MB             ; 00:00:07                           ;
-; Fitter                    ; 00:00:29     ; 1.0                     ; 5193 MB             ; 00:00:27                           ;
-; Assembler                 ; 00:00:04     ; 1.0                     ; 4667 MB             ; 00:00:03                           ;
-; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 4703 MB             ; 00:00:03                           ;
-; EDA Netlist Writer        ; 00:00:03     ; 1.0                     ; 4637 MB             ; 00:00:03                           ;
-; TimeQuest Timing Analyzer ; 00:00:04     ; 1.0                     ; 4700 MB             ; 00:00:03                           ;
-; Total                     ; 00:00:52     ; --                      ; --                  ; 00:00:46                           ;
+; Analysis & Synthesis      ; 00:00:11     ; 1.0                     ; 4772 MB             ; 00:00:09                           ;
+; Fitter                    ; 00:00:41     ; 1.0                     ; 5182 MB             ; 00:00:32                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 4665 MB             ; 00:00:02                           ;
+; TimeQuest Timing Analyzer ; 00:00:06     ; 1.0                     ; 4709 MB             ; 00:00:04                           ;
+; EDA Netlist Writer        ; 00:00:04     ; 1.0                     ; 4643 MB             ; 00:00:03                           ;
+; Total                     ; 00:01:06     ; --                      ; --                  ; 00:00:50                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -130,7 +129,6 @@ applicable agreement for further details.
 ; Assembler                 ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
 ; TimeQuest Timing Analyzer ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
 ; EDA Netlist Writer        ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
-; TimeQuest Timing Analyzer ; Anderson         ; Windows 7 ; 6.2        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 
@@ -142,7 +140,6 @@ quartus_fit --read_settings_files=off --write_settings_files=off sha256 -c sha25
 quartus_asm --read_settings_files=off --write_settings_files=off sha256 -c sha256
 quartus_sta sha256 -c sha256
 quartus_eda --read_settings_files=off --write_settings_files=off sha256 -c sha256
-quartus_sta sha256 -c sha256
 
 
 

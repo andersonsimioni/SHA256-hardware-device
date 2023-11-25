@@ -48,11 +48,12 @@ set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulati
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name MIF_FILE ram_data.mif
+set_global_assignment -name SOURCE_FILE ram_data.cmp
+set_global_assignment -name SOURCE_FILE ram_32.cmp
+set_global_assignment -name QIP_FILE ram_no_q.qip
 set_global_assignment -name SOURCE_FILE ram_h.cmp
 set_global_assignment -name SOURCE_FILE ram_k.cmp
-set_global_assignment -name SOURCE_FILE ram_8.cmp
-set_global_assignment -name SOURCE_FILE ram.cmp
-set_global_assignment -name MIF_FILE ram.mif
 set_global_assignment -name VHDL_FILE registerN.vhd
 set_global_assignment -name VHDL_FILE multiplexer2x1.vhd
 set_global_assignment -name VHDL_FILE compare.vhd
@@ -60,12 +61,11 @@ set_global_assignment -name VHDL_FILE adderSubtractor.vhd
 set_global_assignment -name VHDL_FILE sha256_top_level.vhd
 set_global_assignment -name VHDL_FILE sha256_operative_block.vhd
 set_global_assignment -name VHDL_FILE sha256_control_block.vhd
-set_global_assignment -name QIP_FILE ram.qip
-set_global_assignment -name QIP_FILE ram_8.qip
 set_global_assignment -name QIP_FILE ram_k.qip
 set_global_assignment -name MIF_FILE ram_k.mif
 set_global_assignment -name QIP_FILE ram_h.qip
 set_global_assignment -name MIF_FILE ram_h.mif
 set_global_assignment -name QIP_FILE ram_32.qip
 set_global_assignment -name VHDL_FILE shifterRotator.vhd
+set_global_assignment -name QIP_FILE ram_data.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

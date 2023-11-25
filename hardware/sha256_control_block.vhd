@@ -17,7 +17,8 @@ entity sha256_control_block is
 		ctrl73,ctrl74,ctrl75,ctrl76,ctrl77,ctrl78,ctrl79,ctrl80,ctrl81,ctrl82,ctrl83,ctrl84,ctrl85,ctrl86,
 		ctrl87,ctrl88,ctrl89,ctrl90,ctrl91,ctrl92,ctrl93,ctrl94,ctrl95,ctrl96,ctrl97,ctrl98,ctrl99,ctrl100,
 		ctrl101,ctrl102,ctrl103,ctrl104,ctrl105,ctrl106,ctrl107,ctrl108,ctrl109,ctrl110,ctrl111,ctrl112,
-		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122
+		ctrl113,ctrl114,ctrl115,ctrl116,ctrl117,ctrl118,ctrl119,ctrl120,ctrl121,ctrl122,ctrl123,ctrl124,
+	ctrl125,ctrl126,ctrl127,ctrl128,ctrl129,ctrl130,ctrl131
 		: out std_logic
   ) ;
 end sha256_control_block;
@@ -32,479 +33,586 @@ architecture sha256_control_block_arch of sha256_control_block is
 		L107,L108,L109,L110,L111,L112,L113,L114,L115,L116,L117,L118,L119,L120,L121,L122,L123,L124,
 		L125,L126,L127,L128,L129,L130,L131,L132,L133,L134,L135,L136,L137,L138,L139,L140,L141,L142,
 		L143,L144,L145,L146,L147,L148,L149,L150,L151,L152,L153,L154,L155,L156,L157,L158,L159,L160,
-		L161,L162,L163,L164,L165,L166,L167,L168,L169,L170,L171
+		L161,L162,L163,L164,L165,L166,L167,L168,L169,L170,L171,L172,L173,L174,L175,L176,L177,L178,
+		L179,L180
     );
     
     signal current_state, next_state : state;
 
 begin
 
-	next_state_logic_process: process(next_state, stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9, stt10)
+	next_state_logic_process: process(clock) -- , chip_select, current_state, stt1, stt2, stt3, stt4, stt5, stt6, stt7, stt8, stt9, stt10
+		 variable mem_sync_len : natural := 10;
+		 variable mem_sync_i : natural := mem_sync_len;
 	begin
 		next_state <= current_state;
 		
-		case current_state is			
-			
-			when L42 =>
-				if chip_select = '1' then
-					next_state <= L43;
-				end if;
+		if mem_sync_i = 0 then
+		
+			case current_state is			
+				
+				when L42 =>
+					if chip_select = '1' then
+						next_state <= L43;
+					end if;
 
-			when L43 =>
-				next_state <= L44;
+				when L43 =>
+					next_state <= L44;
 
-			when L44 =>
-				next_state <= L45;
+				when L44 =>
+					next_state <= L45;
 
-			when L45 =>
-				next_state <= L46;
+				when L45 =>
+					next_state <= L46;
 
-			when L46 =>
-				next_state <= L47;
+				when L46 =>
+					next_state <= L47;
 
-			when L47 =>
-				next_state <= L48;
+				when L47 =>
+					next_state <= L48;
 
-			when L48 =>
-				next_state <= L49;
-
-			
-			--STT1
-			when L49 =>
-				if stt1 = '1' then
-					next_state <= L50;
-				else
-					next_state <= L53;
-				end if;
-
-			when L50 =>
-				next_state <= L51;
-
-			when L51 =>
-				next_state <= L52;
-
-			when L52 =>
-				next_state <= L49;
-
-			
-			
-			
-			
-			when L53 =>
-				next_state <= L54;
-			
-			
-			
-			
-			--STT
-			when L54 =>
-				if stt2 = '1' then
-					next_state <= L42;
-				else
-					next_state <= L55;
-				end if;
-			
-
-			
-			
-			when L55 =>
-				next_state <= L56;
-
-			when L56 =>
-				next_state <= L57;
+				when L48 =>
+					next_state <= L49;
 
 				
-			
-			--STT
-			when L57 =>
-				if stt3 = '1' then
-					next_state <= L58;
-				else
-					next_state <= L71;
-				end if;
+				--STT1
+				when L49 =>
+					if stt1 = '1' then
+						next_state <= L50;
+					else
+						next_state <= L53;
+					end if;
 
-			when L58 =>
-				next_state <= L59;
+				when L50 =>
+					next_state <= L51;
 
-			when L59 =>
-				if stt4 = '1' then
-					next_state <= L60;
-				else
+				when L51 =>
+					next_state <= L52;
+
+				when L52 =>
+					next_state <= L49;
+
+				
+				
+				
+				
+				when L53 =>
+					next_state <= L54;
+				
+				
+				
+				
+				--STT
+				when L54 =>
+					mem_sync_i := mem_sync_len;
+					if stt2 = '1' then
+						next_state <= L42;
+					else
+						next_state <= L55;
+					end if;
+				
+
+				
+				
+				when L55 =>
+					next_state <= L56;
+
+				when L56 =>
+					next_state <= L57;
+
+					
+				
+				--STT
+				when L57 =>
+					mem_sync_i := mem_sync_len;
+					if stt3 = '1' then
+						next_state <= L58;
+					else
+						next_state <= L71;
+					end if;
+
+				when L58 =>
+					next_state <= L59;
+
+				when L59 =>
+					if stt4 = '1' then
+						mem_sync_i := mem_sync_len;
+						next_state <= L60;
+					else
+						next_state <= L70;
+					end if;
+
+				when L60 =>
+					next_state <= L61;
+
+				when L61 =>
+					next_state <= L62;
+
+				when L62 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L63;
+
+				when L63 =>
+					next_state <= L64;
+
+				when L64 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L65;
+
+				when L65 =>
+					next_state <= L66;
+
+				when L66 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L67;
+
+				when L67 =>
+					next_state <= L68;
+
+				when L68 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L69;
+
+				when L69 =>
 					next_state <= L70;
-				end if;
 
-			when L60 =>
-				next_state <= L61;
+				when L70 =>
+					next_state <= L57;
 
-			when L61 =>
-				next_state <= L62;
-
-			when L62 =>
-				next_state <= L63;
-
-			when L63 =>
-				next_state <= L64;
-
-			when L64 =>
-				next_state <= L65;
-
-			when L65 =>
-				next_state <= L66;
-
-			when L66 =>
-				next_state <= L67;
-
-			when L67 =>
-				next_state <= L68;
-
-			when L68 =>
-				next_state <= L69;
-
-			when L69 =>
-				next_state <= L70;
-
-			when L70 =>
-				next_state <= L57;
-
-			
-			
-			
-			when L71 =>
-				next_state <= L72;
-
-			when L72 =>
-				next_state <= L73;
-			
-			
-			
-			
-			--STT
-			when L73 =>
-				if stt5 = '1' then
-					next_state <= L74;
-				else
-					next_state <= L76;
-				end if;
-
-			when L74 =>
-				next_state <= L75;
-
-			when L75 =>
-				next_state <= L73;
-			
-			
-
-			when L76 =>
-				next_state <= L77;
-			
-			
-			
-			--STT
-			when L77 =>
-				if stt6 = '1' then
-					next_state <= L78;
-				else
-					next_state <= L132;
-				end if;
-
-			when L78 =>
-				next_state <= L79;
-
-			when L79 =>
-				next_state <= L80;
-
-			when L80 =>
-				if stt7 = '1' then
-					next_state <= L81;
-				else
-					next_state <= L87;
-				end if;
-			
-			when L81 =>
-				next_state <= L82;
-
-			when L82 =>
-				next_state <= L83;
-
-			when L83 =>
-				next_state <= L84;
-
-			when L84 =>
-				next_state <= L85;
-
-			when L85 =>
-				next_state <= L86;
-
-			when L86 =>
-				next_state <= L80;
-
-			when L87 =>
-				next_state <= L88;
-
-			when L88 =>
-				if stt8 = '1' then
-					next_state <= L89;
-				else
-					next_state <= L98;
-				end if;
-
-			when L89 =>
-				next_state <= L90;
-
-			when L90 =>
-				next_state <= L91;
-
-			when L91 =>
-				next_state <= L92;	
-
-			when L92 =>
-				next_state <= L93;
-
-			when L93 =>
-				next_state <= L94;
-
-			when L94 =>
-				next_state <= L95;
-
-			when L95 =>
-				next_state <= L96;
-
-			when L96 =>
-				next_state <= L97;
-
-			when L97 =>
-				next_state <= L88;
-
-			when L98 =>
-				next_state <= L99;
-
-			when L99 =>
-				next_state <= L100;
-
-			when L100 =>
-				next_state <= L101;
-
-			when L101 =>
-				next_state <= L102;
-
-			when L102 =>
-				next_state <= L103;
-
-			when L103 =>
-				next_state <= L104;
-
-			when L104 =>
-				next_state <= L105;
-
-			when L105 =>
-				next_state <= L106;
-
-			when L106 =>
-				next_state <= L107;
-
-			when L107 =>
-				if stt9 = '1' then
-					next_state <= L108;
-				else
-					next_state <= L123;
-				end if;
 				
-			when L108 =>
-				next_state <= L109;
+				
+				
+				when L71 =>
+					next_state <= L72;
 
-			when L109 =>
-				next_state <= L110;
+				when L72 =>
+					next_state <= L73;
+				
+				
+				
+				
+				--STT
+				when L73 =>
+					if stt5 = '1' then
+						mem_sync_i := mem_sync_len;
+						next_state <= L74;
+					else
+						next_state <= L76;
+					end if;
 
-			when L110 =>
-				next_state <= L111;
+				when L74 =>
+					next_state <= L75;
 
-			when L111 =>
-				next_state <= L112;
+				when L75 =>
+					next_state <= L73;
+				
+				
 
-			when L112 =>
-				next_state <= L113;
+				when L76 =>
+					next_state <= L77;
+				
+				
+				
+				--STT
+				when L77 =>
+					if stt6 = '1' then
+						mem_sync_i := mem_sync_len;
+						next_state <= L78;
+					else
+						next_state <= L141;
+					end if;
 
-			when L113 =>
-				next_state <= L114;
+				when L78 =>
+					next_state <= L79;
 
-			when L114 =>
-				next_state <= L115;
+				when L79 =>
+					next_state <= L80;
 
-			when L115 =>
-				next_state <= L116;
+				when L80 =>
+					if stt7 = '1' then
+						mem_sync_i := mem_sync_len;
+						next_state <= L81;
+					else
+						next_state <= L87;
+					end if;
+				
+				when L81 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L82;
 
-			when L116 =>
-				next_state <= L117;
+				when L82 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L83;
 
-			when L117 =>
-				next_state <= L118;
+				when L83 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L84;
 
-			when L118 =>
-				next_state <= L119;
+				when L84 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L85;
 
-			when L119 =>
-				next_state <= L120;
+				when L85 =>
+					next_state <= L86;
 
-			when L120 =>
-				next_state <= L121;
+				when L86 =>
+					next_state <= L80;
 
-			when L121 =>
-				next_state <= L122;
+				when L87 =>
+					next_state <= L88;
 
-			when L122 =>
-				next_state <= L107;
+				when L88 =>
+					if stt8 = '1' then
+						mem_sync_i := mem_sync_len;
+						next_state <= L89;
+					else
+						next_state <= L98;
+					end if;
 
-			when L123 =>
+				when L89 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L90;
+
+				when L90 =>
+					next_state <= L91;
+
+				when L91 =>
+					next_state <= L92;	
+
+				when L92 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L93;
+
+				when L93 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L94;
+
+				when L94 =>
+					next_state <= L95;
+
+				when L95 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L96;
+
+				when L96 =>
+					next_state <= L97;
+
+				when L97 =>
+					next_state <= L88;
+
+				when L98 =>
+					next_state <= L99;
+
+				when L99 =>
+					next_state <= L100;
+
+				when L100 =>
+					next_state <= L101;
+
+				when L101 =>
+					next_state <= L102;
+
+				when L102 =>
+					next_state <= L103;
+
+				when L103 =>
+					next_state <= L104;
+
+				when L104 =>
+					next_state <= L105;
+
+				when L105 =>
+					next_state <= L106;
+
+				when L106 =>
+					next_state <= L107;
+
+				when L107 =>
+					if stt9 = '1' then
+						next_state <= L108;
+					else
+						next_state <= L123;
+					end if;
+					
+				when L108 =>
+					next_state <= L109;
+
+				when L109 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L110;
+
+				when L110 =>
+					next_state <= L111;
+
+				when L111 =>
+					next_state <= L112;
+
+				when L112 =>
+					next_state <= L113;
+
+				when L113 =>
+					next_state <= L114;
+
+				when L114 =>
+					next_state <= L115;
+
+				when L115 =>
+					next_state <= L116;
+
+				when L116 =>
+					next_state <= L117;
+
+				when L117 =>
+					next_state <= L118;
+
+				when L118 =>
+					next_state <= L119;
+
+				when L119 =>
+					next_state <= L120;
+
+				when L120 =>
+					next_state <= L121;
+
+				when L121 =>
+					next_state <= L122;
+
+				when L122 =>
+					next_state <= L107;
+
+					
+					
+				when L123 =>
+					mem_sync_i := mem_sync_len;
 					next_state <= L124;
 
-			when L124 =>
-				next_state <= L125;
+				when L124 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L125;
 
-			when L125 =>
-				next_state <= L126;
+				when L125 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L126;
 
-			when L126 =>
-				next_state <= L127;
+				when L126 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L127;
 
-			when L127 =>
-				next_state <= L128;
+				when L127 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L128;
 
-			when L128 =>
-				next_state <= L129;
+				when L128 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L129;
 
-			when L129 =>
-				next_state <= L130;
+				when L129 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L130;
 
-			when L130 =>
-				next_state <= L131;
+				when L130 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L131;
 
-			when L131 =>
-				next_state <= L77;
+				when L131 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L132;
 
+				when L132 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L133;
 
+				when L133 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L134;
 
-			when L132 =>
-				next_state <= L133;
+				when L134 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L135;
 
-			when L133 =>
-				next_state <= L134;
+				when L135 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L136;
 
-			when L134 =>
-				next_state <= L135;
+				when L136 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L137;
 
-			when L135 =>
-				next_state <= L136;
+				when L137 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L138;
 
-			when L136 =>
-				next_state <= L137;
+				when L138 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L139;
+					
+				when L139 =>
+					mem_sync_i := mem_sync_len;
+					next_state <= L140;
 
-			when L137 =>
-				next_state <= L138;
+					
+				when L140 =>
+					 next_state <= L77;
+					 
 
-			when L138 =>
-				next_state <= L133;
-				
-			when L139 =>
-				next_state <= L140;
+				when L141 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L142;
 
-			when L140 =>
-				 next_state <= L141;
+				when L142 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L143;
 
-			when L141 =>
-				 next_state <= L142;
+				when L143 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L144;
 
-			when L142 =>
-				 next_state <= L143;
+				when L144 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L145;
 
-			when L143 =>
-				 next_state <= L144;
+				when L145 =>
+					 next_state <= L146;
 
-			when L144 =>
-				 next_state <= L145;
+				when L146 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L147;
 
-			when L145 =>
-				 next_state <= L146;
+				when L147 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L148;
 
-			when L146 =>
-				 next_state <= L147;
+				when L148 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L149;
 
-			when L147 =>
-				 next_state <= L148;
+				when L149 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L150;
 
-			when L148 =>
-				 next_state <= L149;
+				when L150 =>
+					 next_state <= L151;
 
-			when L149 =>
-				 next_state <= L150;
+				when L151 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L152;
 
-			when L150 =>
-				 next_state <= L151;
+				when L152 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L153;
 
-			when L151 =>
-				 next_state <= L152;
+				when L153 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L154;
 
-			when L152 =>
-				 next_state <= L153;
+				when L154 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L155;
 
-			when L153 =>
-				 next_state <= L154;
+				when L155 =>
+					 next_state <= L156;
 
-			when L154 =>
-				 next_state <= L155;
+				when L156 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L157;
 
-			when L155 =>
-				 next_state <= L156;
+				when L157 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L158;
 
-			when L156 =>
-				 next_state <= L157;
+				when L158 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L159;
 
-			when L157 =>
-				 next_state <= L158;
+				when L159 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L160;
 
-			when L158 =>
-				 next_state <= L159;
+				when L160 =>
+					 next_state <= L161;
 
-			when L159 =>
-				 next_state <= L160;
+				when L161 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L162;
 
-			when L160 =>
-				 next_state <= L161;
+				when L162 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L163;
 
-			when L161 =>
-				 next_state <= L162;
+				when L163 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L164;
 
-			when L162 =>
-				 next_state <= L163;
+				when L164 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L165;
 
-			when L163 =>
-				 next_state <= L164;
+				when L165 =>
+					 next_state <= L166;
 
-			when L164 =>
-				 next_state <= L165;
+				when L166 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L167;
 
-			when L165 =>
-				 next_state <= L166;
+				when L167 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L168;
 
-			when L166 =>
-				 next_state <= L167;
+				when L168 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L169;
 
-			when L167 =>
-				 next_state <= L168;
+				when L169 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L170;
 
-			when L168 =>
-				 next_state <= L169;
+				when L170 =>
+					 next_state <= L171;
 
-			when L169 =>
-				 next_state <= L170;
+				when L171 => 
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L172;
+					 
+				when L172 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L173;
 
-			when L170 =>
-				 next_state <= L171;
+				when L173 =>
+					 mem_sync_i := mem_sync_len;
+					 next_state <= L174;
 
-			when L171 => 
-				 next_state <= L42;
+				when L174 =>
+					  mem_sync_i := mem_sync_len;
+					  next_state <= L175;
 
+				when L175 =>
+					  next_state <= L176;
 
-		end case;
+				when L176 =>
+					  mem_sync_i := mem_sync_len;
+					  next_state <= L177;
+
+				when L177 =>
+					  mem_sync_i := mem_sync_len;
+					  next_state <= L178;
+
+				when L178 =>
+					  mem_sync_i := mem_sync_len;
+					  next_state <= L179;
+
+				when L179 =>
+					  mem_sync_i := mem_sync_len;
+					  next_state <= L180;
+
+				when L180 =>
+					  mem_sync_i := mem_sync_len;
+					  next_state <= L42;
+						  
+			end case;
+		
+		else
+			mem_sync_i := mem_sync_i - 1;
+		end if;
 	end process;
 	
 	
@@ -524,6 +632,7 @@ begin
 	ctrl1 <= '1' when current_state = L42 else '0';
 	ctrl2 <= '1' when current_state = L43 else '0';
 	ctrl3 <= '1' when current_state = L44 else '0';
+	
 	ctrl4 <= '1' when current_state = L45 else '0';
 	ctrl5 <= '1' when current_state = L46 else '0';
 	ctrl6 <= '1' when current_state = L47 else '0';
@@ -534,7 +643,9 @@ begin
 	ctrl11 <= '1' when current_state = L53 else '0';
 	ctrl12 <= '1' when current_state = L55 else '0';
 	ctrl13 <= '1' when current_state = L56 else '0';
+	
 	ctrl14 <= '1' when current_state = L58 else '0';
+	
 	ctrl15 <= '1' when current_state = L60 else '0';
 	ctrl16 <= '1' when current_state = L61 else '0';
 	ctrl17 <= '1' when current_state = L62 else '0';
@@ -563,7 +674,9 @@ begin
 	ctrl41 <= '1' when current_state = L89 else '0';
 	ctrl42 <= '1' when current_state = L90 else '0';
 	ctrl43 <= '1' when current_state = L91 else '0';
+	
 	ctrl44 <= '1' when current_state = L92 else '0';
+	
 	ctrl45 <= '1' when current_state = L93 else '0';
 	ctrl46 <= '1' when current_state = L94 else '0';
 	ctrl47 <= '1' when current_state = L95 else '0';
@@ -593,6 +706,7 @@ begin
 	ctrl71 <= '1' when current_state = L120 else '0';
 	ctrl72 <= '1' when current_state = L121 else '0';
 	ctrl73 <= '1' when current_state = L122 else '0';
+	
 	ctrl74 <= '1' when current_state = L123 else '0';
 	ctrl75 <= '1' when current_state = L124 else '0';
 	ctrl76 <= '1' when current_state = L125 else '0';
@@ -642,5 +756,14 @@ begin
 	ctrl120 <= '1' when current_state = L169 else '0';
 	ctrl121 <= '1' when current_state = L170 else '0';
 	ctrl122 <= '1' when current_state = L171 else '0';
+	ctrl123 <= '1' when current_state = L172 else '0';
+	ctrl124 <= '1' when current_state = L173 else '0';
+	ctrl125 <= '1' when current_state = L174 else '0';
+	ctrl126 <= '1' when current_state = L175 else '0';
+	ctrl127 <= '1' when current_state = L176 else '0';
+	ctrl128 <= '1' when current_state = L177 else '0';
+	ctrl129 <= '1' when current_state = L178 else '0';
+	ctrl130 <= '1' when current_state = L179 else '0';
+	ctrl131 <= '1' when current_state = L180 else '0';
 
 end sha256_control_block_arch ; -- sha256_control_block_arch

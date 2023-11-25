@@ -120,55 +120,64 @@ void compute_sha256(unsigned char* ram, unsigned char* output)
             /*L120*/ b = a;  //ctrl71
             /*L121*/ a = temp1 + temp2;  //ctrl72
             /*L122*/ i++;}  //ctrl73
-        /*L123*/ HC[0] += a;  //ctrl74
-        /*L124*/ HC[1] += b;  //ctrl75
-        /*L125*/ HC[2] += c;  //ctrl76
-        /*L126*/ HC[3] += d;  //ctrl77
-        /*L127*/ HC[4] += e;  //ctrl78
-        /*L128*/ HC[5] += f;  //ctrl79
-        /*L129*/ HC[6] += g;  //ctrl80
-        /*L130*/ HC[7] += h;  //ctrl81
-        /*L131*/ chunk_id++;}  //ctrl82
-    /*L132*/ i = 0; //ctrl83
-    /*L133*/ unsigned char ob0 = (HC[i]>>24) & 0xff; //ctrl84
-    /*L134*/ unsigned char ob1 = (HC[i]>>16) & 0xff; //ctrl85
-    /*L135*/ unsigned char ob2 = (HC[i]>>8) & 0xff; //ctrl86
-    /*L136*/ unsigned char ob3 = (HC[i]>>0) & 0xff; //ctrl87
-    /*L137*/ i++; //ctrl88
-    /*L138*/ unsigned char ob4 = (HC[i]>>24) & 0xff; //ctrl89
-    /*L139*/ unsigned char ob5 = (HC[i]>>16) & 0xff; //ctrl90
-    /*L140*/ unsigned char ob6 = (HC[i]>>8) & 0xff; //ctrl91
-    /*L141*/ unsigned char ob7 = (HC[i]>>0) & 0xff; //ctrl92
-    /*L142*/ i++; //ctrl93
-    /*L143*/ unsigned char ob8 = (HC[i]>>24) & 0xff; //ctrl94
-    /*L144*/ unsigned char ob9 = (HC[i]>>16) & 0xff; //ctrl95
-    /*L145*/ unsigned char ob10 = (HC[i]>>8) & 0xff; //ctrl96
-    /*L146*/ unsigned char ob11 = (HC[i]>>0) & 0xff; //ctrl97
-    /*L147*/ i++; //ctrl98
-    /*L148*/ unsigned char ob12 = (HC[i]>>24) & 0xff; //ctrl99
-    /*L149*/ unsigned char ob13 = (HC[i]>>16) & 0xff; //ctrl100
-    /*L150*/ unsigned char ob14 = (HC[i]>>8) & 0xff; //ctrl101
-    /*L151*/ unsigned char ob15 = (HC[i]>>0) & 0xff; //ctrl102
-    /*L152*/ i++; //ctrl103
-    /*L153*/ unsigned char ob16 = (HC[i]>>24) & 0xff; //ctrl104
-    /*L154*/ unsigned char ob17 = (HC[i]>>16) & 0xff; //ctrl105
-    /*L155*/ unsigned char ob18 = (HC[i]>>8) & 0xff; //ctrl106
-    /*L156*/ unsigned char ob19 = (HC[i]>>0) & 0xff; //ctrl107
-    /*L157*/ i++; //ctrl108
-    /*L158*/ unsigned char ob20 = (HC[i]>>24) & 0xff; //ctrl109
-    /*L159*/ unsigned char ob21 = (HC[i]>>16) & 0xff; //ctrl110
-    /*L160*/ unsigned char ob22 = (HC[i]>>8) & 0xff; //ctrl111
-    /*L161*/ unsigned char ob23 = (HC[i]>>0) & 0xff; //ctrl112
-    /*L162*/ i++; //ctrl113
-    /*L163*/ unsigned char ob24 = (HC[i]>>24) & 0xff; //ctrl114
-    /*L164*/ unsigned char ob25 = (HC[i]>>16) & 0xff; //ctrl115
-    /*L165*/ unsigned char ob26 = (HC[i]>>8) & 0xff; //ctrl116
-    /*L166*/ unsigned char ob27 = (HC[i]>>0) & 0xff; //ctrl117
-    /*L167*/ i++; //ctrl118
-    /*L168*/ unsigned char ob28 = (HC[i]>>24) & 0xff; //ctrl119
-    /*L169*/ unsigned char ob29 = (HC[i]>>16) & 0xff; //ctrl120
-    /*L170*/ unsigned char ob30 = (HC[i]>>8) & 0xff; //ctrl121
-    /*L171*/ unsigned char ob31 = (HC[i]>>0) & 0xff; //ctrl122
+        /*L123*/ uint32_t tmp = 0; //ctrl74
+        /*L124*/ tmp = HC[0] + a; //ctrl75
+        /*L125*/ HC[0] = tmp; //ctrl76
+        /*L126*/ tmp = HC[1] + b; //ctrl77
+        /*L127*/ HC[1] = tmp; //ctrl78
+        /*L128*/ tmp = HC[2] + c; //ctrl79
+        /*L129*/ HC[2] = tmp; //ctrl80
+        /*L130*/ tmp = HC[3] + d; //ctrl81
+        /*L131*/ HC[3] = tmp; //ctrl82
+        /*L132*/ tmp = HC[4] + e;//ctrl83
+        /*L133*/ HC[4] = tmp;  //ctrl84
+        /*L134*/ tmp = HC[5] + f;//ctrl85
+        /*L135*/ HC[5] = tmp;  //ctrl86
+        /*L136*/ tmp = HC[6] + g;//ctrl87
+        /*L137*/ HC[6] = tmp;  //ctrl88
+        /*L138*/ tmp = HC[7] + h;//ctrl89
+        /*L139*/ HC[7] = tmp;  //ctrl90
+        /*L140*/ chunk_id++;} //ctrl91
+    /*L141*/ i = 0; //ctrl92
+    /*L142*/ unsigned char ob0 = (HC[i]>>24) & 0xff; //ctrl93
+    /*L143*/ unsigned char ob1 = (HC[i]>>16) & 0xff; //ctrl94
+    /*L144*/ unsigned char ob2 = (HC[i]>>8) & 0xff; //ctrl95
+    /*L145*/ unsigned char ob3 = (HC[i]>>0) & 0xff; //ctrl96
+    /*L146*/ i++; //ctrl97
+    /*L147*/ unsigned char ob4 = (HC[i]>>24) & 0xff; //ctrl98
+    /*L148*/ unsigned char ob5 = (HC[i]>>16) & 0xff; //ctrl99
+    /*L149*/ unsigned char ob6 = (HC[i]>>8) & 0xff; //ctrl100
+    /*L150*/ unsigned char ob7 = (HC[i]>>0) & 0xff; //ctrl101
+    /*L151*/ i++; //ctrl102
+    /*L152*/ unsigned char ob8 = (HC[i]>>24) & 0xff; //ctrl103
+    /*L153*/ unsigned char ob9 = (HC[i]>>16) & 0xff; //ctrl104
+    /*L154*/ unsigned char ob10 = (HC[i]>>8) & 0xff; //ctrl105
+    /*L155*/ unsigned char ob11 = (HC[i]>>0) & 0xff; //ctrl106
+    /*L156*/ i++; //ctrl107
+    /*L157*/ unsigned char ob12 = (HC[i]>>24) & 0xff; //ctrl108
+    /*L158*/ unsigned char ob13 = (HC[i]>>16) & 0xff; //ctrl109
+    /*L159*/ unsigned char ob14 = (HC[i]>>8) & 0xff; //ctrl110
+    /*L160*/ unsigned char ob15 = (HC[i]>>0) & 0xff; //ctrl111
+    /*L161*/ i++; //ctrl112
+    /*L162*/ unsigned char ob16 = (HC[i]>>24) & 0xff; //ctrl113
+    /*L163*/ unsigned char ob17 = (HC[i]>>16) & 0xff; //ctrl114
+    /*L164*/ unsigned char ob18 = (HC[i]>>8) & 0xff; //ctrl115
+    /*L165*/ unsigned char ob19 = (HC[i]>>0) & 0xff; //ctrl116
+    /*L166*/ i++; //ctrl117
+    /*L167*/ unsigned char ob20 = (HC[i]>>24) & 0xff; //ctrl118
+    /*L168*/ unsigned char ob21 = (HC[i]>>16) & 0xff; //ctrl119
+    /*L169*/ unsigned char ob22 = (HC[i]>>8) & 0xff; //ctrl120
+    /*L170*/ unsigned char ob23 = (HC[i]>>0) & 0xff; //ctrl121
+    /*L171*/ i++; //ctrl122
+    /*L172*/ unsigned char ob24 = (HC[i]>>24) & 0xff; //ctrl123
+    /*L173*/ unsigned char ob25 = (HC[i]>>16) & 0xff; //ctrl124
+    /*L174*/ unsigned char ob26 = (HC[i]>>8) & 0xff; //ctrl125
+    /*L175*/ unsigned char ob27 = (HC[i]>>0) & 0xff; //ctrl126
+    /*L176*/ i++; //ctrl127
+    /*L177*/ unsigned char ob28 = (HC[i]>>24) & 0xff; //ctrl128
+    /*L178*/ unsigned char ob29 = (HC[i]>>16) & 0xff; //ctrl129
+    /*L179*/ unsigned char ob30 = (HC[i]>>8) & 0xff; //ctrl130
+    /*L180*/ unsigned char ob31 = (HC[i]>>0) & 0xff; //ctrl131
     //VHDL OUTPUT = ob0 & ob1 & ob3.....
     output[0] = ob0;
     output[1] = ob1;
