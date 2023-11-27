@@ -17,7 +17,8 @@ The C implementation is designed to be portable and efficient, suitable for inte
 - High portability across different platforms
 - Comprehensive set of unit tests ensuring algorithm correctness
 
-![Simulation "hello world"](preview.png)
+![Simulation "hello world"](sim_hello_world.png)
+
 ![Simulation "ufsc"](sim_ufsc.png)
 ![Simulation "Rafael Luiz Cancian"](sim_Rafael_Luiz_Cancian.png)
 
